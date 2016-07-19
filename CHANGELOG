@@ -1,0 +1,374 @@
+Tested compatibility to version: 3.0.11.4 x64
+__________________________________________
+
+Version: 0.8.0.0 - Thu, 22 Oct 2015
+
+* switched to a new documentation engine: doxygen
++ added clientAvatar function
++ added example for clientList with avatar
+~ changed ftGetFileInfo, the function will now just accept one file instead of unlimited
+~ fixed bug in serverCreate (thanks to Michael Nicolai)
+~ fixed bug in logView (thanks to Thomas from zenserv.fr)
+
+
+Version: 0.7.0.0 - Tue, 28 Jan 2014
+
+~ fixed missing parameter in permission array in clientAddPerm
+~ fixed bug in channelClientDelPerm
+~ fixed bug in channelGroupDelPerm
+~ updated clientList documentation
+~ updated channelInfo documentation
+
+
+Version: 0.6.9.0 - Sat, 17 Aug 2013
+
+~ changed documentation of sendMessage
+~ fixed conversion error in tokenAdd function (thanks to PickleKillz from Iron Vengeance)
+~ fixed misnamed parameter in channelGroupAddPerm function (thanks to Xerxates)
+
+
+Version: 0.6.8.1 - Sun, 03 Mar 2013
+
+~ hotfix, fixed a bug in permOverview that permid can be used with permid = 0
+
+
+Version: 0.6.8.0 - Sun, 03 Mar 2013
+
+! permissionList with parameter new can just be used in version >= 3.0.7
++ added parameter new to permissionList
+~ changed logic of permissionList to be compatible with server version 3.0.7
+~ fixed a bug in selectServer (thanks to Psychokiller)
+~ fixed a bug in serverTempPasswordAdd (thanks to Mauri Meskanen)
+
+
+Version: 0.6.7.0 - Fri, 22 Feb 2013
+
+! changed version numbers to 4 seperated numbers
+! changed documentation generator to phpDocumentor 2
++ added groupDbType parameter to channelGroupAdd function
++ added release date to changelog
++ added new parameters to ftRenameFile function
++ added succeeded function
++ added cpw parameter to serverTemppasswordAdd function
+~ overworked each method description
+~ overworked most functions to a shorter code
+~ changed logic of channelAddPerm function to a safer way
+~ changed logic of channelClientAddPerm function to a safer way
+~ changed logic of channelGroupAddPerm function to a safer way
+~ changed logic of clientAddPerm function to a safer way
+~ changed logic of clientDelPerm function to a safer way
+~ changed logic of serverGroupAddPerm function to a safer way
+~ clientAddPerm also accepts permsid's right now
+~ clientDelPerm also accepts permsid's right now
+~ channelAddPerm also accepts permsid's right now
+~ channelClientAddPerm also accepts permsid's right now
+~ channelDelPerm also accepts permsid's right now
+~ channelGroupAddPerm also accepts permsid's right now
+~ channelGroupDelPerm also accepts permsid's right now
+~ channelGroupPermList also accepts permsid's right now
+~ serverGroupAddPerm also accepts permsid's right now
+
+
+Version: 0.6.6
+
+~ fixed parameternames of channelgroupclientlist()
+
+
+Version: 0.6.5
+
++ added function serverTemppasswordAdd
++ added function serverTemppasswordDel
++ added function serverTemppasswordList
++ added new example to view the return value of a command
+~ fixed misbehavior in all examples
+
+
+Version: 0.6.4
+
+~ adjust code of logView to be compatible with v3.0.1
+
+
+Version: 0.6.3
+
+~ fixed bug in tokenAdd function
+
+
+Version: 0.6.2
+
+~ changed domain name in every file
+~ compatibility check
+
+
+Version: 0.6.1
+
++ added missing php close tag at the end of the file
+~ fixed error in clientDbList by execution without parameters
+
+
+Version: 0.6.0
+
++ added clientDbInfo method
+~ changed serverCreate parameter to optional
+~ changed serverCreate method to prevent errors
+~ changed comments of methods
+
+
+Version: 0.5.9
+
+~ changed license version
+~ changed readme
+
+
+Version: 0.5.8
+
++ added serverGroupCopy method
++ added channelGroupCopy method
+
+
+Version: 0.5.7
+
++ added type parameter to serverGroupAdd
+~ changed all addPerm methods to prevent errors
+
+
+Version: 0.5.6
+
++ added __call method
+~ fixed infinite loop when script got banned
+
+
+Version: 0.5.5
+
+! this version is now compatible with psychokillers webinterface
++ added permOverview method
++ added char(01) to escape method
+~ changed executeCommand packet splitting to prevent errors
+
+
+Version: 0.5.4
+
+! changed way of sending data to support beta30-pre again
+~ fixed missed return value in serverGroupAdd method
+~ fixed missed return value in channelGroupAdd method
+~ fixed wrong serverquery command in channelGroupDelPerm method
+
+
+Version: 0.5.3
+
+~ fixed wrong parameter handling in gm method
+~ changed parameter sort order of ftInitUpload method
+~ fixed 3 bugs in clientDbList method
+~ fixed wrong serverquery command in channelClientDelPerm
+~ fixed wrong parameter in serverGroupDeletePerm method
+~ changed error handling in executeCommand method
+
+
+Version: 0.5.2
+
+! changed way of sending data to support beta30-pre
+~ changed replacement order in escape methods
+~ change some method comments (missed newlines)
+
+
+Version: 0.5.1
+
++ added backslash escaping to escape methods
++ added permIdGetByName method
+~ enabled dns support in connect method
+~ changed description of many methods
+~ fixed error trigger in getData method (Undefined offset: 1 notice)
+~ fixed return of banClient method
+~ fixed error that occures if server returns empty database result
+~ fixed wrong param in channelList method
+~ fixed wrong param in clientDelPerm method
+~ fixed wrong param in selectServer method
+~ fixed wrong param in selectEdit method
+~ fixed wrong method execution in serverGroupDeleteClient
+~ fixed wrong method execution in serverGroupRename
+~ method gm now checks for empty message
+~ filter for empty params in serverCreate
+- removed valid_ip method
+
+
+Version: 0.5.0
+
+! rewrote complete class
+! changed output of every method
+! added fileTransfer management
+! rewrote network methods
+! changed debugManagement to a complex system
+
+I changed so much that it is impossible to notice everything.
+Fact is, that everything has changed to a faster, bigger and safer system.
+Please take a look at the documentation to understand the new way of returning data.
+
+
+Skip from 0.2.0 to 0.5.0
+
+
+Version: 0.2.0
+
++ added convertSecondsToStrTime method
++ added convertSecondsToArrayTime method
++ added channelAddPerm method
++ added channelClientAddPerm method
++ added channelClientDelPerm method
++ added channelClientPermList method
++ added channelDelPerm method
++ added channelGroupAddPerm method
++ added channelGroupDelPerm method
++ added clientAddPerm method
++ added clientDelPerm method
++ added ftGetFileList method
+~ changed output of convertMillisecondsToStrTime method
+
+
+Version: 0.1.9
+
++ added instanceEdit method
++ added logView method
++ added logAdd method
++ added banAddByIp method
++ added banAddUid method
++ added banAddByName method
++ added clientGetDbIdFromUid method
++ added clientGetNameFromDbid method
++ added clientGetNameFromUid method
++ added $fullInfo param in serverCreate to get more informations
+~ execOwnCommand now filters for forbidden help command
+~ changed code of clientBan method
+~ updated a lot of method descriptions
+
+
+Version: 0.1.8
+
++ added param to connect method to use it with old ts3 versions
+~ changed connect method for Server Version >= Beta29
+
+
+Version: 0.1.7
+
+~ changed contact data
+
+
+Version: 0.1.6
+
++ added execOwnCommand method
++ added tokenAdd method
++ added tokenDelete method
++ added setClientChannelGroup method
++ added channelGroupPermList method
++ added channelPermList method
++ added clientPermList method
++ added channelGroupList method
++ added channelGroupAdd method
++ added channelGroupRename method
++ added channelGroupDelete method
++ added channelCreate method
++ added channelEdit method
++ added channelDelete method
++ added channelMove method
++ added convertMillisecondsToArrayTime method
+~ changed comment of serverGroupPermList
+
+
+Version: 0.1.5
+
++ added connect() check for networking methods
++ added clientFind method
++ added clientEdit method
++ added clientDbFind method
++ added clientDbEdit method
++ added clientDbDelete method
++ added clientGetIds method
++ added tokenList method
+~ changed the login way of connect method
+~ changed some comments
+
+
+Version: 0.1.4
+
++ added debug var
++ added debug fetching in all methods which need a selected server
++ added debug fetching in methods which manages network communication
++ added selectServerByPort method
++ added param $params for optinal params on serverList method
++ added param $params for optinal params on clientList method
++ added param $params for optinal params on clientDbList method
++ added param $params for optinal params on channelList method
++ added param $params for optinal params on banList method
++ added version method
++ added permissionlist method
++ added complainList method
++ added complainAdd method
++ added complainDelete method
++ added complainDeleteAll method
++ added serverGroupList method
++ added serverGroupAdd method
++ added serverGroupDelete method
++ added serverGroupRename method
++ added serverGroupPermList method
++ added serverGroupAddPerm method
++ added serverGroupDeletePerm method
++ added serverGroupAddClient method
++ added serverGroupDeleteClient method
++ added serverGroupClientList method
++ added serverGroupsByClientID method
++ added convertMillisecondsToStrTime method
++ added getDebugLog method
+~ fixed return of login / logout methods
+~ fixed newlines in serverList comment
+~ fixed serverSelect check in sendMessage method
+~ fixed error in __destruct method
+~ fixed loop when you are banned
+~ fixed an error in implodeText comment
+- removed login check because of different server configs
+- removed instanceAdmin check because of different server configs
+- removed loginSuperAdmin() because it uses the same method as login()
+- removed instanceAdmin var
+
+
+Version: 0.1.3
+
++ added some private vars
++ added __construct and __destruct method
++ added connect method
++ added a lot of new code comments
++ added sendMessage method
+~ changed methods order to ascending
+~ renamed changeName method to setName
+- removed connectToTeamspeak method
+
+
+Version: 0.1.2
+
++ added serverList method
++ added serverCreate method
++ added serverDelete method
++ added serverEdit method
++ added serverStart method
++ added serverStop method
++ added getServerIdByPort method
++ added serverRequestConnectionInfo method
+~ fixed return value in login, logout and selectServer method
+~ fixed error with an uninitialized var
+~ changed the filtering method of executeCommand method
+
+
+Version: 0.1.1
+
++ added loginSuperadmin method
++ added instanceAdmin control var
+~ fixed some output errors
+~ changed the logic of a few methods
+
+
+Version: 0.1.0
+
++ added clientKick method
++ added clientBan method
++ added banList method
++ added banDelete method
++ added banDeleteAll method
+~ fixed a problem with empty server response in multiarrays
+~ changed some comments
