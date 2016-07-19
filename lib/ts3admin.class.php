@@ -3,10 +3,10 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   begin                : 18. December 2009
- *   copyright            : (C) 2009-2015 Par0noid Solutions
+ *   copyright            : (C) 2009-2016 Par0noid Solutions
  *   email                : info@ts3admin.info
  *   version              : 1.0.0.0
- *   last modified        : 22. October 2015
+ *   last modified        : 19. July 2016
  *
  *
  *  This file is a powerful library for querying TeamSpeak3 servers.
@@ -37,7 +37,7 @@
  * 
  * @author      Par0noid Solutions <info@ts3admin.info>
  * @version     1.0.0.0
- * @copyright   Copyright (c) 2009-2015, Stefan Z.
+ * @copyright   Copyright (c) 2009-2016, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
  *
