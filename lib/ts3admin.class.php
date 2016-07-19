@@ -5,7 +5,7 @@
  *   begin                : 18. December 2009
  *   copyright            : (C) 2009-2015 Par0noid Solutions
  *   email                : info@ts3admin.info
- *   version              : 0.8.0.0
+ *   version              : 0.9.0.0
  *   last modified        : 22. October 2015
  *
  *
@@ -36,7 +36,7 @@
  * Take a look on the project website where you can find code examples, a manual and some other stuff.
  * 
  * @author      Par0noid Solutions <info@ts3admin.info>
- * @version     0.8.0.0
+ * @version     0.9.0.0
  * @copyright   Copyright (c) 2009-2015, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
@@ -3249,13 +3249,16 @@ class ts3admin {
   * 
   * Restores the selected virtual servers configuration using the data from a previously created server snapshot. Please note that the TeamSpeak 3 Server does NOT check for necessary permissions while deploying a snapshot so the command could be abused to gain additional privileges.
   *
+  * + added "-mapping" to the serversnapshotdeploy command. This optional parameters will add a mapping of the old and new channelid's in the return
+  *
   * @author     Par0noid Solutions
   * @param		string	$snapshot	snapshot
+  * @param		bool	$mapping	mapping [optional]
   * @return     boolean success
   */
-	function serverSnapshotDeploy($snapshot) {
+	function serverSnapshotDeploy($snapshot, $mapping = false) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
-		return $this->getData('boolean', 'serversnapshotdeploy '.$snapshot);
+		return $this->getData('boolean', 'serversnapshotdeploy '.($mapping ? '-mapping ' : '').$snapshot);
 	}
 	
 /**
