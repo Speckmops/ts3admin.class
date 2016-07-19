@@ -40,6 +40,7 @@
  * @copyright   Copyright (c) 2009-2015, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
+ *
  */
 class ts3admin {
 
@@ -3144,12 +3145,12 @@ class ts3admin {
   * @param		array		$permissions		permissions
   * @return     boolean success
   */
-	function serverGroupAutoDeletePerm($sgtype, $permissionIds) {
+	function serverGroupAutoDeletePerm($sgtype, $permissions) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
-		if(count($permissionIds) > 0) {
-			foreach($permissionIds AS $value) {
+		if(count($permissions) > 0) {
+			foreach($permissions AS $value) {
 				$permissionArray[] = is_numeric($value) ? 'permid='.$value : 'permsid='.$this->escapeText($value);
 			}
 			return $this->getData('boolean', 'servergroupautodelperm sgtype='.$sgtype.' '.implode('|', $permissionArray));

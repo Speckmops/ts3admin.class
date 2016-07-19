@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="Butterfly-128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ts3admin.class
-   &#160;<span id="projectnumber">0.9.0.0</span>
+   &#160;<span id="projectnumber">1.0.0.0</span>
    </div>
    <div id="projectbrief">The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!</div>
   </td>
@@ -92,14 +92,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adc51f44cd3f06a8da9620b00465c8d80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#adc51f44cd3f06a8da9620b00465c8d80">banAddByIp</a> ($ip, $time, $banreason=NULL)</td></tr>
-<tr class="separator:adc51f44cd3f06a8da9620b00465c8d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80224d2fe9596e6e5aadb8ddcaad3eef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a80224d2fe9596e6e5aadb8ddcaad3eef">banAddByUid</a> ($uid, $time, $banreason=NULL)</td></tr>
-<tr class="separator:a80224d2fe9596e6e5aadb8ddcaad3eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a919fd54c76a070cf05017665916e4b76"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a919fd54c76a070cf05017665916e4b76">banAddByName</a> ($name, $time, $banreason=NULL)</td></tr>
-<tr class="separator:a919fd54c76a070cf05017665916e4b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3278330a423fba4f6534830587e97603"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a3278330a423fba4f6534830587e97603">banClient</a> ($clid, $time, $banreason=NULL)</td></tr>
-<tr class="separator:a3278330a423fba4f6534830587e97603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa51cb9b6eae9ff6f334ee01d064fb5ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#aa51cb9b6eae9ff6f334ee01d064fb5ad">banAddByIp</a> ($ip, $time=0, $banreason=NULL)</td></tr>
+<tr class="separator:aa51cb9b6eae9ff6f334ee01d064fb5ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa02974698b7dea2388093d4019f5f68c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#aa02974698b7dea2388093d4019f5f68c">banAddByUid</a> ($uid, $time=0, $banreason=NULL)</td></tr>
+<tr class="separator:aa02974698b7dea2388093d4019f5f68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf539228ebbf08408d13ddac3f54f8eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#abf539228ebbf08408d13ddac3f54f8eb">banAddByName</a> ($name, $time=0, $banreason=NULL)</td></tr>
+<tr class="separator:abf539228ebbf08408d13ddac3f54f8eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61ff6312ad2ccc50a972aff34ca241af"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a61ff6312ad2ccc50a972aff34ca241af">banClient</a> ($clid, $time=0, $banreason=NULL)</td></tr>
+<tr class="separator:a61ff6312ad2ccc50a972aff34ca241af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70fc699e027108dfab746b959e7be93c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a70fc699e027108dfab746b959e7be93c">banDelete</a> ($banID)</td></tr>
 <tr class="separator:a70fc699e027108dfab746b959e7be93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e1f9e73f865ef73e7e35a8f25686886"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a1e1f9e73f865ef73e7e35a8f25686886">banDeleteAll</a> ()</td></tr>
@@ -248,12 +248,36 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a082405d89acd6835c3a7c7a08a7adbab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc3f585ca5a178de9627fcf00f578d2e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#adc3f585ca5a178de9627fcf00f578d2e">logView</a> ($lines, $reverse=0, $instance=0, $begin_pos=0)</td></tr>
 <tr class="separator:adc3f585ca5a178de9627fcf00f578d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a717b795504211a4f6325a55da5d55e68"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a717b795504211a4f6325a55da5d55e68">messageAdd</a> ($cluid, $subject, $message)</td></tr>
+<tr class="separator:a717b795504211a4f6325a55da5d55e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a153d674b8aceb9afc0630bbb2042b28c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a153d674b8aceb9afc0630bbb2042b28c">messageDelete</a> ($messageID)</td></tr>
+<tr class="separator:a153d674b8aceb9afc0630bbb2042b28c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcd798103712bd83f9414171179bbb4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#abcd798103712bd83f9414171179bbb4d">messageGet</a> ($messageID)</td></tr>
+<tr class="separator:abcd798103712bd83f9414171179bbb4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10a62c2b17fae75239d1e045c76090b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a10a62c2b17fae75239d1e045c76090b8">messageList</a> ()</td></tr>
+<tr class="separator:a10a62c2b17fae75239d1e045c76090b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6a9f419c31af8e64ad1c5c723784754"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#ab6a9f419c31af8e64ad1c5c723784754">messageUpdateFlag</a> ($messageID, $flag=1)</td></tr>
+<tr class="separator:ab6a9f419c31af8e64ad1c5c723784754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7e9b43d49e56d7131a9bdee4a4ce0b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#af7e9b43d49e56d7131a9bdee4a4ce0b6">permFind</a> ($perm)</td></tr>
+<tr class="separator:af7e9b43d49e56d7131a9bdee4a4ce0b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad06be73894c0ae015770b3f73ca8083"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#aad06be73894c0ae015770b3f73ca8083">permGet</a> ($perm)</td></tr>
+<tr class="separator:aad06be73894c0ae015770b3f73ca8083"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a038336b367faf3cff4036dd2460db86b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a038336b367faf3cff4036dd2460db86b">permIdGetByName</a> ($permsids)</td></tr>
 <tr class="separator:a038336b367faf3cff4036dd2460db86b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78406176e96888097735977100b86897"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a78406176e96888097735977100b86897">permissionList</a> ($new=false)</td></tr>
 <tr class="separator:a78406176e96888097735977100b86897"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16d8df969661e562408fc23af5eb15d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a16d8df969661e562408fc23af5eb15d7">permOverview</a> ($cid, $cldbid, $permid='0', $permsid=false)</td></tr>
 <tr class="separator:a16d8df969661e562408fc23af5eb15d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c95cd89f07655485977b59d11759339"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a4c95cd89f07655485977b59d11759339">permReset</a> ()</td></tr>
+<tr class="separator:a4c95cd89f07655485977b59d11759339"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19bd243bf7ba6d7ce2d54deb2ff68f40"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a19bd243bf7ba6d7ce2d54deb2ff68f40">privilegekeyAdd</a> ($tokentype, $tokenid1, $tokenid2, $description='', $customFieldSet=array())</td></tr>
+<tr class="separator:a19bd243bf7ba6d7ce2d54deb2ff68f40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affebd033f14b707af9a19157973a0000"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#affebd033f14b707af9a19157973a0000">privilegekeyDelete</a> ($token)</td></tr>
+<tr class="separator:affebd033f14b707af9a19157973a0000"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a542154ec3092c66a0a0aff094626ba27"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a542154ec3092c66a0a0aff094626ba27">privilegekeyList</a> ()</td></tr>
+<tr class="separator:a542154ec3092c66a0a0aff094626ba27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41038f72774777eff3cd2f47ba952cfb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a41038f72774777eff3cd2f47ba952cfb">privilegekeyUse</a> ($token)</td></tr>
+<tr class="separator:a41038f72774777eff3cd2f47ba952cfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59c926b08f706f7b5baec89bf91c7170"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a59c926b08f706f7b5baec89bf91c7170">selectServer</a> ($value, $type= 'port', $virtual =false)</td></tr>
 <tr class="separator:a59c926b08f706f7b5baec89bf91c7170"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeabc0472ae3053859eba42ef3e29c0a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#aeabc0472ae3053859eba42ef3e29c0a3">sendMessage</a> ($mode, $target, $msg)</td></tr>
@@ -270,6 +294,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6a598429e9f21fc133ce088a56284a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2631a6eb6847eb73a576719e69f574d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a2631a6eb6847eb73a576719e69f574d8">serverGroupAddPerm</a> ($sgid, $permissions)</td></tr>
 <tr class="separator:a2631a6eb6847eb73a576719e69f574d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5c83bcb032eb97718ef7ab68b28c3a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#ae5c83bcb032eb97718ef7ab68b28c3a6">serverGroupAutoAddPerm</a> ($sgtype, $permissions)</td></tr>
+<tr class="separator:ae5c83bcb032eb97718ef7ab68b28c3a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa76a3f76e3f35b5f2f4e1c3a81a910fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#aa76a3f76e3f35b5f2f4e1c3a81a910fa">serverGroupAutoDeletePerm</a> ($sgtype, $permissions)</td></tr>
+<tr class="separator:aa76a3f76e3f35b5f2f4e1c3a81a910fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ccde7d60834b2e3beb2daa7c412b49e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a1ccde7d60834b2e3beb2daa7c412b49e">serverGroupClientList</a> ($sgid, $names=false)</td></tr>
 <tr class="separator:a1ccde7d60834b2e3beb2daa7c412b49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af27945b2cb6d4979555be95f479065fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#af27945b2cb6d4979555be95f479065fc">serverGroupCopy</a> ($ssgid, $tsgid, $name, $type=1)</td></tr>
@@ -447,7 +475,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adc51f44cd3f06a8da9620b00465c8d80"></a>
+<a class="anchor" id="aa51cb9b6eae9ff6f334ee01d064fb5ad"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -461,7 +489,7 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$time</em>, </td>
+          <td class="paramname"><em>$time</em> = <code>0</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -487,7 +515,7 @@ Array
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$ip</td><td>clientIp </td></tr>
-    <tr><td class="paramtype">integer</td><td class="paramname">$time</td><td>bantime in seconds (0=unlimited) </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$time</td><td>bantime in seconds (0=unlimited/default) [optional] </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$banreason</td><td>Banreason [optional] </td></tr>
   </table>
   </dd>
@@ -496,7 +524,7 @@ Array
 
 </div>
 </div>
-<a class="anchor" id="a919fd54c76a070cf05017665916e4b76"></a>
+<a class="anchor" id="abf539228ebbf08408d13ddac3f54f8eb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -510,7 +538,7 @@ Array
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$time</em>, </td>
+          <td class="paramname"><em>$time</em> = <code>0</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -536,7 +564,7 @@ Array
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>clientName </td></tr>
-    <tr><td class="paramtype">integer</td><td class="paramname">$time</td><td>bantime in seconds (0=unlimited) </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$time</td><td>bantime in seconds (0=unlimited/default) [optional] </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$banreason</td><td>Banreason [optional] </td></tr>
   </table>
   </dd>
@@ -545,7 +573,7 @@ Array
 
 </div>
 </div>
-<a class="anchor" id="a80224d2fe9596e6e5aadb8ddcaad3eef"></a>
+<a class="anchor" id="aa02974698b7dea2388093d4019f5f68c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -559,7 +587,7 @@ Array
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$time</em>, </td>
+          <td class="paramname"><em>$time</em> = <code>0</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -585,7 +613,7 @@ Array
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$uid</td><td>clientUniqueId </td></tr>
-    <tr><td class="paramtype">integer</td><td class="paramname">$time</td><td>bantime in seconds (0=unlimited) </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$time</td><td>bantime in seconds (0=unlimited/default) [optional] </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$banreason</td><td>Banreason [optional] </td></tr>
   </table>
   </dd>
@@ -594,7 +622,7 @@ Array
 
 </div>
 </div>
-<a class="anchor" id="a3278330a423fba4f6534830587e97603"></a>
+<a class="anchor" id="a61ff6312ad2ccc50a972aff34ca241af"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -608,7 +636,7 @@ Array
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$time</em>, </td>
+          <td class="paramname"><em>$time</em> = <code>0</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -635,7 +663,7 @@ Array
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">integer</td><td class="paramname">$clid</td><td>clientId </td></tr>
-    <tr><td class="paramtype">integer</td><td class="paramname">$time</td><td>bantime in seconds (0=unlimited) </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$time</td><td>bantime in seconds (0=unlimited/default) [optional] </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$banreason</td><td>Banreason [optional] </td></tr>
   </table>
   </dd>
@@ -1565,6 +1593,8 @@ Array
  [channel_flag_password] =&gt; 0
  [channel_codec_latency_factor] =&gt; 1
  [channel_codec_is_unencrypted] =&gt; 1
+ [channel_security_salt] =&gt; 
+ [channel_delete_delay] =&gt; 0
  [channel_flag_maxclients_unlimited] =&gt; 1
  [channel_flag_maxfamilyclients_unlimited] =&gt; 0
  [channel_flag_maxfamilyclients_inherited] =&gt; 1
@@ -1573,6 +1603,7 @@ Array
  [channel_forced_silence] =&gt; 0
  [channel_name_phonetic] =&gt; 
  [channel_icon_id] =&gt; 0
+ [channel_flag_private] =&gt; 0
  [seconds_empty] =&gt; 61 (If it's a temporary channel with a channel delete delay)
 }
 </pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
@@ -1601,7 +1632,7 @@ Array
 </div><div class="memdoc">
 <p>channelList</p>
 <p>Displays a list of channels created on a virtual server including their ID, order, name, etc. The output can be modified using several command options.</p>
-<p><b>Possible parameters:</b> [-topic] [-flags] [-voice] [-limits] [-icon]</p>
+<p><b>Possible parameters:</b> [-topic] [-flags] [-voice] [-limits] [-icon] [-seconds_empty]</p>
 <p><b>Output: (without parameters)</b> </p><pre>
 Array
 {
@@ -1627,6 +1658,7 @@ Array
  [-limits] =&gt; [channel_maxclients] =&gt; -1
  [-limits] =&gt; [channel_maxfamilyclients] =&gt; -1
  [-icon] =&gt; [channel_icon_id] =&gt; 0
+ [-seconds_empty] =&gt; [seconds_empty] =&gt; -1
 }
 </pre><p> <b>Usage:</b> </p><pre>
 $ts3-&gt;<a class="el" href="classts3admin.html#a80d2e920b2c68f78380da11f8b188576">channelList()</a>; //No parameters
@@ -2293,6 +2325,8 @@ Array
  [client_default_channel] =&gt; 
  [client_meta_data] =&gt; 
  [client_is_recording] =&gt; 0
+ [client_version_sign] =&gt; ldWL49uDKC3N9uxdgWRMTOzUabc1nBqUiOa+Nal5HvdxJiN4fsTnmmPo5tvglN7WqoVoFfuuKuYq1LzodtEtCg==
+ [client_security_hash] =&gt; 
  [client_login_name] =&gt; 
  [client_database_id] =&gt; 2
  [client_channel_group_id] =&gt; 5
@@ -2321,6 +2355,7 @@ Array
  [client_is_channel_commander] =&gt; 0
  [client_country] =&gt; 
  [client_channel_group_inherited_channel_id] =&gt; 2
+ [client_badges] =&gt; Overwolf=0
  [client_base64HashClientUID] =&gt; jneilbgomklpfnkjclkoggokfdmdlhnbbpmdpagh
  [connection_filetransfer_bandwidth_sent] =&gt; 0
  [connection_filetransfer_bandwidth_received] =&gt; 0
@@ -2381,7 +2416,7 @@ Array
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">integer</td><td class="paramname">$clid</td><td>clientID </td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$kickMode</td><td>kickMode (server or channel) (Default: servera) </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$kickMode</td><td>kickMode (server or channel) (Default: server) </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$kickmsg</td><td>kick reason [optional] </td></tr>
   </table>
   </dd>
@@ -3884,6 +3919,223 @@ Array
 
 </div>
 </div>
+<a class="anchor" id="a717b795504211a4f6325a55da5d55e68"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">messageAdd </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$cluid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$subject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>messageAdd</p>
+<p>Sends an offline message to the client specified by cluid.</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$cluid</td><td>clientUID </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$subject</td><td>Subject of the message </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$message</td><td>Text of the message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a153d674b8aceb9afc0630bbb2042b28c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">messageDelete </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$messageID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>messageDelete</p>
+<p>Deletes an existing offline message with ID msgid from your inbox.</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$messageID</td><td>messageID </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abcd798103712bd83f9414171179bbb4d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">messageGet </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$messageID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>messageGet</p>
+<p>Displays an existing offline message with ID msgid from your inbox. Please note that this does not automatically set the flag_read property of the message.</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$messageID</td><td>messageID </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array messageInformation </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a10a62c2b17fae75239d1e045c76090b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">messageList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>messageList</p>
+<p>Displays a list of offline messages you've received. The output contains the senders unique identifier, the messages subject, etc.</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array messageInformation </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab6a9f419c31af8e64ad1c5c723784754"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">messageUpdateFlag </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$messageID</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$flag</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>messageUpdateFlag</p>
+<p>Updates the flag_read property of the offline message specified with msgid. If flag is set to 1, the message will be marked as read.</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$messageID</td><td>messageID </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$flag</td><td>flag {1|0} </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array messageInformation </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af7e9b43d49e56d7131a9bdee4a4ce0b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">permFind </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$perm</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>permFind</p>
+<p>Displays detailed information about all assignments of the permission specified with permid. The output is similar to permoverview which includes the type and the ID of the client, channel or group associated with the permission. A permission can be specified by permid or permsid.</p>
+<p><b>Output:</b> </p><pre>
+Array
+{
+ [token] =&gt; eKnFZQ9EK7G7MhtuQB6+N2B1PNZZ6OZL3ycDp2OW
+}
+</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">mixed</td><td class="paramname">$perm</td><td>permid or permsid </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array permissionInfoList </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aad06be73894c0ae015770b3f73ca8083"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">permGet </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$perm</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>permGet</p>
+<p>Displays the current value of the permission specified with permid or permsid for your own connection. This can be useful when you need to check your own privileges.</p>
+<p>The perm parameter can be used as permid or permsid, it will switch the mode automatically.</p>
+<p><b>Output:</b> </p><pre>
+Array
+{
+    [permsid] =&gt; i_channel_create_modify_with_codec_maxquality
+    [permid] =&gt; 96
+    [permvalue] =&gt; 10   
+}
+</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">mixed</td><td class="paramname">$perm</td><td>permid or permsid </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array permissionInfo </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a038336b367faf3cff4036dd2460db86b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -4038,6 +4290,7 @@ Array
 </div><div class="memdoc">
 <p>permOverview</p>
 <p>Displays all permissions assigned to a client for the channel specified with cid. If permid is set to 0, all permissions will be displayed. A permission can be specified by permid or permsid.</p>
+<p>If you set the permsid parameter, the permid parameter will be ignored.</p>
 <p><b>Output:</b> </p><pre>
 Array
 {
@@ -4060,6 +4313,172 @@ Array
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array permOverview </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4c95cd89f07655485977b59d11759339"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">permReset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>permReset</p>
+<p>Restores the default permission settings on the selected virtual server and creates a new initial administrator token. Please note that in case of an error during the permreset call - e.g. when the database has been modified or corrupted - the virtual server will be deleted from the database.</p>
+<p><b>Output:</b> </p><pre>
+Array
+{
+ [token] =&gt; eKnFZQ9EK7G7MhtuQB6+N2B1PNZZ6OZL3ycDp2OW
+}
+</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array token </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a19bd243bf7ba6d7ce2d54deb2ff68f40"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">privilegekeyAdd </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$tokentype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$tokenid1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$tokenid2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$description</em> = <code>''</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$customFieldSet</em> = <code>array()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>privilegekeyAdd</p>
+<p>Create a new token. If tokentype is set to 0, the ID specified with tokenid1 will be a server group ID. Otherwise, tokenid1 is used as a channel group ID and you need to provide a valid channel ID using tokenid2. The tokencustomset parameter allows you to specify a set of custom client properties. This feature can be used when generating tokens to combine a website account database with a TeamSpeak user. The syntax of the value needs to be escaped using the ServerQuery escape patterns and has to follow the general syntax of: ident=ident1 value=value1|ident=ident2 value=value2|ident=ident3 value=value3</p>
+<p><b>Input-Array like this:</b> </p><pre>
+$customFieldSet = array();</pre><pre>$customFieldSet['ident'] = 'value';
+$customFieldSet['ident'] = 'value';
+</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer</td><td class="paramname">$tokentype</td><td>token type </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$tokenid1</td><td>groupID </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$tokenid2</td><td>channelID </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td>token description [optional] </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$customFieldSet</td><td>customFieldSet [optional] </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array tokenInformation </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="affebd033f14b707af9a19157973a0000"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">privilegekeyDelete </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>privilegekeyDelete</p>
+<p>Deletes an existing token matching the token key specified with token.</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$token</td><td>token </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a542154ec3092c66a0a0aff094626ba27"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">privilegekeyList </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>privilegekeyList</p>
+<p>Displays a list of privilege keys available including their type and group IDs. Tokens can be used to gain access to specified server or channel groups. A privilege key is similar to a client with administrator privileges that adds you to a certain permission group, but without the necessity of a such a client with administrator privileges to actually exist. It is a long (random looking) string that can be used as a ticket into a specific server group.</p>
+<p><b>Output:</b> </p><pre>
+Array
+{
+ [token] =&gt; GdqedxSEDle3e9+LtR3o9dO09bURH+vymvF5hOJg
+ [token_type] =&gt; 0
+ [token_id1] =&gt; 71
+ [token_id2] =&gt; 0
+ [token_created] =&gt; 1286625908
+ [token_description] =&gt; for you
+}
+</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array tokenListist </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a41038f72774777eff3cd2f47ba952cfb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">privilegekeyUse </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>privilegekeyUse</p>
+<p>Use a token key gain access to a server or channel group. Please note that the server will automatically delete the token after it has been used.</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$token</td><td>token </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
 
 </div>
 </div>
@@ -4371,7 +4790,91 @@ $permissions['permissionName'] = array('permissionValue', 'permskip', 'permnegat
 </pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">integer</td><td class="paramname">$sgid</td><td>groupID </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$sgid</td><td>serverGroupID </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$permissions</td><td>permissions </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ae5c83bcb032eb97718ef7ab68b28c3a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">serverGroupAutoAddPerm </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$sgtype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$permissions</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>serverGroupAutoAddPerm</p>
+<p>Adds a set of specified permissions to <em>ALL</em> regular server groups on all virtual servers. The target groups will be identified by the value of their i_group_auto_update_type permission specified with sgtype. Multiple permissions can be added at once. A permission can be specified by permid or permsid. The known values for sgtype are: 10: Channel Guest 15: Server Guest 20: Query Guest 25: Channel Voice 30: Server Normal 35: Channel Operator 40: Channel Admin 45: Server Admin 50: Query Admin</p>
+<p><b>Input-Array like this:</b> </p><pre>
+$permissions = array();
+$permissions['permissionID'] = array('permissionValue', 'permskip', 'permnegated');
+//or you could use
+$permissions['permissionName'] = array('permissionValue', 'permskip', 'permnegated');
+</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer</td><td class="paramname">$sgtype</td><td>serverGroupType </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$permissions</td><td>permissions </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa76a3f76e3f35b5f2f4e1c3a81a910fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">serverGroupAutoDeletePerm </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$sgtype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$permissions</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>serverGroupAutoDeletePerm</p>
+<p>Removes a set of specified permissions from <em>ALL</em> regular server groups on all virtual servers. The target groups will be identified by the value of their i_group_auto_update_type permission specified with sgtype. Multiple permissions can be removed at once. A permission can be specified by permid or permsid. The known values for sgtype are: 10: Channel Guest 15: Server Guest 20: Query Guest 25: Channel Voice 30: Server Normal 35: Channel Operator 40: Channel Admin 45: Server Admin 50: Query Admin</p>
+<p><b>Input-Array like this:</b> </p><pre>
+$permissions = array();
+$permissions[] = 'permissionID';
+//or you could use
+$permissions[] = 'permissionName';
+</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer</td><td class="paramname">$sgtype</td><td>serverGroupType </td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$permissions</td><td>permissions </td></tr>
   </table>
   </dd>
@@ -4789,25 +5292,25 @@ Array
 <p><b>Output:</b> </p><pre>
 Array
 {
- [virtualserver_unique_identifier] =&gt; 2T3SRCPoWKojKlNMx6qxV7gOe8A=
+ [virtualserver_unique_identifier] =&gt; 1GvKR12fg/mY75flwN/u7pn7KIs=
  [virtualserver_name] =&gt; TeamSpeak ]I[ Server
- [virtualserver_welcomemessage] =&gt; Welcome to TeamSpeak
+ [virtualserver_welcomemessage] =&gt; Welcome to TeamSpeak, check [URL]www.teamspeak.com[/URL] for latest information
  [virtualserver_platform] =&gt; Windows
- [virtualserver_version] =&gt; 3.0.6.1 [Build: 1340956745]
+ [virtualserver_version] =&gt; 3.0.12.4 [Build: 1461597405]
  [virtualserver_maxclients] =&gt; 32
  [virtualserver_password] =&gt; 
  [virtualserver_clientsonline] =&gt; 2
- [virtualserver_channelsonline] =&gt; 2
- [virtualserver_created] =&gt; 1361027787
- [virtualserver_uptime] =&gt; 2804
+ [virtualserver_channelsonline] =&gt; 1
+ [virtualserver_created] =&gt; 0
+ [virtualserver_uptime] =&gt; 6517
  [virtualserver_codec_encryption_mode] =&gt; 0
  [virtualserver_hostmessage] =&gt; 
  [virtualserver_hostmessage_mode] =&gt; 0
  [virtualserver_filebase] =&gt; files\virtualserver_1
- [virtualserver_default_server_group] =&gt; 8
- [virtualserver_default_channel_group] =&gt; 8
+ [virtualserver_default_server_group] =&gt; 11
+ [virtualserver_default_channel_group] =&gt; 12
  [virtualserver_flag_password] =&gt; 0
- [virtualserver_default_channel_admin_group] =&gt; 5
+ [virtualserver_default_channel_admin_group] =&gt; 9
  [virtualserver_max_download_total_bandwidth] =&gt; 18446744073709551615
  [virtualserver_max_upload_total_bandwidth] =&gt; 18446744073709551615
  [virtualserver_hostbanner_url] =&gt; 
@@ -4823,7 +5326,7 @@ Array
  [virtualserver_antiflood_points_needed_command_block] =&gt; 150
  [virtualserver_antiflood_points_needed_ip_block] =&gt; 250
  [virtualserver_client_connections] =&gt; 1
- [virtualserver_query_client_connections] =&gt; 6
+ [virtualserver_query_client_connections] =&gt; 54
  [virtualserver_hostbutton_tooltip] =&gt; 
  [virtualserver_hostbutton_url] =&gt; 
  [virtualserver_hostbutton_gfx_url] =&gt; 
@@ -4831,9 +5334,9 @@ Array
  [virtualserver_download_quota] =&gt; 18446744073709551615
  [virtualserver_upload_quota] =&gt; 18446744073709551615
  [virtualserver_month_bytes_downloaded] =&gt; 0
- [virtualserver_month_bytes_uploaded] =&gt; 0
+ [virtualserver_month_bytes_uploaded] =&gt; 16045
  [virtualserver_total_bytes_downloaded] =&gt; 0
- [virtualserver_total_bytes_uploaded] =&gt; 0
+ [virtualserver_total_bytes_uploaded] =&gt; 16045
  [virtualserver_port] =&gt; 9987
  [virtualserver_autostart] =&gt; 1
  [virtualserver_machine_id] =&gt; 
@@ -4844,7 +5347,7 @@ Array
  [virtualserver_log_permissions] =&gt; 1
  [virtualserver_log_server] =&gt; 0
  [virtualserver_log_filetransfer] =&gt; 0
- [virtualserver_min_client_version] =&gt; 12369
+ [virtualserver_min_client_version] =&gt; 1445512488
  [virtualserver_name_phonetic] =&gt; 
  [virtualserver_icon_id] =&gt; 0
  [virtualserver_reserved_slots] =&gt; 0
@@ -4857,6 +5360,9 @@ Array
  [virtualserver_weblist_enabled] =&gt; 1
  [virtualserver_ask_for_privilegekey] =&gt; 0
  [virtualserver_hostbanner_mode] =&gt; 0
+ [virtualserver_channel_temp_delete_delay_default] =&gt; 0
+ [virtualserver_min_android_version] =&gt; 1407159763
+ [virtualserver_min_ios_version] =&gt; 1407159763
  [virtualserver_status] =&gt; online
  [connection_filetransfer_bandwidth_sent] =&gt; 0
  [connection_filetransfer_bandwidth_received] =&gt; 0
@@ -4866,22 +5372,22 @@ Array
  [connection_bytes_sent_speech] =&gt; 0
  [connection_packets_received_speech] =&gt; 0
  [connection_bytes_received_speech] =&gt; 0
- [connection_packets_sent_keepalive] =&gt; 2055
- [connection_bytes_sent_keepalive] =&gt; 84255
- [connection_packets_received_keepalive] =&gt; 2055
- [connection_bytes_received_keepalive] =&gt; 86309
- [connection_packets_sent_control] =&gt; 90
- [connection_bytes_sent_control] =&gt; 13343
- [connection_packets_received_control] =&gt; 90
- [connection_bytes_received_control] =&gt; 9176
- [connection_packets_sent_total] =&gt; 2145
- [connection_bytes_sent_total] =&gt; 97598
- [connection_packets_received_total] =&gt; 2145
- [connection_bytes_received_total] =&gt; 95485
- [connection_bandwidth_sent_last_second_total] =&gt; 82
- [connection_bandwidth_sent_last_minute_total] =&gt; 81
- [connection_bandwidth_received_last_second_total] =&gt; 84
- [connection_bandwidth_received_last_minute_total] =&gt; 87
+ [connection_packets_sent_keepalive] =&gt; 12959
+ [connection_bytes_sent_keepalive] =&gt; 531319
+ [connection_packets_received_keepalive] =&gt; 12959
+ [connection_bytes_received_keepalive] =&gt; 544277
+ [connection_packets_sent_control] =&gt; 396
+ [connection_bytes_sent_control] =&gt; 65555
+ [connection_packets_received_control] =&gt; 397
+ [connection_bytes_received_control] =&gt; 44930
+ [connection_packets_sent_total] =&gt; 13355
+ [connection_bytes_sent_total] =&gt; 596874
+ [connection_packets_received_total] =&gt; 13356
+ [connection_bytes_received_total] =&gt; 589207
+ [connection_bandwidth_sent_last_second_total] =&gt; 81
+ [connection_bandwidth_sent_last_minute_total] =&gt; 92
+ [connection_bandwidth_received_last_second_total] =&gt; 83
+ [connection_bandwidth_received_last_minute_total] =&gt; 88
 }
 </pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>array serverInformation </dd></dl>
