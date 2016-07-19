@@ -11,6 +11,8 @@
 /*-------SETTINGS-------*/
 $ts3_ip = '127.0.0.1';
 $ts3_queryport = 10011;
+$ts3_user = 'serveradmin';
+$ts3_pass = 'password';
 $ts3_port = 9987;
 /*----------------------*/
 
@@ -21,6 +23,9 @@ require("../lib/ts3admin.class.php");
 $tsAdmin = new ts3admin($ts3_ip, $ts3_queryport);
 
 if($tsAdmin->getElement('success', $tsAdmin->connect())) {
+	#login as serveradmin
+	$tsAdmin->login($ts3_user, $ts3_pass);
+	
 	#select teamspeakserver
 	$tsAdmin->selectServer($ts3_port);
 	
