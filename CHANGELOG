@@ -1,5 +1,15 @@
-Tested compatibility to version: 3.0.11.4 x64
+Tested compatibility to version: 3.0.12.4 x64
 __________________________________________
+
+Version: 0.9.0.0 - Tue, 19 Jul 2016
+
++ added "-mapping" to the serversnapshotdeploy command
++ added customSearch function (thanks to VJe@n, who let me know that this function is missing)
++ added customInfo function (thanks to VJe@n, who let me know that this function is missing)
+~ changed clientList example, because b_virtualserver_client_list's new default value
+~ did some error prevention in tokenAdd function
+! fixed bug in tokenAdd function that just the first ident of customset will be imported
+
 
 Version: 0.8.0.0 - Thu, 22 Oct 2015
 

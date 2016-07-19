@@ -1787,6 +1787,73 @@ class ts3admin {
 		if(!empty($tcldbid)) { $tcldbid = ' tcldbid='.$tcldbid; }
 		return $this->getData('multi', 'complainlist'.$tcldbid);
 	}
+	
+
+/**
+  * customInfo
+  * 
+  * Displays a list of custom properties for the client specified with cldbid.
+  *
+  * <b>Output:</b>
+  * <pre>
+  * Array
+  * {
+  * 	[0] => Array
+  *  	{
+  *  		[cldbid] => 1
+  *			[ident] => abc
+  *			[value] => def
+  *	  	}
+  * 	[1] => Array
+  *  	{
+  *			[ident] => ghi
+  *			[value] => jkl
+  *	  	}
+  * }
+  * </pre>
+  *
+  * @author     Par0noid Solutions
+  * @param		string $cldbid	clientDBID
+  * @return     array customInfos
+  */
+	function customInfo($cldbid) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		return $this->getData('multi', 'custominfo cldbid='.$cldbid);
+	}
+
+/**
+  * customSearch
+  * 
+  * Searches for custom client properties specified by ident and value. The value parameter can include regular characters and SQL wildcard characters (e.g. %).
+  *
+  * <b>Output: (ident=abc, pattern=%)</b>
+  * <pre>
+  * Array
+  * {
+  * 	[0] => Array
+  *  	{
+  *  		[cldbid] => 1
+  *			[ident] => abc
+  *			[value] => def
+  *	  	}
+  * 	[1] => Array
+  *  	{
+  *  		[cldbid] => 2
+  *			[ident] => abc
+  *			[value] => def
+  *	  	}
+  * }
+  * </pre>
+  *
+  * @author     Par0noid Solutions
+  * @param		string	$ident		customIdent
+  * @param		string	$pattern	searchpattern
+  * @return     array	customSearchInfos
+  */
+	function customSearch($ident, $pattern) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		return $this->getData('multi', 'customsearch ident='.$this->escapeText($ident).' pattern='.$this->escapeText($pattern));
+	}
 
 /**
   * execOwnCommand
@@ -3403,6 +3470,8 @@ class ts3admin {
 		
 		if(!empty($description)) { $description = ' tokendescription=' . $this->escapeText($description); }
 
+		if($tokentype == '0') { $tokenid2 = '0'; }
+		
 		if(count($customFieldSet)) {
 			$settingsString = array();
 		
@@ -3410,7 +3479,7 @@ class ts3admin {
 				$settingsString[] = 'ident='.$this->escapeText($key).'\svalue='.$this->escapeText($value);
 			}
 			
-			$customFieldSet = ' tokencustomset='.implode('|', $settingsString);
+			$customFieldSet = ' tokencustomset='.implode('\p', $settingsString);
 		}else{
 			$customFieldSet = '';
 		}
