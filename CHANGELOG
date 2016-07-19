@@ -3,7 +3,26 @@ __________________________________________
 
 Version: 1.0.0.0 - Tue, 19 Jul 2016
 
-+ added permreset function
++ added permReset function
++ added permGet function
++ added permFind function
++ added messageAdd function
++ added messageDelete function
++ added messageGet function
++ added messageUpdateFlag function
++ added messageList function
++ added servergroupautoaddperm function
++ added servergroupautodelperm function
++ added -seconds_empty parameter to channelList documentation
++ added missing parameters to channelInfo documentation
++ added missing parameters to clientInfo documentation
++ added missing parameters to serverInfo documentation
++ added alias functions starting with 'priviledge' for token functions
+~ changed internal code of permOverview (you don't need to change your code)
+~ made time parameter in banAddByIp function optional
+~ made time parameter in banAddByUid function optional
+~ made time parameter in banAddByName function optional
+~ made time parameter in banClient function optional
 
 
 Version: 0.9.0.0 - Tue, 19 Jul 2016

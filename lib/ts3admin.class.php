@@ -74,11 +74,11 @@ class ts3admin {
   *
   * @author     Par0noid Solutions
   * @param		string	$ip			clientIp
-  * @param		integer	$time		bantime in seconds (0=unlimited)
+  * @param		integer	$time		bantime in seconds (0=unlimited/default)  [optional]
   * @param		string	$banreason	Banreason [optional]
   * @return     array banId
   */
-	function banAddByIp($ip, $time, $banreason = NULL) {
+	function banAddByIp($ip, $time = 0, $banreason = NULL) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($banreason)) { $msg = ' banreason='.$this->escapeText($banreason); } else { $msg = NULL; }
@@ -101,11 +101,11 @@ class ts3admin {
   *
   * @author     Par0noid Solutions
   * @param		string	$uid		clientUniqueId
-  * @param		integer	$time		bantime in seconds (0=unlimited)
+  * @param		integer	$time		bantime in seconds (0=unlimited/default)  [optional]
   * @param		string	$banreason	Banreason [optional]
   * @return     array banId
   */
-	function banAddByUid($uid, $time, $banreason = NULL) {
+	function banAddByUid($uid, $time = 0, $banreason = NULL) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($banreason)) { $msg = ' banreason='.$this->escapeText($banreason); } else { $msg = NULL; }
@@ -128,11 +128,11 @@ class ts3admin {
   *
   * @author     Par0noid Solutions
   * @param		string	$name		clientName
-  * @param		integer	$time		bantime in seconds (0=unlimited)
+  * @param		integer	$time		bantime in seconds (0=unlimited/default)  [optional]
   * @param		string	$banreason	Banreason [optional]
   * @return     array banId
   */
-	function banAddByName($name, $time, $banreason = NULL) {
+	function banAddByName($name, $time = 0, $banreason = NULL) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($banreason)) { $msg = ' banreason='.$this->escapeText($banreason); } else { $msg = NULL; }
@@ -156,11 +156,11 @@ class ts3admin {
   *
   * @author     Par0noid Solutions
   * @param		integer $clid		clientId
-  * @param		integer $time		bantime in seconds (0=unlimited)
+  * @param		integer $time		bantime in seconds (0=unlimited/default)  [optional]
   * @param		string	$banreason	Banreason [optional]
   * @return     array banIds
   */
-	function banClient($clid, $time, $banreason = NULL) {
+	function banClient($clid, $time = 0, $banreason = NULL) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($banreason)) { $msg = ' banreason='.$this->escapeText($banreason); } else { $msg = ''; }
@@ -892,6 +892,8 @@ class ts3admin {
   *  [channel_flag_password] => 0
   *  [channel_codec_latency_factor] => 1
   *  [channel_codec_is_unencrypted] => 1
+  *	 [channel_security_salt] => 
+  *  [channel_delete_delay] => 0
   *  [channel_flag_maxclients_unlimited] => 1
   *  [channel_flag_maxfamilyclients_unlimited] => 0
   *  [channel_flag_maxfamilyclients_inherited] => 1
@@ -900,6 +902,7 @@ class ts3admin {
   *  [channel_forced_silence] => 0
   *  [channel_name_phonetic] => 
   *  [channel_icon_id] => 0
+  *	 [channel_flag_private] => 0
   *  [seconds_empty] => 61 (If it's a temporary channel with a channel delete delay)
   * }
   * </pre>
@@ -918,7 +921,7 @@ class ts3admin {
   * 
   * Displays a list of channels created on a virtual server including their ID, order, name, etc. The output can be modified using several command options.
   *
-  * <b>Possible parameters:</b> [-topic] [-flags] [-voice] [-limits] [-icon]
+  * <b>Possible parameters:</b> [-topic] [-flags] [-voice] [-limits] [-icon] [-seconds_empty]
   *
   * <b>Output: (without parameters)</b>
   * <pre>
@@ -948,6 +951,7 @@ class ts3admin {
   *  [-limits] => [channel_maxclients] => -1
   *  [-limits] => [channel_maxfamilyclients] => -1
   *  [-icon] => [channel_icon_id] => 0
+  *  [-seconds_empty] => [seconds_empty] => -1
   * }
   * </pre>
   * <b>Usage:</b>
@@ -1468,6 +1472,8 @@ class ts3admin {
   *  [client_default_channel] => 
   *  [client_meta_data] => 
   *  [client_is_recording] => 0
+  *  [client_version_sign] => ldWL49uDKC3N9uxdgWRMTOzUabc1nBqUiOa+Nal5HvdxJiN4fsTnmmPo5tvglN7WqoVoFfuuKuYq1LzodtEtCg==
+  *  [client_security_hash] => 
   *  [client_login_name] => 
   *  [client_database_id] => 2
   *  [client_channel_group_id] => 5
@@ -1496,6 +1502,7 @@ class ts3admin {
   *  [client_is_channel_commander] => 0
   *  [client_country] => 
   *  [client_channel_group_inherited_channel_id] => 2
+  *  [client_badges] => Overwolf=0
   *  [client_base64HashClientUID] => jneilbgomklpfnkjclkoggokfdmdlhnbbpmdpagh
   *  [connection_filetransfer_bandwidth_sent] => 0
   *  [connection_filetransfer_bandwidth_received] => 0
@@ -1528,7 +1535,7 @@ class ts3admin {
   *
   * @author     Par0noid Solutions
   * @param		integer $clid		clientID
-  * @param		string	$kickMode	kickMode (server or channel) (Default: servera)
+  * @param		string	$kickMode	kickMode (server or channel) (Default: server)
   * @param		string	$kickmsg 	kick reason [optional]
   * @return     boolean success
   */
@@ -2374,6 +2381,127 @@ class ts3admin {
 	}
 
 /**
+  * messageAdd
+  * 
+  * Sends an offline message to the client specified by cluid.
+  *
+  * @author     Par0noid Solutions
+  * @param		string	$cluid		clientUID
+  * @param		string	$subject	Subject of the message
+  * @param		string	$message	Text of the message
+  * @return     boolean success
+  */
+	function messageAdd($cluid, $subject, $message) {		
+        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        return $this->getData('boolean', 'messageadd cluid='.$cluid.' subject='.$this->escapeText($subject).' message='.$this->escapeText($message)); 
+	}
+
+/**
+  * messageDelete
+  * 
+  * Deletes an existing offline message with ID msgid from your inbox.
+  *
+  * @author     Par0noid Solutions
+  * @param		string	$messageID		messageID
+  * @return     boolean success
+  */
+	function messageDelete($messageID) {		
+        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        return $this->getData('boolean', 'messagedel msgid='.$messageID); 
+	}
+
+/**
+  * messageGet
+  * 
+  * Displays an existing offline message with ID msgid from your inbox. Please note that this does not automatically set the flag_read property of the message.
+  *
+  * @author     Par0noid Solutions
+  * @param		string	$messageID		messageID
+  * @return     array messageInformation
+  */
+	function messageGet($messageID) {		
+        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        return $this->getData('array', 'messageget msgid='.$messageID); 
+	}
+
+/**
+  * messageList
+  * 
+  * Displays a list of offline messages you've received. The output contains the senders unique identifier, the messages subject, etc.
+  *
+  * @author     Par0noid Solutions
+  * @return     array messageInformation
+  */
+	function messageList() {		
+        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        return $this->getData('array', 'messagelist'); 
+	}
+
+/**
+  * messageUpdateFlag
+  * 
+  * Updates the flag_read property of the offline message specified with msgid. If flag is set to 1, the message will be marked as read.
+  *
+  * @author     Par0noid Solutions
+  * @param		string	$messageID		messageID
+  * @param		integer	$flag			flag {1|0}
+  * @return     array messageInformation
+  */
+	function messageUpdateFlag($messageID, $flag = 1) {		
+        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        return $this->getData('boolean', 'messageupdateflag msgid='.$messageID.' flag='.$flag); 
+	}
+
+/**
+  * permFind
+  * 
+  * Displays detailed information about all assignments of the permission specified with permid. The output is similar to permoverview which includes the type and the ID of the client, channel or group associated with the permission. A permission can be specified by permid or permsid.
+  *
+  * <b>Output:</b>
+  * <pre>
+  * Array
+  * {
+  *  [token] => eKnFZQ9EK7G7MhtuQB6+N2B1PNZZ6OZL3ycDp2OW
+  * }
+  * </pre>
+  *
+  * @author     Par0noid Solutions
+  * @param		mixed	$perm	permid or permsid
+  * @return     array permissionInfoList
+  */
+	function permFind($perm) { 
+        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        return $this->getData('multi', 'permfind '.(is_int($perm) || ctype_digit($perm) ? 'permid=' : 'permsid=').$perm); 
+    }
+	
+	
+/**
+  * permGet
+  * 
+  * Displays the current value of the permission specified with permid or permsid for your own connection. This can be useful when you need to check your own privileges.
+  *
+  * The perm parameter can be used as permid or permsid, it will switch the mode automatically.
+  *
+  * <b>Output:</b>
+  * <pre>
+  * Array
+  * {
+  *		[permsid] => i_channel_create_modify_with_codec_maxquality
+  *     [permid] => 96
+  *     [permvalue] => 10	
+  * }
+  * </pre>
+  *
+  * @author     Par0noid Solutions
+  * @param		mixed	$perm	permid or permsid
+  * @return     array permissionInfo
+  */
+	function permGet($perm) { 
+        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        return $this->getData('array', 'permget '.(is_int($perm) || ctype_digit($perm) ? 'permid=' : 'permsid=').$perm); 
+    }	
+	
+/**
   * permIdGetByName
   * 
   * Displays the database ID of one or more permissions specified by permsid.
@@ -2540,6 +2668,8 @@ class ts3admin {
   * 
   * Displays all permissions assigned to a client for the channel specified with cid. If permid is set to 0, all permissions will be displayed. A permission can be specified by permid or permsid.
   *
+  * If you set the permsid parameter, the permid parameter will be ignored.
+  *
   * <b>Output:</b>
   * <pre>
   * Array
@@ -2565,7 +2695,7 @@ class ts3admin {
         if(!$this->runtime['selected']) { return $this->checkSelected(); } 
         if($permsid) { $additional = ' permsid='.$permsid; }else{ $additional = ''; } 
          
-        return $this->getData('multi', 'permoverview cid='.$cid.' cldbid='.$cldbid.' permid='.$permid.$additional); 
+        return $this->getData('multi', 'permoverview cid='.$cid.' cldbid='.$cldbid.($permsid == false ? ' permid='.$permid : '').$additional); 
     }
 
 /**
@@ -2588,6 +2718,83 @@ class ts3admin {
         if(!$this->runtime['selected']) { return $this->checkSelected(); } 
         return $this->getData('array', 'permreset'); 
     }
+	
+/**
+  * privilegekeyAdd
+  * 
+  * Create a new token. If tokentype is set to 0, the ID specified with tokenid1 will be a server group ID. Otherwise, tokenid1 is used as a channel group ID and you need to provide a valid channel ID using tokenid2. The tokencustomset parameter allows you to specify a set of custom client properties. This feature can be used when generating tokens to combine a website account database with a TeamSpeak user. The syntax of the value needs to be escaped using the ServerQuery escape patterns and has to follow the general syntax of:
+  * ident=ident1 value=value1|ident=ident2 value=value2|ident=ident3 value=value3
+  *
+  * <b>Input-Array like this:</b>
+  * <pre>
+  * $customFieldSet = array();
+  *	
+  * $customFieldSet['ident'] = 'value';
+  * $customFieldSet['ident'] = 'value';
+  * </pre>
+  *
+  * @author     Par0noid Solutions
+  * @param		integer	$tokentype				token type
+  * @param		integer	$tokenid1				groupID
+  * @param		integer	$tokenid2				channelID
+  * @param		string	$description			token description [optional]
+  * @param		array	$customFieldSet			customFieldSet [optional]
+  * @return     array	tokenInformation
+  */
+	function privilegekeyAdd($tokentype, $tokenid1, $tokenid2, $description ='', $customFieldSet = array()) {
+		return $this->tokenAdd($tokentype, $tokenid1, $tokenid2, $description, $customFieldSet);
+	}
+
+/**
+  * privilegekeyDelete
+  * 
+  * Deletes an existing token matching the token key specified with token.
+  *
+  * @author     Par0noid Solutions
+  * @param		string	$token	token
+  * @return     boolean success
+  */
+	function privilegekeyDelete($token) {
+		return $this->tokenDelete($token);
+	}
+
+/**
+  * privilegekeyList
+  * 
+  * Displays a list of privilege keys available including their type and group IDs. Tokens can be used to gain access to specified server or channel groups. A privilege key is similar to a client with administrator privileges that adds you to a certain permission group, but without the necessity of a such a client with administrator privileges to actually exist. It is a long (random looking) string that can be used as a ticket into a specific server group.
+  *
+  * <b>Output:</b>
+  * <pre>
+  * Array
+  * {
+  *  [token] => GdqedxSEDle3e9+LtR3o9dO09bURH+vymvF5hOJg
+  *  [token_type] => 0
+  *  [token_id1] => 71
+  *  [token_id2] => 0
+  *  [token_created] => 1286625908
+  *  [token_description] => for you
+  * }
+  * </pre>
+  *
+  * @author     Par0noid Solutions
+  * @return     array tokenListist 
+  */
+	function privilegekeyList() {
+		return $this->tokenList();
+	}
+
+/**
+  * privilegekeyUse
+  * 
+  * Use a token key gain access to a server or channel group. Please note that the server will automatically delete the token after it has been used.
+  *
+  * @author     Par0noid Solutions
+  * @param		string	$token	token
+  * @return     boolean success
+  */
+	function privilegekeyUse($token) {		
+		return $this->tokenUse($token);
+	}
  
 /**
   * quit closes the connection to host 
@@ -2801,7 +3008,7 @@ class ts3admin {
   * </pre>
   * 
   * @author     Par0noid Solutions
-  * @param		integer $sgid	groupID
+  * @param		integer $sgid	serverGroupID
   * @param		array	$permissions	permissions
   * @return     boolean success
   */
@@ -2848,6 +3055,105 @@ class ts3admin {
 				
 		}else{
 			// No permissions given
+			$this->addDebugLog('no permissions given');
+			return $this->generateOutput(false, array('Error: no permissions given'), false);
+		}
+	}
+
+/**
+  * serverGroupAutoAddPerm
+  * 
+  * Adds a set of specified permissions to *ALL* regular server groups on all virtual servers. The target groups will be identified by the value of their i_group_auto_update_type permission specified with sgtype. Multiple permissions can be added at once. A permission can be specified by permid or permsid. The known values for sgtype are: 10: Channel Guest 15: Server Guest 20: Query Guest 25: Channel Voice 30: Server Normal 35: Channel Operator 40: Channel Admin 45: Server Admin 50: Query Admin
+  *
+  * <b>Input-Array like this:</b>
+  * <pre>
+  * $permissions = array();
+  * $permissions['permissionID'] = array('permissionValue', 'permskip', 'permnegated');
+  * //or you could use
+  * $permissions['permissionName'] = array('permissionValue', 'permskip', 'permnegated');
+  * </pre>
+  * 
+  * @author     Par0noid Solutions
+  * @param		integer	$sgtype			serverGroupType
+  * @param		array	$permissions	permissions
+  * @return     boolean success
+  */
+	function serverGroupAutoAddPerm($sgtype, $permissions) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		
+		if(count($permissions) > 0) {
+			//Permissions given
+				
+			//Errorcollector
+			$errors = array();
+				
+			//Split Permissions to prevent query from overload
+			$permissions = array_chunk($permissions, 50, true);
+				
+			//Action for each splitted part of permission
+			foreach($permissions as $permission_part)
+			{
+				//Create command_string for each command that we could use implode later
+				$command_string = array();
+		
+				foreach($permission_part as $key => $value)
+				{
+					$command_string[] = (is_numeric($key) ? "permid=" : "permsid=").$this->escapeText($key).' permvalue='.$value[0].' permskip='.$value[1].' permnegated='.$value[2];
+				}
+		
+				$result = $this->getData('boolean', 'servergroupautoaddperm sgtype='.$sgtype.' '.implode('|', $command_string));
+		
+				if(!$result['success'])
+				{
+					foreach($result['errors'] as $error)
+					{
+						$errors[] = $error;
+					}
+				}
+			}
+				
+			if(count($errors) == 0)
+			{
+				return $this->generateOutput(true, array(), true);
+			}else{
+				return $this->generateOutput(false, $errors, false);
+			}
+				
+		}else{
+			// No permissions given
+			$this->addDebugLog('no permissions given');
+			return $this->generateOutput(false, array('Error: no permissions given'), false);
+		}
+	}
+
+/**
+  * serverGroupAutoDeletePerm
+  * 
+  * Removes a set of specified permissions from *ALL* regular server groups on all virtual servers. The target groups will be identified by the value of their i_group_auto_update_type permission specified with sgtype. Multiple permissions can be removed at once. A permission can be specified by permid or permsid. The known values for sgtype are: 10: Channel Guest 15: Server Guest 20: Query Guest 25: Channel Voice 30: Server Normal 35: Channel Operator 40: Channel Admin 45: Server Admin 50: Query Admin
+  *
+  * <b>Input-Array like this:</b>
+  * <pre>
+  * $permissions = array();
+  * $permissions[] = 'permissionID';
+  * //or you could use
+  * $permissions[] = 'permissionName';
+  * </pre>
+  *
+  * @author     Par0noid Solutions
+  * @param		integer		$sgtype				serverGroupType
+  * @param		array		$permissions		permissions
+  * @return     boolean success
+  */
+	function serverGroupAutoDeletePerm($sgtype, $permissionIds) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		$permissionArray = array();
+		
+		if(count($permissionIds) > 0) {
+			foreach($permissionIds AS $value) {
+				$permissionArray[] = is_numeric($value) ? 'permid='.$value : 'permsid='.$this->escapeText($value);
+			}
+			return $this->getData('boolean', 'servergroupautodelperm sgtype='.$sgtype.' '.implode('|', $permissionArray));
+		}else{
 			$this->addDebugLog('no permissions given');
 			return $this->generateOutput(false, array('Error: no permissions given'), false);
 		}
@@ -3091,25 +3397,25 @@ class ts3admin {
   * <pre>
   * Array
   * {
-  *  [virtualserver_unique_identifier] => 2T3SRCPoWKojKlNMx6qxV7gOe8A=
+  *  [virtualserver_unique_identifier] => 1GvKR12fg/mY75flwN/u7pn7KIs=
   *  [virtualserver_name] => TeamSpeak ]I[ Server
-  *  [virtualserver_welcomemessage] => Welcome to TeamSpeak
+  *  [virtualserver_welcomemessage] => Welcome to TeamSpeak, check [URL]www.teamspeak.com[/URL] for latest information
   *  [virtualserver_platform] => Windows
-  *  [virtualserver_version] => 3.0.6.1 [Build: 1340956745]
+  *  [virtualserver_version] => 3.0.12.4 [Build: 1461597405]
   *  [virtualserver_maxclients] => 32
   *  [virtualserver_password] => 
   *  [virtualserver_clientsonline] => 2
-  *  [virtualserver_channelsonline] => 2
-  *  [virtualserver_created] => 1361027787
-  *  [virtualserver_uptime] => 2804
+  *  [virtualserver_channelsonline] => 1
+  *  [virtualserver_created] => 0
+  *  [virtualserver_uptime] => 6517
   *  [virtualserver_codec_encryption_mode] => 0
   *  [virtualserver_hostmessage] => 
   *  [virtualserver_hostmessage_mode] => 0
   *  [virtualserver_filebase] => files\\virtualserver_1
-  *  [virtualserver_default_server_group] => 8
-  *  [virtualserver_default_channel_group] => 8
+  *  [virtualserver_default_server_group] => 11
+  *  [virtualserver_default_channel_group] => 12
   *  [virtualserver_flag_password] => 0
-  *  [virtualserver_default_channel_admin_group] => 5
+  *  [virtualserver_default_channel_admin_group] => 9
   *  [virtualserver_max_download_total_bandwidth] => 18446744073709551615
   *  [virtualserver_max_upload_total_bandwidth] => 18446744073709551615
   *  [virtualserver_hostbanner_url] => 
@@ -3125,7 +3431,7 @@ class ts3admin {
   *  [virtualserver_antiflood_points_needed_command_block] => 150
   *  [virtualserver_antiflood_points_needed_ip_block] => 250
   *  [virtualserver_client_connections] => 1
-  *  [virtualserver_query_client_connections] => 6
+  *  [virtualserver_query_client_connections] => 54
   *  [virtualserver_hostbutton_tooltip] => 
   *  [virtualserver_hostbutton_url] => 
   *  [virtualserver_hostbutton_gfx_url] => 
@@ -3133,9 +3439,9 @@ class ts3admin {
   *  [virtualserver_download_quota] => 18446744073709551615
   *  [virtualserver_upload_quota] => 18446744073709551615
   *  [virtualserver_month_bytes_downloaded] => 0
-  *  [virtualserver_month_bytes_uploaded] => 0
+  *  [virtualserver_month_bytes_uploaded] => 16045
   *  [virtualserver_total_bytes_downloaded] => 0
-  *  [virtualserver_total_bytes_uploaded] => 0
+  *  [virtualserver_total_bytes_uploaded] => 16045
   *  [virtualserver_port] => 9987
   *  [virtualserver_autostart] => 1
   *  [virtualserver_machine_id] => 
@@ -3146,7 +3452,7 @@ class ts3admin {
   *  [virtualserver_log_permissions] => 1
   *  [virtualserver_log_server] => 0
   *  [virtualserver_log_filetransfer] => 0
-  *  [virtualserver_min_client_version] => 12369
+  *  [virtualserver_min_client_version] => 1445512488
   *  [virtualserver_name_phonetic] => 
   *  [virtualserver_icon_id] => 0
   *  [virtualserver_reserved_slots] => 0
@@ -3159,6 +3465,9 @@ class ts3admin {
   *  [virtualserver_weblist_enabled] => 1
   *  [virtualserver_ask_for_privilegekey] => 0
   *  [virtualserver_hostbanner_mode] => 0
+  *  [virtualserver_channel_temp_delete_delay_default] => 0
+  *  [virtualserver_min_android_version] => 1407159763
+  *  [virtualserver_min_ios_version] => 1407159763
   *  [virtualserver_status] => online
   *  [connection_filetransfer_bandwidth_sent] => 0
   *  [connection_filetransfer_bandwidth_received] => 0
@@ -3168,22 +3477,22 @@ class ts3admin {
   *  [connection_bytes_sent_speech] => 0
   *  [connection_packets_received_speech] => 0
   *  [connection_bytes_received_speech] => 0
-  *  [connection_packets_sent_keepalive] => 2055
-  *  [connection_bytes_sent_keepalive] => 84255
-  *  [connection_packets_received_keepalive] => 2055
-  *  [connection_bytes_received_keepalive] => 86309
-  *  [connection_packets_sent_control] => 90
-  *  [connection_bytes_sent_control] => 13343
-  *  [connection_packets_received_control] => 90
-  *  [connection_bytes_received_control] => 9176
-  *  [connection_packets_sent_total] => 2145
-  *  [connection_bytes_sent_total] => 97598
-  *  [connection_packets_received_total] => 2145
-  *  [connection_bytes_received_total] => 95485
-  *  [connection_bandwidth_sent_last_second_total] => 82
-  *  [connection_bandwidth_sent_last_minute_total] => 81
-  *  [connection_bandwidth_received_last_second_total] => 84
-  *  [connection_bandwidth_received_last_minute_total] => 87
+  *  [connection_packets_sent_keepalive] => 12959
+  *  [connection_bytes_sent_keepalive] => 531319
+  *  [connection_packets_received_keepalive] => 12959
+  *  [connection_bytes_received_keepalive] => 544277
+  *  [connection_packets_sent_control] => 396
+  *  [connection_bytes_sent_control] => 65555
+  *  [connection_packets_received_control] => 397
+  *  [connection_bytes_received_control] => 44930
+  *  [connection_packets_sent_total] => 13355
+  *  [connection_bytes_sent_total] => 596874
+  *  [connection_packets_received_total] => 13356
+  *  [connection_bytes_received_total] => 589207
+  *  [connection_bandwidth_sent_last_second_total] => 81
+  *  [connection_bandwidth_sent_last_minute_total] => 92
+  *  [connection_bandwidth_received_last_second_total] => 83
+  *  [connection_bandwidth_received_last_minute_total] => 88
   * }
   * </pre>
   *
