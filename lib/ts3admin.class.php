@@ -36,7 +36,7 @@
  * Take a look on the project website where you can find code examples, a manual and some other stuff.
  * 
  * @author      Par0noid Solutions <info@ts3admin.info>
- * @version     0.9.0.0
+ * @version     1.0.0.0
  * @copyright   Copyright (c) 2009-2015, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
