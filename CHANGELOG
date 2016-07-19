@@ -1,6 +1,11 @@
 Tested compatibility to version: 3.0.12.4 x64
 __________________________________________
 
+Version: 1.0.0.0 - Tue, 19 Jul 2016
+
++ added permreset function
+
+
 Version: 0.9.0.0 - Tue, 19 Jul 2016
 
 + added "-mapping" to the serversnapshotdeploy command

@@ -5,7 +5,7 @@
  *   begin                : 18. December 2009
  *   copyright            : (C) 2009-2015 Par0noid Solutions
  *   email                : info@ts3admin.info
- *   version              : 0.9.0.0
+ *   version              : 1.0.0.0
  *   last modified        : 22. October 2015
  *
  *
@@ -2567,6 +2567,27 @@ class ts3admin {
          
         return $this->getData('multi', 'permoverview cid='.$cid.' cldbid='.$cldbid.' permid='.$permid.$additional); 
     }
+
+/**
+  * permReset
+  * 
+  * Restores the default permission settings on the selected virtual server and creates a new initial administrator token. Please note that in case of an error during the permreset call - e.g. when the database has been modified or corrupted - the virtual server will be deleted from the database.
+  *
+  * <b>Output:</b>
+  * <pre>
+  * Array
+  * {
+  *  [token] => eKnFZQ9EK7G7MhtuQB6+N2B1PNZZ6OZL3ycDp2OW
+  * }
+  * </pre>
+  *
+  * @author     Par0noid Solutions
+  * @return     array token
+  */
+	function permReset() { 
+        if(!$this->runtime['selected']) { return $this->checkSelected(); } 
+        return $this->getData('array', 'permreset'); 
+    }
  
 /**
   * quit closes the connection to host 
@@ -2830,50 +2851,6 @@ class ts3admin {
 			$this->addDebugLog('no permissions given');
 			return $this->generateOutput(false, array('Error: no permissions given'), false);
 		}
-		/*
-		old code
-		
-        $error = false;
-        $results = array();
-        
-        if(count($permissions) > 0) {
-     		$new = array();
- 
-    		$i = 0;
-    		$k = 0;
-    		foreach($permissions as $ke => $va) {
-        		if($i > 149){ $i = 0; $k++; }else{ $i++; }
-        		$new[$k][$ke] = $va;
-    		}
-    		
-    		foreach($new as $perms) {
-    			$permissionArray = array();
-    			foreach($perms as $key => $value) {
-    				$permissionArray[] = 'permid='.$key.' permvalue='.$value[0].' permskip='.$value[1].' permnegated='.$value[2];
-    			}
-				$result = $this->getData('boolean', 'servergroupaddperm sgid='.$sgid.' '.implode('|', $permissionArray));
-				if(!$result['success']) { $error = true; }
-    			$results[] = $result;
-    		}
-    		
-    		if($error) {
-    			$returnErrors = array();
-    			foreach($results as $errorResult) {
-    				if(count($errorResult['errors']) > 0) {
-    					foreach($errorResult['errors'] as $errorResultError) {
-    						$returnErrors[] = $errorResultError;
-    					}
-    				}
-    			}
-    			return $this->generateOutput(false, $returnErrors, false);
-    		}else{
-    			return $this->generateOutput(true, array(), true);
-    		}
-        }else{
-            $this->addDebugLog('no permissions given');
-            return $this->generateOutput(false, array('Error: no permissions given'), false);
-        }*/
-		
 	}
 
 /**
