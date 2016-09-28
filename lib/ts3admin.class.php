@@ -5,7 +5,7 @@
  *   begin                : 18. December 2009
  *   copyright            : (C) 2009-2016 Par0noid Solutions
  *   email                : info@ts3admin.info
- *   version              : 1.0.0.0
+ *   version              : 1.0.0.1
  *   last modified        : 19. July 2016
  *
  *
@@ -1113,13 +1113,20 @@ class ts3admin {
 			  $auid .= $newChars[$char & 0x0F];
 	  }
 
+	  $check = $this->ftgetfileinfo(0, '', '/avatar_'.$auid);
+
+	  if(!$check["success"])
+	  {
+		return $this->generateOutput(false, array('Error: avatar does not exist'), false);
+	  }
+
 	  $init = $this->ftInitDownload('/avatar_'.$auid, 0, '');
 
 	  if(!$init["success"])
 	  {
 		return $this->generateOutput(false, array('Error: init failed'), false);
 	  }
-	  
+
 	  $download = $this->ftDownloadFile($init);
 
 	  if(is_array($download))
