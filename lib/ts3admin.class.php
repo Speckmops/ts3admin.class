@@ -5,7 +5,7 @@
  *   begin                : 18. December 2009
  *   copyright            : (C) 2009-2016 Par0noid Solutions
  *   email                : info@ts3admin.info
- *   version              : 1.0.0.3
+ *   version              : 1.0.0.4
  *   last modified        : 29. September 2016
  *
  *
@@ -36,7 +36,7 @@
  * Take a look on the project website where you can find code examples, a manual and some other stuff.
  * 
  * @author      Par0noid Solutions <info@ts3admin.info>
- * @version     1.0.0.3
+ * @version     1.0.0.4
  * @copyright   Copyright (c) 2009-2016, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
@@ -2030,7 +2030,7 @@ class ts3admin {
 /**
   * ftInitDownload
   * 
-  * Initializes a file transfer download. clientftfid is an arbitrary ID to identify the file transfer on client-side. On success, the server generates a new ftkey which is required to start downloading the file through TeamSpeak 3's file transfer interface.
+  * Initializes a file transfer download. clientftfid is an arbitrary ID to identify the file transfer on client-side. On success, the server generates a new ftkey which is required to start downloading the file through TeamSpeak 3's file transfer interface. Since version 3.0.13 there is an optional proto parameter. The client can request a protocol version with it. Currently only 0 and 1 are supported which only differ in the way they handle some timings. The server will reply which protocol version it will support. The server will reply with an ip parameter if it determines the filetransfer subsystem is not reachable by the ip that is currently being used for the query connection.
   *
   * <b>Output:</b>
   * <pre>
@@ -2049,17 +2049,18 @@ class ts3admin {
   * @param		string	$cid			channelID
   * @param		string	$cpw			channelPassword (leave blank if not needed)
   * @param		integer	$seekpos		seekpos (default = 0) [optional]
+  * @param		integer	$proto			proto (default = NULL) [optional]
   * @return     array	initDownloadFileInfo
   */	
-	function ftInitDownload($name, $cid, $cpw = '', $seekpos = 0) {
+	function ftInitDownload($name, $cid, $cpw = '', $seekpos = 0, $proto = null) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
-		return $this->getData('array', 'ftinitdownload clientftfid='.rand(1,99).' name='.$this->escapeText($name).' cid='.$cid.' cpw='.$this->escapeText($cpw).' seekpos='.$seekpos);
+		return $this->getData('array', 'ftinitdownload clientftfid='.rand(1,99).' name='.$this->escapeText($name).' cid='.$cid.' cpw='.$this->escapeText($cpw).' seekpos='.$seekpos.($proto !== null ? ' proto='.$proto: ''));
 	}
 
 /**
   * ftInitUpload
   * 
-  * Initializes a file transfer upload. clientftfid is an arbitrary ID to identify the file transfer on client-side. On success, the server generates a new ftkey which is required to start uploading the file through TeamSpeak 3's file transfer interface.
+  * Initializes a file transfer upload. clientftfid is an arbitrary ID to identify the file transfer on client-side. On success, the server generates a new ftkey which is required to start uploading the file through TeamSpeak 3's file transfer interface. Since version 3.0.13 there is an optional proto parameter. The client can request a protocol version with it. Currently only 0 and 1 are supported which only differ in the way they handle some timings. The server will reply which protocol version it will support. The server will reply with an ip parameter if it determines the filetransfer subsystem is not reachable by the ip that is currently being used for the query connection
   *
   * <b>Output:</b>
   * <pre>
@@ -2080,15 +2081,16 @@ class ts3admin {
   * @param		string	$cpw		channelPassword (leave blank if not needed)
   * @param		boolean	$overwrite	overwrite	[optional] (default = 0)
   * @param		boolean	$resume		resume		[optional] (default = 0)
+  * @param		integer	$proto		proto (default = NULL) [optional]
   * @return     array	initUploadFileInfo
   */	
-	function ftInitUpload($filename, $cid, $size, $cpw = '', $overwrite = false, $resume = false) {
+	function ftInitUpload($filename, $cid, $size, $cpw = '', $overwrite = false, $resume = false, $proto = null) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		
 		if($overwrite) { $overwrite = ' overwrite=1'; }else{ $overwrite = ' overwrite=0'; }
 		if($resume) { $resume = ' resume=1'; }else{ $resume = ' resume=0'; }
 		
-		return $this->getData('array', 'ftinitupload clientftfid='.rand(1,99).' name='.$this->escapeText($filename).' cid='.$cid.' cpw='.$this->escapeText($cpw).' size='.($size + 1).$overwrite.$resume);
+		return $this->getData('array', 'ftinitupload clientftfid='.rand(1,99).' name='.$this->escapeText($filename).' cid='.$cid.' cpw='.$this->escapeText($cpw).' size='.($size + 1).$overwrite.$resume.($proto !== null ? ' proto='.$proto: ''));
 	}
 	
 /**
