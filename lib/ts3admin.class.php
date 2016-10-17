@@ -5,7 +5,7 @@
  *   begin                : 18. December 2009
  *   copyright            : (C) 2009-2016 Par0noid Solutions
  *   email                : info@ts3admin.info
- *   version              : 1.0.0.4
+ *   version              : 1.0.1.0
  *   last modified        : 29. September 2016
  *
  *
@@ -36,7 +36,7 @@
  * Take a look on the project website where you can find code examples, a manual and some other stuff.
  * 
  * @author      Par0noid Solutions <info@ts3admin.info>
- * @version     1.0.0.4
+ * @version     1.0.1.0
  * @copyright   Copyright (c) 2009-2016, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
