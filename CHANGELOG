@@ -1,6 +1,16 @@
 Tested compatibility to version: 3.0.13.4 x64
 __________________________________________
 
+Version: 1.0.1.1 - Mon, 17 Oct 2016
+
+~ changed documentation of channelCreate function
+~ changed documentation of channelEdit function
+~ changed documentation of serverCreate function
+~ changed documentation of serverEdit function
+~ changed documentation of clientEdit function
+~ changed documentation of instanceEdit function
+
+
 Version: 1.0.1.0 - Mon, 17 Oct 2016
 
 + Added subsystem parameter to bindingList

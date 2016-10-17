@@ -5,7 +5,7 @@
  *   begin                : 18. December 2009
  *   copyright            : (C) 2009-2016 Par0noid Solutions
  *   email                : info@ts3admin.info
- *   version              : 1.0.1.0
+ *   version              : 1.0.1.1
  *   last modified        : 29. September 2016
  *
  *
@@ -36,7 +36,7 @@
  * Take a look on the project website where you can find code examples, a manual and some other stuff.
  * 
  * @author      Par0noid Solutions <info@ts3admin.info>
- * @version     1.0.1.0
+ * @version     1.0.1.1
  * @copyright   Copyright (c) 2009-2016, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
@@ -461,6 +461,8 @@ class ts3admin {
   * 
   * <b style="color:red">Hint:</b> you'll get an error if you want to create a channel without channel_name
   * 
+  * <b style="color:red">Hint:</b> to set the parent channel you've to use cpid instead of pid
+  * 
   * <b>Input-Array like this:</b>
   * <pre>
   * $data = array();
@@ -476,6 +478,8 @@ class ts3admin {
   *  [cid] => 257
   * }
   * </pre>
+  *
+  * <b>Possible properties:</b> CHANNEL_NAME, CHANNEL_TOPIC, CHANNEL_DESCRIPTION, CHANNEL_PASSWORD, CHANNEL CODEC, CHANNEL_CODEC_QUALITY, CHANNEL_MAXCLIENTS, CHANNEL_MAXFAMILYCLIENTS, CHANNEL_ORDER, CHANNEL_FLAG_PERMANENT, CHANNEL_FLAG_SEMI_PERMANENT, CHANNEL_FLAG_TEMPORARY, CHANNEL_FLAG_DEFAULT, CHANNEL_FLAG_MAXCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_INHERITED, CHANNEL_NEEDED_TALK_POWER, CHANNEL_NAME_PHONETIC, CHANNEL_ICON_ID, CHANNEL_CODEC_IS_UNENCRYPTED, CPID
   *
   * @author     Par0noid Solutions
   * @param		array $data properties
@@ -553,6 +557,8 @@ class ts3admin {
 	$data['setting'] = 'value';
 	$data['setting'] = 'value';
 	</pre>
+  *
+  * <b>Possible properties:</b> Take a look at channelCreate function
   *
   * @author     Par0noid Solutions
   * @param		integer	$cid	$channelID
@@ -1322,6 +1328,8 @@ class ts3admin {
   * $data['property'] = 'value';
   * $data['property'] = 'value';
   * </pre>
+  *
+  * <b>Possible properties:</b> CLIENT_NICKNAME, CLIENT_IS_TALKER, CLIENT_DESCRIPTION, CLIENT_IS_CHANNEL_COMMANDER, CLIENT_ICON_ID
   *
   * @author     Par0noid Solutions
   * @param		integer	$clid 			clientID
@@ -2253,6 +2261,8 @@ class ts3admin {
   * $data['setting'] = 'value';
   * </pre>
   *
+  * <b>Possible properties:</b> SERVERINSTANCE_GUEST_SERVERQUERY_GROUP, SERVERINSTANCE_TEMPLATE_SERVERADMIN_GROUP, SERVERINSTANCE_FILETRANSFER_PORT, SERVERINSTANCE_MAX_DOWNLOAD_TOTAL_BANDWITDH, SERVERINSTANCE_MAX_UPLOAD_TOTAL_BANDWITDH, SERVERINSTANCE_TEMPLATE_SERVERDEFAULT_GROUP, SERVERINSTANCE_TEMPLATE_CHANNELDEFAULT_GROUP, SERVERINSTANCE_TEMPLATE_CHANNELADMIN_GROUP, SERVERINSTANCE_SERVERQUERY_FLOOD_COMMANDS, SERVERINSTANCE_SERVERQUERY_FLOOD_TIME, SERVERINSTANCE_SERVERQUERY_FLOOD_BAN_TIME
+  *
   * @author     Par0noid Solutions
   * @param		array	$data	instanceProperties
   * @return     boolean success
@@ -2907,6 +2917,8 @@ class ts3admin {
   * }
   * </pre>
   *
+  * <b>Possible properties:</b> VIRTUALSERVER_NAME, VIRTUALSERVER_WELCOMEMESSAGE, VIRTUALSERVER_MAXCLIENTS, VIRTUALSERVER_PASSWORD, VIRTUALSERVER_HOSTMESSAGE, VIRTUALSERVER_HOSTMESSAGE_MODE, VIRTUALSERVER_DEFAULT_SERVER_GROUP, VIRTUALSERVER_DEFAULT_CHANNEL_GROUP, VIRTUALSERVER_DEFAULT_CHANNEL_ADMIN_GROUP, VIRTUALSERVER_MAX_DOWNLOAD_TOTAL_BANDWIDTH, VIRTUALSERVER_MAX_UPLOAD_TOTAL_BANDWIDTH, VIRTUALSERVER_HOSTBANNER_URL, VIRTUALSERVER_HOSTBANNER_GFX_URL, VIRTUALSERVER_HOSTBANNER_GFX_INTERVAL, VIRTUALSERVER_COMPLAIN_AUTOBAN_COUNT, VIRTUALSERVER_COMPLAIN_AUTOBAN_TIME, VIRTUALSERVER_COMPLAIN_REMOVE_TIME, VIRTUALSERVER_MIN_CLIENTS_IN_CHANNEL_BEFORE_FORCED_SILENCE, VIRTUALSERVER_PRIORITY_SPEAKER_DIMM_MODIFICATOR, VIRTUALSERVER_ANTIFLOOD_POINTS_TICK_REDUCE, VIRTUALSERVER_ANTIFLOOD_POINTS_NEEDED_COMMAND_BLOCK, VIRTUALSERVER_ANTIFLOOD_POINTS_NEEDED_IP_BLOCK, VIRTUALSERVER_HOSTBANNER_MODE, VIRTUALSERVER_HOSTBUTTON_TOOLTIP, VIRTUALSERVER_HOSTBUTTON_GFX_URL, VIRTUALSERVER_HOSTBUTTON_URL, VIRTUALSERVER_DOWNLOAD_QUOTA, VIRTUALSERVER_UPLOAD_QUOTA, VIRTUALSERVER_MACHINE_ID, VIRTUALSERVER_PORT, VIRTUALSERVER_AUTOSTART, VIRTUALSERVER_STATUS, VIRTUALSERVER_LOG_CLIENT, VIRTUALSERVER_LOG_QUERY, VIRTUALSERVER_LOG_CHANNEL, VIRTUALSERVER_LOG_PERMISSIONS, VIRTUALSERVER_LOG_SERVER, VIRTUALSERVER_LOG_FILETRANSFER, VIRTUALSERVER_MIN_CLIENT_VERSION, VIRTUALSERVER_MIN_ANDROID_VERSION, VIRTUALSERVER_MIN_IOS_VERSION, VIRTUALSERVER_MIN_WINPHONE_VERSION, VIRTUALSERVER_NEEDED_IDENTITY_SECURITY_LEVEL, VIRTUALSERVER_NAME_PHONETIC, VIRTUALSERVER_ICON_ID, VIRTUALSERVER_RESERVED_SLOTS, VIRTUALSERVER_WEBLIST_ENABLED, VIRTUALSERVER_CODEC_ENCRYPTION_MODE
+  *
   * @author     Par0noid Solutions
   * @param		array	$data	serverSettings	[optional]
   * @return     array serverInfo
@@ -2950,6 +2962,8 @@ class ts3admin {
   * $data['setting'] = 'value';
   * $data['setting'] = 'value';
   * </pre>
+  *
+  * <b>Possible properties:</b> Take a look at serverCreate function
   *
   * @author     Par0noid Solutions
   * @param		array	$data	serverSettings

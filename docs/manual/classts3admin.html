@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="Butterfly-128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ts3admin.class
-   &#160;<span id="projectnumber">1.0.1.0</span>
+   &#160;<span id="projectnumber">1.0.1.1</span>
    </div>
    <div id="projectbrief">The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!</div>
   </td>
@@ -995,6 +995,7 @@ Array
 <p>Creates a new channel using the given properties and displays its ID. Note that this command accepts multiple properties which means that you're able to specifiy all settings of the new channel at once.</p>
 <p><b style="color:red">Hint:</b> don't forget to set channel_flag_semi_permanent = 1 or channel_flag_permanent = 1</p>
 <p><b style="color:red">Hint:</b> you'll get an error if you want to create a channel without channel_name</p>
+<p><b style="color:red">Hint:</b> to set the parent channel you've to use cpid instead of pid</p>
 <p><b>Input-Array like this:</b> </p><pre>
 $data = array();</pre><pre>$data['setting'] = 'value';
 $data['setting'] = 'value';
@@ -1003,7 +1004,8 @@ Array
 {
  [cid] =&gt; 257
 }
-</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+</pre><p><b>Possible properties:</b> CHANNEL_NAME, CHANNEL_TOPIC, CHANNEL_DESCRIPTION, CHANNEL_PASSWORD, CHANNEL CODEC, CHANNEL_CODEC_QUALITY, CHANNEL_MAXCLIENTS, CHANNEL_MAXFAMILYCLIENTS, CHANNEL_ORDER, CHANNEL_FLAG_PERMANENT, CHANNEL_FLAG_SEMI_PERMANENT, CHANNEL_FLAG_TEMPORARY, CHANNEL_FLAG_DEFAULT, CHANNEL_FLAG_MAXCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_INHERITED, CHANNEL_NEEDED_TALK_POWER, CHANNEL_NAME_PHONETIC, CHANNEL_ICON_ID, CHANNEL_CODEC_IS_UNENCRYPTED, CPID</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$data</td><td>properties </td></tr>
@@ -1121,7 +1123,8 @@ $permissions[] = 'permissionName';
 <p><b>Input-Array like this:</b> </p><pre>
 $data = array();</pre><pre>$data['setting'] = 'value';
 $data['setting'] = 'value';
-</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+</pre><p><b>Possible properties:</b> Take a look at channelCreate function</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">integer</td><td class="paramname">$cid</td><td>$channelID </td></tr>
@@ -2125,7 +2128,8 @@ $permissions['permissionName'] = 'permissionValue';
 <p><b>Input-Array like this:</b> </p><pre>
 $data = array();</pre><pre>$data['property'] = 'value';
 $data['property'] = 'value';
-</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+</pre><p><b>Possible properties:</b> CLIENT_NICKNAME, CLIENT_IS_TALKER, CLIENT_DESCRIPTION, CLIENT_IS_CHANNEL_COMMANDER, CLIENT_ICON_ID</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">integer</td><td class="paramname">$clid</td><td>clientID </td></tr>
@@ -3736,7 +3740,8 @@ Array
 <p><b>Input-Array like this:</b> </p><pre>
 $data = array();</pre><pre>$data['setting'] = 'value';
 $data['setting'] = 'value';
-</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+</pre><p><b>Possible properties:</b> SERVERINSTANCE_GUEST_SERVERQUERY_GROUP, SERVERINSTANCE_TEMPLATE_SERVERADMIN_GROUP, SERVERINSTANCE_FILETRANSFER_PORT, SERVERINSTANCE_MAX_DOWNLOAD_TOTAL_BANDWITDH, SERVERINSTANCE_MAX_UPLOAD_TOTAL_BANDWITDH, SERVERINSTANCE_TEMPLATE_SERVERDEFAULT_GROUP, SERVERINSTANCE_TEMPLATE_CHANNELDEFAULT_GROUP, SERVERINSTANCE_TEMPLATE_CHANNELADMIN_GROUP, SERVERINSTANCE_SERVERQUERY_FLOOD_COMMANDS, SERVERINSTANCE_SERVERQUERY_FLOOD_TIME, SERVERINSTANCE_SERVERQUERY_FLOOD_BAN_TIME</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$data</td><td>instanceProperties </td></tr>
@@ -4633,7 +4638,8 @@ Array
  [virtualserver_port] =&gt; 9988
  [token] =&gt; eKnFZQ9EK7G7MhtuQB6+N2B1PNZZ6OZL3ycDp2OW
 }
-</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+</pre><p><b>Possible properties:</b> VIRTUALSERVER_NAME, VIRTUALSERVER_WELCOMEMESSAGE, VIRTUALSERVER_MAXCLIENTS, VIRTUALSERVER_PASSWORD, VIRTUALSERVER_HOSTMESSAGE, VIRTUALSERVER_HOSTMESSAGE_MODE, VIRTUALSERVER_DEFAULT_SERVER_GROUP, VIRTUALSERVER_DEFAULT_CHANNEL_GROUP, VIRTUALSERVER_DEFAULT_CHANNEL_ADMIN_GROUP, VIRTUALSERVER_MAX_DOWNLOAD_TOTAL_BANDWIDTH, VIRTUALSERVER_MAX_UPLOAD_TOTAL_BANDWIDTH, VIRTUALSERVER_HOSTBANNER_URL, VIRTUALSERVER_HOSTBANNER_GFX_URL, VIRTUALSERVER_HOSTBANNER_GFX_INTERVAL, VIRTUALSERVER_COMPLAIN_AUTOBAN_COUNT, VIRTUALSERVER_COMPLAIN_AUTOBAN_TIME, VIRTUALSERVER_COMPLAIN_REMOVE_TIME, VIRTUALSERVER_MIN_CLIENTS_IN_CHANNEL_BEFORE_FORCED_SILENCE, VIRTUALSERVER_PRIORITY_SPEAKER_DIMM_MODIFICATOR, VIRTUALSERVER_ANTIFLOOD_POINTS_TICK_REDUCE, VIRTUALSERVER_ANTIFLOOD_POINTS_NEEDED_COMMAND_BLOCK, VIRTUALSERVER_ANTIFLOOD_POINTS_NEEDED_IP_BLOCK, VIRTUALSERVER_HOSTBANNER_MODE, VIRTUALSERVER_HOSTBUTTON_TOOLTIP, VIRTUALSERVER_HOSTBUTTON_GFX_URL, VIRTUALSERVER_HOSTBUTTON_URL, VIRTUALSERVER_DOWNLOAD_QUOTA, VIRTUALSERVER_UPLOAD_QUOTA, VIRTUALSERVER_MACHINE_ID, VIRTUALSERVER_PORT, VIRTUALSERVER_AUTOSTART, VIRTUALSERVER_STATUS, VIRTUALSERVER_LOG_CLIENT, VIRTUALSERVER_LOG_QUERY, VIRTUALSERVER_LOG_CHANNEL, VIRTUALSERVER_LOG_PERMISSIONS, VIRTUALSERVER_LOG_SERVER, VIRTUALSERVER_LOG_FILETRANSFER, VIRTUALSERVER_MIN_CLIENT_VERSION, VIRTUALSERVER_MIN_ANDROID_VERSION, VIRTUALSERVER_MIN_IOS_VERSION, VIRTUALSERVER_MIN_WINPHONE_VERSION, VIRTUALSERVER_NEEDED_IDENTITY_SECURITY_LEVEL, VIRTUALSERVER_NAME_PHONETIC, VIRTUALSERVER_ICON_ID, VIRTUALSERVER_RESERVED_SLOTS, VIRTUALSERVER_WEBLIST_ENABLED, VIRTUALSERVER_CODEC_ENCRYPTION_MODE</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$data</td><td>serverSettings [optional] </td></tr>
@@ -4688,7 +4694,8 @@ Array
 <p><b>Input-Array like this:</b> </p><pre>
 $data = array();</pre><pre>$data['setting'] = 'value';
 $data['setting'] = 'value';
-</pre><dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
+</pre><p><b>Possible properties:</b> Take a look at serverCreate function</p>
+<dl class="section author"><dt>Author</dt><dd>Par0noid Solutions </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$data</td><td>serverSettings </td></tr>
