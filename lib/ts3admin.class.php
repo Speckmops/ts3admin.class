@@ -5,7 +5,7 @@
  *   begin                : 18. December 2009
  *   copyright            : (C) 2009-2016 Par0noid Solutions
  *   email                : info@ts3admin.info
- *   version              : 1.0.0.2
+ *   version              : 1.0.0.3
  *   last modified        : 29. September 2016
  *
  *
@@ -36,7 +36,7 @@
  * Take a look on the project website where you can find code examples, a manual and some other stuff.
  * 
  * @author      Par0noid Solutions <info@ts3admin.info>
- * @version     1.0.0.2
+ * @version     1.0.0.3
  * @copyright   Copyright (c) 2009-2016, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
@@ -247,10 +247,11 @@ class ts3admin {
   * </pre>
   *
   * @author     Par0noid Solutions
+  * @param 		integer	$subsystem	(1: voice, 2: query, 3: filetransfer)
   * @return     array bindingList
   */
-	function bindingList() {
-		return $this->getData('multi', 'bindinglist');
+	function bindingList($subsystem = 0) {
+		return $this->getData('multi', 'bindinglist'.($subsystem == 1 ? ' subsystem=voice' : '').($subsystem == 2 ? ' subsystem=query' : '').($subsystem == 3 ? ' subsystem=filetransfer' : ''));
 	}
 
 /**
