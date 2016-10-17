@@ -5,7 +5,6 @@
  *   begin                : 18. December 2009
  *   copyright            : (C) 2009-2016 Par0noid Solutions
  *   email                : info@ts3admin.info
- *   version              : 1.0.0.1
  *   last modified        : 29. September 2016
  *
  *
@@ -36,7 +35,6 @@
  * Take a look on the project website where you can find code examples, a manual and some other stuff.
  * 
  * @author      Par0noid Solutions <info@ts3admin.info>
- * @version     1.0.0.1
  * @copyright   Copyright (c) 2009-2016, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
@@ -1272,7 +1270,7 @@ class ts3admin {
   */
 	function clientDbList($start = 0, $duration = -1, $count = false) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
-		return $this->getData('multi', 'clientdblist start='.$start.' duration='.$duration.($count ? ' -count' : ''));
+		return $this->getData('multi', 'clientdblist'.($start != 0 ? ' start='.$start : '').($duration != -1 ? ' duration='.$duration : '').($count ? ' -count' : ''));
 	}
 
 /**
