@@ -52,48 +52,48 @@ class ts3admin {
 //*************************************** Constants *****************************************
 //*******************************************************************************************
 
-	define('HostMessageMode_NONE', 0);
-	define('HostMessageMode_LOG', 1);
-	define('HostMessageMode_MODAL', 2);
-	define('HostMessageMode_MODALQUIT', 3);
+	const HostMessageMode_NONE = 0;
+	const HostMessageMode_LOG = 1;
+	const HostMessageMode_MODAL = 2;
+	const HostMessageMode_MODALQUIT = 3;
 	
-	define('HostBannerMode_NOADJUST', 0);
-	define('HostBannerMode_IGNOREASPECT', 1);
-	define('HostBannerMode_KEEPASPECT', 2);
+	const HostBannerMode_NOADJUST = 0;
+	const HostBannerMode_IGNOREASPECT = 1;
+	const HostBannerMode_KEEPASPECT = 2;
 	
-	define('CODEC_SPEEX_NARROWBAND', 0);
-	define('CODEC_SPEEX_WIDEBAND', 1);
-	define('CODEC_SPEEX_ULTRAWIDEBAND', 2);
-	define('CODEC_CELT_MONO', 3);
+	const CODEC_SPEEX_NARROWBAND = 0;
+	const CODEC_SPEEX_WIDEBAND = 1;
+	const CODEC_SPEEX_ULTRAWIDEBAND = 2;
+	const CODEC_CELT_MONO = 3;
 	
-	define('CODEC_CRYPT_INDIVIDUAL', 0);
-	define('CODEC_CRYPT_DISABLED', 1);
-	define('CODEC_CRYPT_ENABLED', 2);	
+	const CODEC_CRYPT_INDIVIDUAL = 0;
+	const CODEC_CRYPT_DISABLED = 1;
+	const CODEC_CRYPT_ENABLED = 2;	
 	
-	define('TextMessageTarget_CLIENT', 1);
-	define('TextMessageTarget_CHANNEL', 2);
-	define('TextMessageTarget_SERVER', 3);
+	const TextMessageTarget_CLIENT = 1;
+	const TextMessageTarget_CHANNEL = 2;
+	const TextMessageTarget_SERVER = 3;
 	
-	define('LogLevel_ERROR', 1);
-	define('LogLevel_WARNING', 2);
-	define('LogLevel_DEBUG', 3);
-	define('LogLevel_INFO', 4);
+	const LogLevel_ERROR = 1;
+	const LogLevel_WARNING = 2;
+	const LogLevel_DEBUG = 3;
+	const LogLevel_INFO = 4;
 	
-	define('REASON_KICK_CHANNEL', 4);
-	define('REASON_KICK_SERVER', 5);	
+	const REASON_KICK_CHANNEL = 4;
+	const REASON_KICK_SERVER = 5;	
 
-	define('PermGroupDBTypeTemplate', 0);
-	define('PermGroupDBTypeRegular', 1);
-	define('PermGroupDBTypeQuery', 2);
+	const PermGroupDBTypeTemplate = 0;
+	const PermGroupDBTypeRegular = 1;
+	const PermGroupDBTypeQuery = 2;
 
-	define('PermGroupTypeServerGroup', 0);
-	define('PermGroupTypeGlobalClient', 1);
-	define('PermGroupTypeChannel', 2);
-	define('PermGroupTypeChannelGroup', 3);
-	define('PermGroupTypeChannelClient', 4);
+	const PermGroupTypeServerGroup = 0;
+	const PermGroupTypeGlobalClient = 1;
+	const PermGroupTypeChannel = 2;
+	const PermGroupTypeChannelGroup = 3;
+	const PermGroupTypeChannelClient = 4;
 
-	define('TokenServerGroup', 0);
-	define('TokenChannelGroup', 1);
+	const TokenServerGroup = 0;
+	const TokenChannelGroup = 1;
 
 //*******************************************************************************************	
 //************************************ Public Functions *************************************
