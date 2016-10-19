@@ -2864,7 +2864,7 @@ class ts3admin {
   */
 	private function quit() {
 		$this->logout();
-		$fputs($this->runtime['socket'], "quit\n");
+		@fputs($this->runtime['socket'], "quit\n");
 		@fclose($this->runtime['socket']);
 	}
 
