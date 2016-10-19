@@ -1,15 +1,12 @@
 <?PHP
-/**
+/*
  *                         ts3admin.class.php
  *                         ------------------                    
- *   begin                : 18. December 2009
- *   copyright            : (C) 2009-2016 Par0noid Solutions
- *   email                : info@ts3admin.info
- *   version              : 1.0.1.1
+ *   created              : 18. December 2009
  *   last modified        : 29. September 2016
- *
- *
- *  This file is a powerful library for querying TeamSpeak3 servers.
+ *   version              : 1.0.1.2
+ *   website              : http://ts3admin.info
+ *   copyright            : (C) 2016 Stefan Zehnpfennig
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -24,26 +21,22 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 /** 
- * The ts3admin.class.php is a powerful library that offers functions to communicate with Teamspeak 3 Servers from your website!
+ * @file
+ * The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!
  * 
- * You can do everything, your creativity knows no bounds!
- * That library is faster than all other librarys because its optimized to find the shortest way to your information.
- * No unneeded PHP 5 OOP Stuff, just the basics!
- * There are a lot of professional developers and some big companys using my library.
- * The best thing is that you can use it for free under the terms of the GNU General Public License v3.
- * Take a look on the project website where you can find code examples, a manual and some other stuff.
- * 
- * @author      Par0noid Solutions <info@ts3admin.info>
- * @version     1.0.1.1
- * @copyright   Copyright (c) 2009-2016, Stefan Z.
+ * @author      Stefan Zehnpfennig
+ * @copyright   Copyright (c) 2016, Stefan Zehnpfennig
+ * @version     1.0.1.2
  * @package		ts3admin
- * @link        http://ts3admin.info
  *
  */
-class ts3admin {
 
+/** 
+  * \class ts3admin
+  * \brief The ts3admin.class
+  */
+class ts3admin {
 //*******************************************************************************************	
 //****************************************** Vars *******************************************
 //*******************************************************************************************
@@ -51,10 +44,56 @@ class ts3admin {
 /**
   * runtime is an private handle and configuration storage
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   */
 	private $runtime = array('socket' => '', 'selected' => false, 'host' => '', 'queryport' => '10011', 'timeout' => 2, 'debug' => array(), 'fileSocket' => '');
 
+//*******************************************************************************************	
+//*************************************** Constants *****************************************
+//*******************************************************************************************
+
+	define('HostMessageMode_NONE', 0);
+	define('HostMessageMode_LOG', 1);
+	define('HostMessageMode_MODAL', 2);
+	define('HostMessageMode_MODALQUIT', 3);
+	
+	define('HostBannerMode_NOADJUST', 0);
+	define('HostBannerMode_IGNOREASPECT', 1);
+	define('HostBannerMode_KEEPASPECT', 2);
+	
+	define('CODEC_SPEEX_NARROWBAND', 0);
+	define('CODEC_SPEEX_WIDEBAND', 1);
+	define('CODEC_SPEEX_ULTRAWIDEBAND', 2);
+	define('CODEC_CELT_MONO', 3);
+	
+	define('CODEC_CRYPT_INDIVIDUAL', 0);
+	define('CODEC_CRYPT_DISABLED', 1);
+	define('CODEC_CRYPT_ENABLED', 2);	
+	
+	define('TextMessageTarget_CLIENT', 1);
+	define('TextMessageTarget_CHANNEL', 2);
+	define('TextMessageTarget_SERVER', 3);
+	
+	define('LogLevel_ERROR', 1);
+	define('LogLevel_WARNING', 2);
+	define('LogLevel_DEBUG', 3);
+	define('LogLevel_INFO', 4);
+	
+	define('REASON_KICK_CHANNEL', 4);
+	define('REASON_KICK_SERVER', 5);	
+
+	define('PermGroupDBTypeTemplate', 0);
+	define('PermGroupDBTypeRegular', 1);
+	define('PermGroupDBTypeQuery', 2);
+
+	define('PermGroupTypeServerGroup', 0);
+	define('PermGroupTypeGlobalClient', 1);
+	define('PermGroupTypeChannel', 2);
+	define('PermGroupTypeChannelGroup', 3);
+	define('PermGroupTypeChannelClient', 4);
+
+	define('TokenServerGroup', 0);
+	define('TokenChannelGroup', 1);
 
 //*******************************************************************************************	
 //************************************ Public Functions *************************************
@@ -73,7 +112,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$ip			clientIp
   * @param		integer	$time		bantime in seconds (0=unlimited/default)  [optional]
   * @param		string	$banreason	Banreason [optional]
@@ -100,7 +139,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$uid		clientUniqueId
   * @param		integer	$time		bantime in seconds (0=unlimited/default)  [optional]
   * @param		string	$banreason	Banreason [optional]
@@ -127,7 +166,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$name		clientName
   * @param		integer	$time		bantime in seconds (0=unlimited/default)  [optional]
   * @param		string	$banreason	Banreason [optional]
@@ -155,7 +194,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $clid		clientId
   * @param		integer $time		bantime in seconds (0=unlimited/default)  [optional]
   * @param		string	$banreason	Banreason [optional]
@@ -180,7 +219,7 @@ class ts3admin {
   * 
   * Deletes the ban rule with ID banid from the server.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $banID	banID
   * @return     boolean success
   */
@@ -194,7 +233,7 @@ class ts3admin {
   * 
   * Deletes all active ban rules from the server.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     boolean success
   */
 	function banDeleteAll() {
@@ -225,7 +264,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array banlist
   */
 	function banList() {
@@ -246,7 +285,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param 		integer	$subsystem	(1: voice, 2: query, 3: filetransfer)
   * @return     array bindingList
   */
@@ -267,7 +306,7 @@ class ts3admin {
   * $permissions['permissionName'] = 'permissionValue';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$cid			channelId
   * @param		array	$permissions	permissions
   * @return     boolean success
@@ -333,7 +372,7 @@ class ts3admin {
   * $permissions['permissionName'] = 'permissionValue';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cid			channelID
   * @param		integer		$cldbid			clientDBID
   * @param		array		$permissions	permissions
@@ -401,7 +440,7 @@ class ts3admin {
   * $permissions = array('permissionID', 'permissionName', 'permissionID');
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cid				channelID
   * @param		integer		$cldbid				clientDBID
   * @param		array		$permissions		permissions
@@ -441,7 +480,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cid		channelID
   * @param		integer		$cldbid		clientDBID
   * @param		boolean		$permsid	displays permissionName instead of permissionID
@@ -481,7 +520,7 @@ class ts3admin {
   *
   * <b>Possible properties:</b> CHANNEL_NAME, CHANNEL_TOPIC, CHANNEL_DESCRIPTION, CHANNEL_PASSWORD, CHANNEL CODEC, CHANNEL_CODEC_QUALITY, CHANNEL_MAXCLIENTS, CHANNEL_MAXFAMILYCLIENTS, CHANNEL_ORDER, CHANNEL_FLAG_PERMANENT, CHANNEL_FLAG_SEMI_PERMANENT, CHANNEL_FLAG_TEMPORARY, CHANNEL_FLAG_DEFAULT, CHANNEL_FLAG_MAXCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_INHERITED, CHANNEL_NEEDED_TALK_POWER, CHANNEL_NAME_PHONETIC, CHANNEL_ICON_ID, CHANNEL_CODEC_IS_UNENCRYPTED, CPID
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		array $data properties
   * @return     array channelInfo
   */
@@ -502,7 +541,7 @@ class ts3admin {
   * 
   * Deletes an existing channel by ID. If force is set to 1, the channel will be deleted even if there are clients within. The clients will be kicked to the default channel with an appropriate reason message.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $cid channelID
   * @param		integer $force {1|0} (default: 1)
   * @return     boolean success
@@ -525,7 +564,7 @@ class ts3admin {
   * $permissions[] = 'permissionName';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cid				channelID
   * @param		array		$permissions		permissions
   * @return     boolean	success
@@ -560,7 +599,7 @@ class ts3admin {
   *
   * <b>Possible properties:</b> Take a look at channelCreate function
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$cid	$channelID
   * @param		array	$data	edited settings
   * @return     boolean success
@@ -591,7 +630,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$pattern	channelName
   * @return     array channelList 
   */
@@ -620,7 +659,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$name	groupName
   * @param		integer	$type   groupDbType [optional] (default: 1)
   * @return     boolean success
@@ -643,7 +682,7 @@ class ts3admin {
   * $permissions['permissionName'] = 'permissionValue';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cgid			channelGroupID
   * @param		array		$permissions	permissions
   * @return     boolean success
@@ -710,7 +749,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $cid		channelID [optional]
   * @param		integer $cldbid		clientDBID [optional]
   * @param		integer $cgid		channelGroupID [optional]
@@ -742,7 +781,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$scgid	sourceChannelGroupID
   * @param		integer	$tcgid	targetChannelGroupID 
   * @param		integer $name	groupName
@@ -759,7 +798,7 @@ class ts3admin {
   * 
   * Deletes a channel group by ID. If force is set to 1, the channel group will be deleted even if there are clients within.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $cgid	channelGroupID
   * @param		integer $force	forces deleting channelGroup (default: 1)
   * @return     boolean success
@@ -781,7 +820,7 @@ class ts3admin {
   * $permissions[] = 'permissionName';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cgid				channelGroupID
   * @param		array		$permissions		permissions
   * @return     boolean success
@@ -823,7 +862,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array channelGroupList
   */
 	function channelGroupList() {
@@ -850,7 +889,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cgid		channelGroupID
   * @param		boolean		$permsid	permsid
   * @return		array	channelGroupPermlist
@@ -865,7 +904,7 @@ class ts3admin {
   * 
   * Changes the name of a specified channel group.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $cgid groupID
   * @param		integer $name groupName
   * @return     boolean success
@@ -915,7 +954,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $cid channelID
   * @return     array channelInfo
   */
@@ -969,7 +1008,7 @@ class ts3admin {
   * $ts3->channelList("-topic -flags -voice -limits -icon"); //Multiple parameters / all
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string		$params		additional parameters [optional]
   * @return		array	channelList
   */
@@ -985,7 +1024,7 @@ class ts3admin {
   * 
   * Moves a channel to a new parent channel with the ID cpid. If order is specified, the channel will be sorted right under the channel with the specified ID. If order is set to 0, the channel will be sorted right below the new parent.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $cid	channelID
   * @param		integer $cpid	channelParentID
   * @param		integer $order	channelSortOrder
@@ -1014,7 +1053,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cid		channelID
   * @param		boolean		$permsid	displays permissionName instead of permissionID [optional]
   * @return     array channelpermlist
@@ -1037,7 +1076,7 @@ class ts3admin {
   * $permissions['permissionName'] = array('permissionValue', 'permskip');
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$cldbid			clientDBID
   * @param		array	$permissions	permissions
   * @return     boolean success
@@ -1099,7 +1138,7 @@ class ts3admin {
  * You can display it like: echo '<img src="data:image/png;base64,'.$result["data"].'" />';
  * </pre>
  *
- * @author  Par0noid Solutions
+ * @author  Stefan Zehnpfennig
  * @param  string  $uid  clientUID
  * @return array  base64 image
  */
@@ -1150,7 +1189,7 @@ class ts3admin {
   * 
   * Deletes a clients properties from the database.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $cldbid	clientDBID
   * @return     boolean success
   */
@@ -1172,7 +1211,7 @@ class ts3admin {
   * $data['property'] = 'value';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cldbid		clientDBID
   * @param		array		$data	 	clientProperties
   * @return     boolean success
@@ -1202,7 +1241,7 @@ class ts3admin {
   * }
   *	</pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$pattern	clientName
   * @param		boolean	$uid		set true to add -uid param [optional]
   * @return     array clientList 
@@ -1239,7 +1278,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cldbid		clientDBID
   * @return     array	clientDbInfo
   */
@@ -1271,7 +1310,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$start		offset [optional] (Default: 0)
   * @param		integer	$duration	limit [optional] (Default: -1)
   * @param		boolean	$count		set true to add -count param [optional]
@@ -1295,7 +1334,7 @@ class ts3admin {
   * $permissions['permissionName'] = 'permissionValue';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cldbid				clientDBID
   * @param		array		$permissionIds		permissionIDs
   * @return     boolean success
@@ -1331,7 +1370,7 @@ class ts3admin {
   *
   * <b>Possible properties:</b> CLIENT_NICKNAME, CLIENT_IS_TALKER, CLIENT_DESCRIPTION, CLIENT_IS_CHANNEL_COMMANDER, CLIENT_ICON_ID
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$clid 			clientID
   * @param		array	$data			clientProperties
   * @return     boolean success
@@ -1362,7 +1401,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$pattern	clientName
   * @return     array clienList
   */
@@ -1385,7 +1424,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$cluid	clientUID
   * @return     array clientInfo
   */
@@ -1409,7 +1448,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$cluid	clientUID
   * @return     array clientList 
   */
@@ -1433,7 +1472,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$cldbid	clientDBID
   * @return     array clientInfo
   */
@@ -1457,7 +1496,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$cluid	clientUID
   * @return     array clientInfo
   */
@@ -1536,7 +1575,7 @@ class ts3admin {
   * } 
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$clid	clientID
   * @return     array	clientInformation
   */
@@ -1550,7 +1589,7 @@ class ts3admin {
   * 
   * Kicks one or more clients specified with clid from their currently joined channel or from the server, depending on reasonid. The reasonmsg parameter specifies a text message sent to the kicked clients. This parameter is optional and may only have a maximum of 40 characters.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $clid		clientID
   * @param		string	$kickMode	kickMode (server or channel) (Default: server)
   * @param		string	$kickmsg 	kick reason [optional]
@@ -1623,7 +1662,7 @@ class ts3admin {
   * $ts3->clientList("-uid -away -voice -times -groups -info -country -icon -ip -badges"); //Multiple parameters
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$params	additional parameters [optional]
   * @return     array clientList 
   */
@@ -1640,7 +1679,7 @@ class ts3admin {
   * 
   * Moves one or more clients specified with clid to the channel with ID cid. If the target channel has a password, it needs to be specified with cpw. If the channel has no password, the parameter can be omitted.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $clid	clientID
   * @param		integer $cid	channelID
   * @param		string	$cpw	channelPassword [optional]
@@ -1668,7 +1707,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		intege		$cldbid 	clientDBID
   * @param		boolean		$permsid	set true to add -permsid param [optional]
   * @return     array clientPermList
@@ -1683,7 +1722,7 @@ class ts3admin {
   * 
   * Sends a poke message to the client specified with clid.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $clid	clientID
   * @param		string 	$msg 	pokeMessage
   * @return     boolean success
@@ -1706,7 +1745,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$username	username
   * @return     array userInfomation
   */
@@ -1726,7 +1765,7 @@ class ts3admin {
   * $data['property'] = 'value';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		array	$data	clientProperties
   * @return     boolean success
   */
@@ -1745,7 +1784,7 @@ class ts3admin {
   *
   * Submits a complaint about the client with database ID tcldbid to the server.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $tcldbid	targetClientDBID
   * @param		string	$msg		complainMessage
   * @return     boolean success
@@ -1760,7 +1799,7 @@ class ts3admin {
   * 
   * Deletes the complaint about the client with ID tcldbid submitted by the client with ID fcldbid from the server.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $tcldbid targetClientDBID
   * @param		integer $fcldbid fromClientDBID
   * @return     boolean success
@@ -1775,7 +1814,7 @@ class ts3admin {
   * 
   * Deletes all complaints about the client with database ID tcldbid from the server.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $tcldbid targetClientDBID
   * @return     boolean success
   */
@@ -1802,7 +1841,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string $tcldbid	targetClientDBID [optional]
   * @return     array complainList
   */
@@ -1836,7 +1875,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string $cldbid	clientDBID
   * @return     array customInfos
   */
@@ -1869,7 +1908,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$ident		customIdent
   * @param		string	$pattern	searchpattern
   * @return     array	customSearchInfos
@@ -1892,7 +1931,7 @@ class ts3admin {
   * 	<li><b>3:</b> execute -> return plaintext serverquery</li>
   * </ul>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$mode		executionMode
   * @param		string	$command	command
   * @return     mixed result
@@ -1917,7 +1956,7 @@ class ts3admin {
   * 
   * Creates new directory in a channels file repository.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$cid		channelId
   * @param		string	$cpw		channelPassword (leave blank if not needed)
   * @param		string	$dirname	dirPath
@@ -1942,7 +1981,7 @@ class ts3admin {
   * $files[] = '/dokumente';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$cid	channelID
   * @param		string	$cpw	channelPassword (leave blank if not needed)
   * @param		array	$files	files
@@ -1968,7 +2007,7 @@ class ts3admin {
   * 
   * Ddownloads a file and returns its contents
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		array	$data	return of ftInitDownload
   * @return     array downloadedFile
   */
@@ -1994,7 +2033,7 @@ class ts3admin {
   * Displays detailed information about one or more specified files stored in a channels file repository.
   * 
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$cid	channelID
   * @param		string	$cpw	channelPassword (leave blank if not needed)
   * @param		string 	$file	path to file
@@ -2024,7 +2063,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$cid	channelID
   * @param		string	$cpw	channelPassword (leave blank if not needed)
   * @param		string	$path	filePath
@@ -2052,7 +2091,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$name			filePath
   * @param		string	$cid			channelID
   * @param		string	$cpw			channelPassword (leave blank if not needed)
@@ -2082,7 +2121,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$filename	filePath
   * @param		string	$cid		channelID
   * @param		integer	$size		fileSize in bytes
@@ -2126,7 +2165,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array	fileTransferList
   */
 	function ftList() {
@@ -2139,7 +2178,7 @@ class ts3admin {
   * 
   * Renames a file in a channels file repository. If the two parameters tcid and tcpw are specified, the file will be moved into another channels file repository.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$cid		channelID
   * @param		string	$cpw		channelPassword (leave blank if not needed)
   * @param		string	$oldname	oldFilePath
@@ -2159,7 +2198,7 @@ class ts3admin {
   * 
   * Stops the running file transfer with server-side ID serverftfid.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$serverftfid	serverFileTransferID
   * @param		boolean	$delete			delete incomplete file [optional] (default: true) 
   * @return     boolean success
@@ -2175,7 +2214,7 @@ class ts3admin {
   * Uploads a file to server
   * To check if upload was successful, you have to search for this file in fileList after
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		array	$data			return of ftInitUpload
   * @param		string	$uploadData		data which should be uploaded
   * @return     array response
@@ -2199,7 +2238,7 @@ class ts3admin {
   * 
   * Sends a text message to all clients on all virtual servers in the TeamSpeak 3 Server instance.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$msg	message
   * @return     boolean success
   */
@@ -2241,7 +2280,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array hostInformation
   */
 	function hostInfo() {
@@ -2263,7 +2302,7 @@ class ts3admin {
   *
   * <b>Possible properties:</b> SERVERINSTANCE_GUEST_SERVERQUERY_GROUP, SERVERINSTANCE_TEMPLATE_SERVERADMIN_GROUP, SERVERINSTANCE_FILETRANSFER_PORT, SERVERINSTANCE_MAX_DOWNLOAD_TOTAL_BANDWITDH, SERVERINSTANCE_MAX_UPLOAD_TOTAL_BANDWITDH, SERVERINSTANCE_TEMPLATE_SERVERDEFAULT_GROUP, SERVERINSTANCE_TEMPLATE_CHANNELDEFAULT_GROUP, SERVERINSTANCE_TEMPLATE_CHANNELADMIN_GROUP, SERVERINSTANCE_SERVERQUERY_FLOOD_COMMANDS, SERVERINSTANCE_SERVERQUERY_FLOOD_TIME, SERVERINSTANCE_SERVERQUERY_FLOOD_BAN_TIME
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		array	$data	instanceProperties
   * @return     boolean success
   */
@@ -2306,7 +2345,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array instanceInformation
   */
 	function instanceInfo() {
@@ -2318,7 +2357,7 @@ class ts3admin {
   * 
   * Writes a custom entry into the servers log. Depending on your permissions, you'll be able to add entries into the server instance log and/or your virtual servers log. The loglevel parameter specifies the type of the entry.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$logLevel	loglevel between 1 and 4
   * @param		string	$logMsg		logMessage
   * @return     boolean success
@@ -2342,7 +2381,7 @@ class ts3admin {
   * 
   * Authenticates with the TeamSpeak 3 Server instance using given ServerQuery login credentials.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$username	username
   * @param		string	$password	password
   * @return     boolean success
@@ -2356,7 +2395,7 @@ class ts3admin {
   * 
   * Deselects the active virtual server and logs out from the server instance.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     boolean success
   */
 	function logout() {
@@ -2385,7 +2424,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$lines	between 1 and 100
   * @param		integer	$reverse	{1|0} [optional]
   * @param		integer	$instance	{1|0} [optional]
@@ -2406,7 +2445,7 @@ class ts3admin {
   * 
   * Sends an offline message to the client specified by cluid.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$cluid		clientUID
   * @param		string	$subject	Subject of the message
   * @param		string	$message	Text of the message
@@ -2422,7 +2461,7 @@ class ts3admin {
   * 
   * Deletes an existing offline message with ID msgid from your inbox.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$messageID		messageID
   * @return     boolean success
   */
@@ -2436,7 +2475,7 @@ class ts3admin {
   * 
   * Displays an existing offline message with ID msgid from your inbox. Please note that this does not automatically set the flag_read property of the message.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$messageID		messageID
   * @return     array messageInformation
   */
@@ -2450,7 +2489,7 @@ class ts3admin {
   * 
   * Displays a list of offline messages you've received. The output contains the senders unique identifier, the messages subject, etc.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array messageInformation
   */
 	function messageList() {		
@@ -2463,7 +2502,7 @@ class ts3admin {
   * 
   * Updates the flag_read property of the offline message specified with msgid. If flag is set to 1, the message will be marked as read.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$messageID		messageID
   * @param		integer	$flag			flag {1|0}
   * @return     array messageInformation
@@ -2486,7 +2525,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		mixed	$perm	permid or permsid
   * @return     array permissionInfoList
   */
@@ -2513,7 +2552,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		mixed	$perm	permid or permsid
   * @return     array permissionInfo
   */
@@ -2541,7 +2580,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$permsids		permNames
   * @return     array	permissionList 
   */
@@ -2644,7 +2683,7 @@ class ts3admin {
   *     )
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		boolean		$new		[optional] add new parameter
   * @return     array permissionList
   */
@@ -2705,7 +2744,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$cid		cchannelId
   * @param		integer 	$cldbid		clientDbId
   * @param		integer 	$permid		permId (Default: 0)
@@ -2732,7 +2771,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array token
   */
 	function permReset() { 
@@ -2754,7 +2793,7 @@ class ts3admin {
   * $customFieldSet['ident'] = 'value';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$tokentype				token type
   * @param		integer	$tokenid1				groupID
   * @param		integer	$tokenid2				channelID
@@ -2771,7 +2810,7 @@ class ts3admin {
   * 
   * Deletes an existing token matching the token key specified with token.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$token	token
   * @return     boolean success
   */
@@ -2797,7 +2836,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array tokenListist 
   */
 	function privilegekeyList() {
@@ -2809,7 +2848,7 @@ class ts3admin {
   * 
   * Use a token key gain access to a server or channel group. Please note that the server will automatically delete the token after it has been used.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$token	token
   * @return     boolean success
   */
@@ -2820,7 +2859,7 @@ class ts3admin {
 /**
   * quit closes the connection to host 
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return 	none
   */
 	private function quit() {
@@ -2834,7 +2873,7 @@ class ts3admin {
   * 
   * Selects the virtual server specified with sid or port to allow further interaction. The ServerQuery client will appear on the virtual server and acts like a real TeamSpeak 3 Client, except it's unable to send or receive voice data. If your database contains multiple virtual servers using the same UDP port, use will select a random virtual server using the specified port.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$value		Port or ID
   * @param		string	$type		value type ('port', 'serverId') (default='port')
   * @param		boolean	$virtual	set true to add -virtual param [optional]
@@ -2882,7 +2921,7 @@ class ts3admin {
   * 	<li>serverID</li>
   * </ul>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $mode
   * @param		integer $target
   * @param		string	$msg	Message
@@ -2919,7 +2958,7 @@ class ts3admin {
   *
   * <b>Possible properties:</b> VIRTUALSERVER_NAME, VIRTUALSERVER_WELCOMEMESSAGE, VIRTUALSERVER_MAXCLIENTS, VIRTUALSERVER_PASSWORD, VIRTUALSERVER_HOSTMESSAGE, VIRTUALSERVER_HOSTMESSAGE_MODE, VIRTUALSERVER_DEFAULT_SERVER_GROUP, VIRTUALSERVER_DEFAULT_CHANNEL_GROUP, VIRTUALSERVER_DEFAULT_CHANNEL_ADMIN_GROUP, VIRTUALSERVER_MAX_DOWNLOAD_TOTAL_BANDWIDTH, VIRTUALSERVER_MAX_UPLOAD_TOTAL_BANDWIDTH, VIRTUALSERVER_HOSTBANNER_URL, VIRTUALSERVER_HOSTBANNER_GFX_URL, VIRTUALSERVER_HOSTBANNER_GFX_INTERVAL, VIRTUALSERVER_COMPLAIN_AUTOBAN_COUNT, VIRTUALSERVER_COMPLAIN_AUTOBAN_TIME, VIRTUALSERVER_COMPLAIN_REMOVE_TIME, VIRTUALSERVER_MIN_CLIENTS_IN_CHANNEL_BEFORE_FORCED_SILENCE, VIRTUALSERVER_PRIORITY_SPEAKER_DIMM_MODIFICATOR, VIRTUALSERVER_ANTIFLOOD_POINTS_TICK_REDUCE, VIRTUALSERVER_ANTIFLOOD_POINTS_NEEDED_COMMAND_BLOCK, VIRTUALSERVER_ANTIFLOOD_POINTS_NEEDED_IP_BLOCK, VIRTUALSERVER_HOSTBANNER_MODE, VIRTUALSERVER_HOSTBUTTON_TOOLTIP, VIRTUALSERVER_HOSTBUTTON_GFX_URL, VIRTUALSERVER_HOSTBUTTON_URL, VIRTUALSERVER_DOWNLOAD_QUOTA, VIRTUALSERVER_UPLOAD_QUOTA, VIRTUALSERVER_MACHINE_ID, VIRTUALSERVER_PORT, VIRTUALSERVER_AUTOSTART, VIRTUALSERVER_STATUS, VIRTUALSERVER_LOG_CLIENT, VIRTUALSERVER_LOG_QUERY, VIRTUALSERVER_LOG_CHANNEL, VIRTUALSERVER_LOG_PERMISSIONS, VIRTUALSERVER_LOG_SERVER, VIRTUALSERVER_LOG_FILETRANSFER, VIRTUALSERVER_MIN_CLIENT_VERSION, VIRTUALSERVER_MIN_ANDROID_VERSION, VIRTUALSERVER_MIN_IOS_VERSION, VIRTUALSERVER_MIN_WINPHONE_VERSION, VIRTUALSERVER_NEEDED_IDENTITY_SECURITY_LEVEL, VIRTUALSERVER_NAME_PHONETIC, VIRTUALSERVER_ICON_ID, VIRTUALSERVER_RESERVED_SLOTS, VIRTUALSERVER_WEBLIST_ENABLED, VIRTUALSERVER_CODEC_ENCRYPTION_MODE
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		array	$data	serverSettings	[optional]
   * @return     array serverInfo
   */
@@ -2941,7 +2980,7 @@ class ts3admin {
   * 
   * Deletes the virtual server specified with sid. Please note that only virtual servers in stopped state can be deleted.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$sid	serverID
   * @return     boolean success
   */
@@ -2965,7 +3004,7 @@ class ts3admin {
   *
   * <b>Possible properties:</b> Take a look at serverCreate function
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		array	$data	serverSettings
   * @return     boolean success
   */
@@ -2994,7 +3033,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $name	groupName
   * @param		integer	$type	groupDbType (0 = template, 1 = normal, 2 = query | Default: 1)
   * @return     array groupId
@@ -3009,7 +3048,7 @@ class ts3admin {
   * 
   * Adds a client to the server group specified with sgid. Please note that a client cannot be added to default groups or template groups.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $sgid	serverGroupId
   * @param		integer $cldbid	clientDBID
   * @return     boolean success
@@ -3032,7 +3071,7 @@ class ts3admin {
   * $permissions['permissionName'] = array('permissionValue', 'permskip', 'permnegated');
   * </pre>
   * 
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $sgid	serverGroupID
   * @param		array	$permissions	permissions
   * @return     boolean success
@@ -3098,7 +3137,7 @@ class ts3admin {
   * $permissions['permissionName'] = array('permissionValue', 'permskip', 'permnegated');
   * </pre>
   * 
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$sgtype			serverGroupType
   * @param		array	$permissions	permissions
   * @return     boolean success
@@ -3164,7 +3203,7 @@ class ts3admin {
   * $permissions[] = 'permissionName';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$sgtype				serverGroupType
   * @param		array		$permissions		permissions
   * @return     boolean success
@@ -3201,7 +3240,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$sgid		groupId
   * @param		boolean	$names		set true to add -names param [optional]
   * @return     multidimensional-array	serverGroupClientList
@@ -3225,7 +3264,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$ssgid	sourceGroupID
   * @param		integer	$tsgid	targetGroupID
   * @param		integer $name	groupName
@@ -3242,7 +3281,7 @@ class ts3admin {
   * 
   * Deletes the server group specified with sgid. If force is set to 1, the server group will be deleted even if there are clients within.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $sgid	serverGroupID
   * @param		integer $force 	forces deleting group (Default: 1)
   * @return     boolean success
@@ -3257,7 +3296,7 @@ class ts3admin {
   * 
   * Removes a client specified with cldbid from the server group specified with sgid.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $sgid	groupID
   * @param		integer $cldbid	clientDBID
   * @return     boolean success
@@ -3280,7 +3319,7 @@ class ts3admin {
   * $permissions[] = 'permissionName';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer		$sgid				serverGroupID
   * @param		array		$permissionIds		permissionIds
   * @return     boolean success
@@ -3317,7 +3356,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array serverGroupList
   */
 	function serverGroupList() {
@@ -3342,7 +3381,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$sgid		serverGroupID
   * @param		boolean	$permsid	set true to add -permsid param [optional]
   * @return     array serverGroupPermList
@@ -3358,7 +3397,7 @@ class ts3admin {
   * 
   * Changes the name of the server group specified with sgid.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $sgid	serverGroupID
   * @param		integer $name	groupName
   * @return     boolean success
@@ -3383,7 +3422,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$cldbid	clientDBID
   * @return     array serverGroupsByClientId
   */
@@ -3405,7 +3444,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $port	serverPort
   * @return     array serverInfo
   */
@@ -3521,7 +3560,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array serverInformation
   */
 	function serverInfo() {
@@ -3554,7 +3593,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string		$options		optional parameters
   * @return     array serverList
   */
@@ -3567,7 +3606,7 @@ class ts3admin {
   * 
   * Stops the entire TeamSpeak 3 Server instance by shutting down the process.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     boolean success
   */
 	function serverProcessStop() {
@@ -3601,7 +3640,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array serverRequestConnectionInfo
   */
 	function serverRequestConnectionInfo() {
@@ -3614,7 +3653,7 @@ class ts3admin {
   * 
   * Displays a snapshot of the selected virtual server containing all settings, groups and known client identities. The data from a server snapshot can be used to restore a virtual servers configuration, channels and permissions using the serversnapshotdeploy command.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     string snapshot
   */
 	function serverSnapshotCreate() {
@@ -3629,7 +3668,7 @@ class ts3admin {
   *
   * + added "-mapping" to the serversnapshotdeploy command. This optional parameters will add a mapping of the old and new channelid's in the return
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$snapshot	snapshot
   * @param		bool	$mapping	mapping [optional]
   * @return     boolean success
@@ -3644,7 +3683,7 @@ class ts3admin {
   * 
   * Starts the virtual server specified with sid. Depending on your permissions, you're able to start either your own virtual server only or all virtual servers in the server instance.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $sid	serverID
   * @return     boolean success
   */
@@ -3657,7 +3696,7 @@ class ts3admin {
   * 
   * Stops the virtual server specified with sid. Depending on your permissions, you're able to stop either your own virtual server only or all virtual servers in the server instance.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $sid	serverID
   * @return     boolean success
   */
@@ -3670,7 +3709,7 @@ class ts3admin {
   * 
   * Sets a new temporary server password specified with pw. The temporary password will be valid for the number of seconds specified with duration. The client connecting with this password will automatically join the channel specified with tcid. If tcid is set to 0, the client will join the default channel.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$pw				temporary password
   * @param		string	$duration		durations in seconds
   * @param		string	$desc			description [optional]
@@ -3688,7 +3727,7 @@ class ts3admin {
   * 
   * Deletes the temporary server password specified with pw.
   * 
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$pw		temporary password
   * @return     boolean success
   */	
@@ -3716,7 +3755,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array	serverTemppasswordList
   */
 	function serverTempPasswordList() {
@@ -3730,7 +3769,7 @@ class ts3admin {
   *
   * Sets the channel group of a client to the ID specified with cgid.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer $cgid	groupID
   * @param		integer $cid	channelID
   * @param		integer $cldbid	clientDBID
@@ -3746,7 +3785,7 @@ class ts3admin {
   * 
   * Sets your nickname in server query
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$newName	new name in server query
   * @return     boolean success
   */
@@ -3768,7 +3807,7 @@ class ts3admin {
   * $customFieldSet['ident'] = 'value';
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$tokentype				token type
   * @param		integer	$tokenid1				groupID
   * @param		integer	$tokenid2				channelID
@@ -3803,7 +3842,7 @@ class ts3admin {
   * 
   * Deletes an existing token matching the token key specified with token.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$token	token
   * @return     boolean success
   */
@@ -3830,7 +3869,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array tokenListist 
   */
 	function tokenList() {
@@ -3844,7 +3883,7 @@ class ts3admin {
   * 
   * Use a token key gain access to a server or channel group. Please note that the server will automatically delete the token after it has been used.
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$token	token
   * @return     boolean success
   */
@@ -3868,7 +3907,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array versionInformation
   */
 	function version() {
@@ -3898,7 +3937,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array clientinformation
   */
 	function whoAmI() {
@@ -3922,7 +3961,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array error
   */
 	private function checkSelected() {
@@ -3936,7 +3975,7 @@ class ts3admin {
   * 
   * Converts seconds to a strTime (bsp. 5d 1h 23m 19s)
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$seconds	time in seconds
   * @return     string strTime
   */
@@ -3961,7 +4000,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		integer	$seconds	time in seconds
   * @return     array time
   */
@@ -3998,7 +4037,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$element	key of element
   * @param		array	$array		array
   * @return     mixed
@@ -4019,7 +4058,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		array	$array	result
   * @return     boolean
   */
@@ -4039,8 +4078,10 @@ class ts3admin {
 
 /**
  * __construct
+ *
+ * Note: When specifying a numerical IPv6 address (e.g. fe80::1), you must enclose the IP in square brackets—for example, [fe80::1]
  * 
- * @author	Par0noid Solutions
+ * @author	Stefan Zehnpfennig
  * @param	string	$host		ts3host
  * @param	integer	$queryport	ts3queryport
  * @param	integer	$timeout	socket timeout (default = 2) [optional]
@@ -4063,7 +4104,7 @@ class ts3admin {
 /**
  * __destruct
  * 
- * @author	Par0noid Solutions
+ * @author	Stefan Zehnpfennig
  * @return	void
 */
 	function __destruct() {
@@ -4075,7 +4116,7 @@ class ts3admin {
  * 
  * prevents your website from php errors if you want to execute a method which doesn't exists
  * 
- * @author	Par0noid Solutions
+ * @author	Stefan Zehnpfennig
  * @param	string	$name	method name
  * @param	array	$args	method arguments
  * @return	void
@@ -4090,7 +4131,7 @@ class ts3admin {
   * 
   * Checks if the connection is established
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     boolean connected
   */
 	private function isConnected() {
@@ -4106,7 +4147,7 @@ class ts3admin {
   * 
   * Builds a method return as array
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		boolean		$success	true/false
   * @param		array		$errors		all errors which occured while executing a method
   * @param		mixed		$data		parsed data from server
@@ -4121,7 +4162,7 @@ class ts3admin {
   * 
   * Turns escaped chars to normals
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$text	text which should be escaped
   * @return     string	text
   */
@@ -4137,7 +4178,7 @@ class ts3admin {
   * 
   * Escapes chars that we can use it in the query
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$text	text which should be escaped
   * @return     string	text
   */
@@ -4158,7 +4199,7 @@ class ts3admin {
   * 
   * Splits banIds to array
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$text	plain text server response
   * @return     string	text
   */
@@ -4179,7 +4220,7 @@ class ts3admin {
   * 
   * Connects to a ts3instance query port
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return		boolean success
   */
 	function connect() {
@@ -4209,7 +4250,7 @@ class ts3admin {
   * 
   * Executes a command and fetches the response
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$command	command which should be executed
   * @param		array	$tracert	array with information from first exec
   * @return     mixed data
@@ -4261,7 +4302,7 @@ class ts3admin {
  * 
  * Parses data from query and returns an array
  * 
- * @author		Par0noid Solutions
+ * @author		Stefan Zehnpfennig
  * @access		private
  * @param		string	$mode		select return mode ('boolean', 'array', 'multi', 'plain')
  * @param		string	$command	command which should be executed
@@ -4360,7 +4401,7 @@ class ts3admin {
   * 
   * Sends down/upload-key to ftHost
   * 
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$key
   * @param		string $additional
   * @return     none
@@ -4374,7 +4415,7 @@ class ts3admin {
   * 
   * Sends data to ftHost
   * 
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		mixed	$data
   * @return     none
  */
@@ -4390,7 +4431,7 @@ class ts3admin {
   * 
   * Reads data from ftHost
   * 
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		int	$size
   * @return     string data
  */
@@ -4420,7 +4461,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @return     array debugLog
   */
  	public function getDebugLog() {
@@ -4432,7 +4473,7 @@ class ts3admin {
   * 
   * Adds an entry to debugLog
   *
-  * @author     Par0noid Solutions
+  * @author     Stefan Zehnpfennig
   * @param		string	$text			text which should added to debugLog
   * @param		string	$methodName		name of the executed method [optional]
   * @param		string	$line			line where error triggered [optional]
@@ -4447,4 +4488,13 @@ class ts3admin {
 		$this->runtime['debug'][] = 'Error in '.$methodName.'() on line '.$line.': '.$text;	
 	}
 }
+
+/** \mainpage ts3admin.class
+ *
+ * \section intro_sec Welcome
+ *
+ * The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!
+ *
+ * <a href="http://ts3admin.info" />http://ts3admin.info</a>
+ */
 ?>

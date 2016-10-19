@@ -1,6 +1,12 @@
 Tested compatibility to version: 3.0.13.4 x64
 __________________________________________
 
+Version: 1.0.1.2 - Wed, 19 Oct 2016
+
++ Added some constants which can be found in the official ts3 documentation
+~ changed documentation stuff
+
+
 Version: 1.0.1.1 - Mon, 17 Oct 2016
 
 ~ changed documentation of channelCreate function
