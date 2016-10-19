@@ -2864,7 +2864,7 @@ class ts3admin {
   */
 	private function quit() {
 		$this->logout();
-		@fputs($this->runtime['socket'], "quit\n");
+		$fputs($this->runtime['socket'], "quit\n");
 		@fclose($this->runtime['socket']);
 	}
 
@@ -4135,11 +4135,7 @@ class ts3admin {
   * @return     boolean connected
   */
 	private function isConnected() {
-		if(empty($this->runtime['socket'])) {
-			return false;
-		}else{
-			return true;
-		}
+		return !empty($this->runtime['socket']);
 	}
 
 /**
@@ -4228,17 +4224,24 @@ class ts3admin {
 			$this->addDebugLog('Error: you are already connected!');
 			return $this->generateOutput(false, array('Error: the script is already connected!'), false);
 		}
+		
 		$socket = @fsockopen($this->runtime['host'], $this->runtime['queryport'], $errnum, $errstr, $this->runtime['timeout']);
 
-		if(!$socket) {
+		if(!$socket)
+		{
 			$this->addDebugLog('Error: connection failed!');
 			return $this->generateOutput(false, array('Error: connection failed!', 'Server returns: '.$errstr), false);
-		}else{
-			if(strpos(fgets($socket), 'TS3') !== false) {
+		}
+		else
+		{
+			if(strpos(fgets($socket), 'TS3') !== false)
+			{
 				$tmpVar = fgets($socket);
 				$this->runtime['socket'] = $socket;
 				return $this->generateOutput(true, array(), true);
-			}else{
+			}
+			else
+			{
 				$this->addDebugLog('host isn\'t a ts3 instance!');
 				return $this->generateOutput(false, array('Error: host isn\'t a ts3 instance!'), false);
 			}
@@ -4262,20 +4265,30 @@ class ts3admin {
 		}
 		
 		$data = '';
-
 		
 		$splittedCommand = str_split($command, 1024);
 		
 		$splittedCommand[(count($splittedCommand) - 1)] .= "\n";
 		
-		foreach($splittedCommand as $commandPart) {
-			fputs($this->runtime['socket'], $commandPart);
+		foreach($splittedCommand as $commandPart)
+		{
+			if(!(@fputs($this->runtime['socket'], $commandPart)))
+			{
+				$this->runtime['socket'] = '';
+				$this->addDebugLog('Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
+				return $this->generateOutput(false, array('Socket closed.'), false);
+			}
 		}
-
 		do {
-			$data .= fgets($this->runtime['socket'], 4096);
+			$data .= @fgets($this->runtime['socket'], 4096);
 			
-			if(strpos($data, 'error id=3329 msg=connection') !== false) {
+			if(empty($data))
+			{
+				$this->runtime['socket'] = '';
+				$this->addDebugLog('Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
+				return $this->generateOutput(false, array('Socket closed.'), false);
+			}
+			else if(strpos($data, 'error id=3329 msg=connection') !== false) {
 				$this->runtime['socket'] = '';
 				$this->addDebugLog('You got banned from server. Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('You got banned from server. Connection closed.'), false);
@@ -4407,7 +4420,7 @@ class ts3admin {
   * @return     none
  */
 	private function ftSendKey($key, $additional = NULL) {
-		fputs($this->runtime['fileSocket'], $key.$additional);
+		@fputs($this->runtime['fileSocket'], $key.$additional);
 	}
 
 /**
@@ -4422,7 +4435,7 @@ class ts3admin {
 	private function ftSendData($data) {
 		$data = str_split($data, 4096);
 		foreach($data as $dat) {
-			fputs($this->runtime['fileSocket'], $dat);
+			@fputs($this->runtime['fileSocket'], $dat);
 		}
 	}
 
