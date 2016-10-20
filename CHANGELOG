@@ -1,6 +1,11 @@
 Tested compatibility to version: 3.0.13.4 x64
 __________________________________________
 
+Version: 1.0.1.3 - Thu, 20 Oct 2016
+
+~ fixed infinite loop if socket times out while sending a command (thanks to toxiicdev)
+
+
 Version: 1.0.1.2 - Wed, 19 Oct 2016
 
 + Added some constants which can be found in the official ts3 documentation
