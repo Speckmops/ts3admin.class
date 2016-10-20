@@ -27,7 +27,7 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2016, Stefan Zehnpfennig
- * @version     1.0.1.3
+ * @version     1.0.1.4
  * @package		ts3admin
  *
  */
@@ -4353,30 +4353,31 @@ class ts3admin {
   * readChatMessage
   * 
   * Read chat message by its type (Result: http://bit.ly/2dtBXnT)
-  * 
+  *
   * IMPORTANT: Check always for message success, sometimes you can get an empty message 
   * and it will return empty data
   * 
   * @author     toxiicdev (@toxiicdev.net)
-  * @param		string	$type		server|channel|textserver|textchannel|textprivate
-  * @param		boolean	$keepalive	default false
-  * @param		int		$cid		channel id (required only for textchannel)
+  * @param	string	$type		textserver|textchannel|textprivate
+  * @param	boolean	$keepalive	default false
+  * @param	int		$cid		channel id (required only for textchannel)
   * @return     array data
   *
   * An example of returned array:
   *	
-  *	[success] => 1
+  * [success] => 1
   * [data] => Array
-  *	(
-  *		[invokerid] => 37
-  *		[invokeruid] => /jl8QCHJWrHDKXgVtF+9FX7zg1E=
-  *		[invokername] => toxiicdev.net
-  *		[msg] => It's just a prank bro
-  *		[targetmode] => 3
-  *	)
+  * (
+  *	[invokerid] => 37
+  *	[invokeruid] => /jl8QCHJWrHDKXgVtF+9FX7zg1E=
+  *	[invokername] => toxiicdev.net
+  *	[msg] => It's just a prank bro
+  *	[targetmode] => 3
+  * )
   */	
 	public function readChatMessage($type = 'textchannel', $keepalive = false, $cid = -1)
 	{
+		$availTypes = array('textserver', 'textchannel', 'textprivate');
 		$rtnData = array('success' => 0, 'data' => array('invokerid' => '', 'invokeruid' => '', 'invokername' => '', 'msg' => '', 'targetmode' => ''));
 		
 		if(!$this->isConnected()) {
@@ -4384,7 +4385,17 @@ class ts3admin {
 			return $rtnData;
 		}
 		
+		if(!in_array($type, $availTypes)) {
+			$this->addDebugLog('Invalid passed read type', $tracert[1]['function'], $tracert[0]['line']);
+			return $rtnData;
+		}
+		
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		
+		if($type == 'textchannel')
+		{
+			$this->clientMove($this->getQueryClid(), $cid);
+		}
 		
 		$this->executeCommand("servernotifyregister event=$type" . ($cid != -1 ? " id=$cid" : "") , null);
 		
