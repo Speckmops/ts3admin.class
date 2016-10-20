@@ -2907,16 +2907,16 @@ class ts3admin {
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
                 $res = $this->getData('boolean', 'use port='.$value.$virtual); 
                 if($res['success']) { 
-                    $this->runtime['selected'] = true; 
-					$this->loadQueryData();
+                   	$this->runtime['selected'] = true; 
+			$this->loadQueryData();
                 } 
                 return $res; 
             }else{ 
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
                 $res = $this->getData('boolean', 'use sid='.$value.$virtual); 
                 if($res['success']) { 
-                    $this->runtime['selected'] = true; 
-					$this->loadQueryData();
+                    	$this->runtime['selected'] = true; 
+			$this->loadQueryData();
                 } 
                 return $res; 
             } 
