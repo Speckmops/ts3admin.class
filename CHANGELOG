@@ -1,6 +1,11 @@
 Tested compatibility to version: 3.0.13.4 x64
 __________________________________________
 
+Version: 1.0.1.5 - Wed, 02 Nov 2016
+
++ Added channelGetIconByID
+
+
 Version: 1.0.1.4 - Wed, 02 Nov 2016
 
 + Added readChatMessage function by toxiicdev

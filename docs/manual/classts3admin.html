@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="Butterfly-128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ts3admin.class
-   &#160;<span id="projectnumber">1.0.1.4</span>
+   &#160;<span id="projectnumber">1.0.1.5</span>
    </div>
    <div id="projectbrief">The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!</div>
   </td>
@@ -131,6 +131,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4c58f0c8e36b3d14af54399b4c1abc82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0eceaf0f9f5ed0d5f7004830a2d389f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#ac0eceaf0f9f5ed0d5f7004830a2d389f">channelFind</a> ($pattern)</td></tr>
 <tr class="separator:ac0eceaf0f9f5ed0d5f7004830a2d389f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6f94d2fe2b32b71e2b01428843890b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#ab6f94d2fe2b32b71e2b01428843890b7">channelGetIconByID</a> ($iconID)</td></tr>
+<tr class="separator:ab6f94d2fe2b32b71e2b01428843890b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9edb792608cae8dc39b66ccf7eeefc86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a9edb792608cae8dc39b66ccf7eeefc86">channelGroupAdd</a> ($name, $type=1)</td></tr>
 <tr class="separator:a9edb792608cae8dc39b66ccf7eeefc86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80117e242e7d86207026be656c470c03"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a80117e242e7d86207026be656c470c03">channelGroupAddPerm</a> ($cgid, $permissions)</td></tr>
@@ -1281,6 +1283,35 @@ Array
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array channelList </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab6f94d2fe2b32b71e2b01428843890b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">channelGetIconByID </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$iconID</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>channelGetIconByID</p>
+<p>Will return the base64 encoded binary of the channelIcon</p>
+<pre>
+$result = $tsAdmin-&gt;channelGetIconByID($iconId);
+You can display it like: echo '&lt;img src="data:image/png;base64,'.$result["data"].'" /&gt;';
+</pre><dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$iconID</td><td>channelIconID </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array base64 image </dd></dl>
 
 </div>
 </div>

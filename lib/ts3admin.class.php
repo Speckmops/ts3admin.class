@@ -639,6 +639,54 @@ class ts3admin {
 		return $this->getData('multi', 'channelfind pattern='.$this->escapeText($pattern));
 	}
 
+
+/**
+ * channelGetIconByID
+ *
+ * Will return the base64 encoded binary of the channelIcon
+ * 
+ * <pre>
+ * $result = $tsAdmin->channelGetIconByID($iconId);
+ * You can display it like: echo '<img src="data:image/png;base64,'.$result["data"].'" />';
+ * </pre>
+ *
+ * @author  Stefan Zehnpfennig
+ * @param  string  $iconID  channelIconID
+ * @return array  base64 image
+ */
+	function channelGetIconByID($iconID) {
+	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
+
+	  if(empty($iconID))
+	  {
+		return $this->generateOutput(false, array('Error: empty iconID'), false);
+	  }
+
+	  $check = $this->ftgetfileinfo(0, '', '/icon_'.$iconID);
+
+	  if(!$check["success"])
+	  {
+		return $this->generateOutput(false, array('Error: icon does not exist'), false);
+	  }
+
+	  $init = $this->ftInitDownload('/icon_'.$iconID, 0, '');
+
+	  if(!$init["success"])
+	  {
+		return $this->generateOutput(false, array('Error: init failed'), false);
+	  }
+
+	  $download = $this->ftDownloadFile($init);
+
+	  if(is_array($download))
+	  {
+		return $download;
+	  }else{
+		return $this->generateOutput(true, false, base64_encode($download));
+	  }
+
+	}
+
 /**
   * channelGroupAdd
   * 
