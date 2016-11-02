@@ -27,7 +27,7 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2016, Stefan Zehnpfennig
- * @version     1.0.1.6
+ * @version     1.0.1.7
  * @package		ts3admin
  *
  */
@@ -65,6 +65,8 @@ class ts3admin {
 	const CODEC_SPEEX_WIDEBAND = 1;
 	const CODEC_SPEEX_ULTRAWIDEBAND = 2;
 	const CODEC_CELT_MONO = 3;
+	const CODEC_OPUS_VOICE = 4;
+	const CODEC_OPUS_MUSIC = 5;
 	
 	const CODEC_CRYPT_INDIVIDUAL = 0;
 	const CODEC_CRYPT_DISABLED = 1;
