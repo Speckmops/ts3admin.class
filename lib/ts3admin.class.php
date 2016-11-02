@@ -3,7 +3,7 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 21. October 2016
+ *   last modified        : 02. November 2016
  *   version              : 1.0.1.4
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2016 Stefan Zehnpfennig
@@ -4357,23 +4357,17 @@ class ts3admin {
   * IMPORTANT: Check always for message success, sometimes you can get an empty message 
   * and it will return empty data
   * 
-  * @author     toxiicdev (@toxiicdev.net)
+  * <b>Output:</b>
+  * <pre>
+  * Array
+  * {
+  * }
+  * </pre>
+  * @author	toxiicdev (@toxiicdev.net)
   * @param	string	$type		textserver|textchannel|textprivate
   * @param	boolean	$keepalive	default false
   * @param	int		$cid		channel id (required only for textchannel)
-  * @return     array data
-  *
-  * An example of returned array:
-  *	
-  * [success] => 1
-  * [data] => Array
-  * (
-  *	[invokerid] => 37
-  *	[invokeruid] => /jl8QCHJWrHDKXgVtF+9FX7zg1E=
-  *	[invokername] => toxiicdev.net
-  *	[msg] => It's just a prank bro
-  *	[targetmode] => 3
-  * )
+  * @return	array	data
   */	
 	public function readChatMessage($type = 'textchannel', $keepalive = false, $cid = -1)
 	{

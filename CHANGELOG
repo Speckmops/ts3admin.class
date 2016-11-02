@@ -1,6 +1,14 @@
 Tested compatibility to version: 3.0.13.4 x64
 __________________________________________
 
+Version: 1.0.1.4 - Wed, 02 Nov 2016
+
++ Added readChatMessage function by toxiicdev
++ Added getQueryClid by toxiicdev
++ Added loadQueryData by toxiicdev
++ Added serverNotifyUnregister by toxiicdev
+
+
 Version: 1.0.1.3 - Thu, 20 Oct 2016
 
 ~ fixed infinite loop if socket times out while sending a command (thanks to toxiicdev)

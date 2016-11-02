@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="Butterfly-128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ts3admin.class
-   &#160;<span id="projectnumber">1.0.1.3</span>
+   &#160;<span id="projectnumber">1.0.1.4</span>
    </div>
    <div id="projectbrief">The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!</div>
   </td>
@@ -377,6 +377,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af231e86ad32039b9573ae228db5a29fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78572828d11dcdf2a498497d9001d557"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a78572828d11dcdf2a498497d9001d557">connect</a> ()</td></tr>
 <tr class="separator:a78572828d11dcdf2a498497d9001d557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a186ce4e7c332002db8dc7fbd3f693635"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a186ce4e7c332002db8dc7fbd3f693635">getQueryClid</a> ()</td></tr>
+<tr class="separator:a186ce4e7c332002db8dc7fbd3f693635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a044041553b2514cbe34367cd71bba4d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a044041553b2514cbe34367cd71bba4d1">readChatMessage</a> ($type= 'textchannel', $keepalive=false, $cid=-1)</td></tr>
+<tr class="separator:a044041553b2514cbe34367cd71bba4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1529066962ffd827bb5e1a4643b6271"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#aa1529066962ffd827bb5e1a4643b6271">serverNotifyUnregister</a> ()</td></tr>
+<tr class="separator:aa1529066962ffd827bb5e1a4643b6271"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f5f0bfffa7e348c26c7087a9af2f0d6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a1f5f0bfffa7e348c26c7087a9af2f0d6">getDebugLog</a> ()</td></tr>
 <tr class="separator:a1f5f0bfffa7e348c26c7087a9af2f0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -3765,6 +3771,25 @@ $ts = new <a class="el" href="classts3admin.html" title="The ts3admin.class. ">t
 
 </div>
 </div>
+<a class="anchor" id="a186ce4e7c332002db8dc7fbd3f693635"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getQueryClid </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>getQueryClid</p>
+<p>Returns the server query client id</p>
+<dl class="section author"><dt>Author</dt><dd>toxiicdev (.net) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int value </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a30dc8dd5f20f1d2331641875da7a774e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -4615,6 +4640,60 @@ Array
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a044041553b2514cbe34367cd71bba4d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">readChatMessage </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$type</em> = <code>'textchannel'</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$keepalive</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$cid</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>readChatMessage</p>
+<p>Read chat message by its type (Result: <a href="http://bit.ly/2dtBXnT">http://bit.ly/2dtBXnT</a>)</p>
+<p>IMPORTANT: Check always for message success, sometimes you can get an empty message and it will return empty data</p>
+<p><b>Output:</b> </p><pre>
+Array
+{
+    [invokerid] =&gt; 37
+    [invokeruid] =&gt; /jl8QCHJWrHDKXgVtF+9FX7zg1E=
+    [invokername] =&gt; toxiicdev.net
+    [msg] =&gt; It's just a prank bro
+    [targetmode] =&gt; 3
+}
+</pre> <dl class="section author"><dt>Author</dt><dd>toxiicdev (.net) </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$type</td><td>textserver|textchannel|textprivate </td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$keepalive</td><td>default false </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$cid</td><td>channel id (required only for textchannel) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array data </dd></dl>
 
 </div>
 </div>
@@ -5571,6 +5650,24 @@ Array
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array serverList </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa1529066962ffd827bb5e1a4643b6271"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">serverNotifyUnregister </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>serverNotifyUnregister</p>
+<p>Unregisters server notify event</p>
+<dl class="section author"><dt>Author</dt><dd>toxiicdev (.net) </dd></dl>
 
 </div>
 </div>

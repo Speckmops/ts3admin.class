@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['whoami',['whoAmI',['../classts3admin.html#a1169bc6623d94b3464dc5e882c46b1d9',1,'ts3admin']]]
+  ['version',['version',['../classts3admin.html#a6080dae0886626b9a4cedb29240708b1',1,'ts3admin']]]
 ];

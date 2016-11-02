@@ -4,20 +4,32 @@
     "keywords": ["ts3","ts3admin","admin","teamspeak","teamspeak3"],
     "homepage": "https://github.com/par0noid/ts3admin.class",
     "type": "library",
+	"version": "1.0.1.4",
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.0.0"
     },
     "license": "GNU",
     "autoload": {
-        "psr-0": {
-            "TS3Admin": "bin"
+        "psr-4": {
+            "ts3admin": "bin"
         }
     },
     "authors": [
         {
             "name": "Stefan 'par0noid' Zehnpfennig",
-            "homepage": "http://par0noid.info",
+            "homepage": "https://github.com/par0noid",
             "role": "Developer"
+        },
+        {
+            "name": "GitHub Contributors",
+            "homepage": "https://github.com/par0noid/ts3admin.class/graphs/contributors",
+            "role": "Developer"
+        }
+    ],
+	"repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/par0noid/ts3admin.class"
         }
     ],
     "minimum-stability": "stable"
