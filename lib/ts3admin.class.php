@@ -4361,6 +4361,11 @@ class ts3admin {
   * <pre>
   * Array
   * {
+  *		[invokerid] => 37
+  *		[invokeruid] => /jl8QCHJWrHDKXgVtF+9FX7zg1E=
+  *		[invokername] => toxiicdev.net
+  *		[msg] => It's just a prank bro
+  *		[targetmode] => 3
   * }
   * </pre>
   * @author	toxiicdev (@toxiicdev.net)
