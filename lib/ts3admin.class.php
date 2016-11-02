@@ -3,8 +3,8 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 20. October 2016
- *   version              : 1.0.1.3
+ *   last modified        : 21. October 2016
+ *   version              : 1.0.1.4
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2016 Stefan Zehnpfennig
  *  
@@ -27,7 +27,7 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2016, Stefan Zehnpfennig
- * @version     1.0.1.3
+ * @version     1.0.1.4
  * @package		ts3admin
  *
  */
@@ -46,7 +46,7 @@ class ts3admin {
   *
   * @author     Stefan Zehnpfennig
   */
-	private $runtime = array('socket' => '', 'selected' => false, 'host' => '', 'queryport' => '10011', 'timeout' => 2, 'debug' => array(), 'fileSocket' => '');
+	private $runtime = array('socket' => '', 'selected' => false, 'host' => '', 'queryport' => '10011', 'timeout' => 2, 'debug' => array(), 'fileSocket' => '', 'bot_clid' => '', 'bot_name' => '');
 
 //*******************************************************************************************	
 //*************************************** Constants *****************************************
@@ -2867,7 +2867,29 @@ class ts3admin {
 		@fputs($this->runtime['socket'], "quit\n");
 		@fclose($this->runtime['socket']);
 	}
-
+/**
+  * loadQueryData
+  * 
+  * Loads the query current nickname and current clid
+  *
+  * @author     toxiicdev (@toxiicdev.net)
+  */
+	private function loadQueryData()
+	{
+		$whoAmI = $this->getElement('data', $this->whoAmI());
+		$this->runtime['bot_name'] = $whoAmI['client_nickname'];
+		
+		$clients = $this->clientList();
+		foreach($clients['data'] as $client)
+		{
+			if(strstr($this->runtime['bot_name'], $client['client_nickname']))
+			{
+				$this->runtime['bot_clid'] = $client['clid'];
+				break;
+			}
+		}
+	}
+	
 /**
   * selectServer
   * 
@@ -2885,14 +2907,16 @@ class ts3admin {
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
                 $res = $this->getData('boolean', 'use port='.$value.$virtual); 
                 if($res['success']) { 
-                    $this->runtime['selected'] = true; 
+                   	$this->runtime['selected'] = true; 
+			$this->loadQueryData();
                 } 
                 return $res; 
             }else{ 
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
                 $res = $this->getData('boolean', 'use sid='.$value.$virtual); 
                 if($res['success']) { 
-                    $this->runtime['selected'] = true; 
+                    	$this->runtime['selected'] = true; 
+			$this->loadQueryData();
                 } 
                 return $res; 
             } 
@@ -4249,6 +4273,20 @@ class ts3admin {
 	}
 
 /**
+  * getQueryClid
+  * 
+  * Returns the server query client id
+  *
+  * @author     toxiicdev (@toxiicdev.net)
+  *	@return		int value
+  */
+  
+	public function getQueryClid()
+	{
+		return $this->runtime['bot_clid'];
+	}
+	
+/**
   * executeCommand
   * 
   * Executes a command and fetches the response
@@ -4258,14 +4296,14 @@ class ts3admin {
   * @param		array	$tracert	array with information from first exec
   * @return     mixed data
   */
-	private function executeCommand($command, $tracert) {
+	private function executeCommand($command, $tracert = null) {
 		if(!$this->isConnected()) {
 			$this->addDebugLog('script isn\'t connected to server', $tracert[1]['function'], $tracert[0]['line']);
 			return $this->generateOutput(false, array('Error: script isn\'t connected to server'), false);
 		}
 		
 		$data = '';
-		
+				
 		$splittedCommand = str_split($command, 1024);
 		
 		$splittedCommand[(count($splittedCommand) - 1)] .= "\n";
@@ -4274,7 +4312,7 @@ class ts3admin {
 		{
 			if(!(@fputs($this->runtime['socket'], $commandPart)))
 			{
-				$this->runtime['socket'] = '';
+				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
 				$this->addDebugLog('Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('Socket closed.'), false);
 			}
@@ -4284,12 +4322,12 @@ class ts3admin {
 			
 			if(empty($data))
 			{
-				$this->runtime['socket'] = '';
+				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
 				$this->addDebugLog('Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('Socket closed.'), false);
 			}
 			else if(strpos($data, 'error id=3329 msg=connection') !== false) {
-				$this->runtime['socket'] = '';
+				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
 				$this->addDebugLog('You got banned from server. Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('You got banned from server. Connection closed.'), false);
 			}
@@ -4301,8 +4339,9 @@ class ts3admin {
 			$chooseEnd = count($splittedResponse) - 1;
 			
 			$cutIdAndMsg = explode(' msg=', $splittedResponse[$chooseEnd]);
-			
-			$this->addDebugLog('ErrorID: '.$cutIdAndMsg[0].' | Message: '.$this->unEscapeText($cutIdAndMsg[1]), $tracert[1]['function'], $tracert[0]['line']);
+						
+			if($tracert != null)
+				$this->addDebugLog('ErrorID: '.$cutIdAndMsg[0].' | Message: '.$this->unEscapeText($cutIdAndMsg[1]), $tracert[1]['function'], $tracert[0]['line']);
 			
 			return $this->generateOutput(false, array('ErrorID: '.$cutIdAndMsg[0].' | Message: '.$this->unEscapeText($cutIdAndMsg[1])), false);
 		}else{
@@ -4310,6 +4349,86 @@ class ts3admin {
 		}
 	}
 
+/**
+  * readChatMessage
+  * 
+  * Read chat message by its type (Result: http://bit.ly/2dtBXnT)
+  *
+  * IMPORTANT: Check always for message success, sometimes you can get an empty message 
+  * and it will return empty data
+  * 
+  * @author     toxiicdev (@toxiicdev.net)
+  * @param	string	$type		textserver|textchannel|textprivate
+  * @param	boolean	$keepalive	default false
+  * @param	int		$cid		channel id (required only for textchannel)
+  * @return     array data
+  *
+  * An example of returned array:
+  *	
+  * [success] => 1
+  * [data] => Array
+  * (
+  *	[invokerid] => 37
+  *	[invokeruid] => /jl8QCHJWrHDKXgVtF+9FX7zg1E=
+  *	[invokername] => toxiicdev.net
+  *	[msg] => It's just a prank bro
+  *	[targetmode] => 3
+  * )
+  */	
+	public function readChatMessage($type = 'textchannel', $keepalive = false, $cid = -1)
+	{
+		$availTypes = array('textserver', 'textchannel', 'textprivate');
+		$rtnData = array('success' => 0, 'data' => array('invokerid' => '', 'invokeruid' => '', 'invokername' => '', 'msg' => '', 'targetmode' => ''));
+		
+		if(!$this->isConnected()) {
+			$this->addDebugLog('script isn\'t connected to server', $tracert[1]['function'], $tracert[0]['line']);
+			return $rtnData;
+		}
+		
+		if(!in_array($type, $availTypes)) {
+			$this->addDebugLog('Invalid passed read type', $tracert[1]['function'], $tracert[0]['line']);
+			return $rtnData;
+		}
+		
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		
+		if($type == 'textchannel')
+		{
+			$this->clientMove($this->getQueryClid(), $cid);
+		}
+		
+		$this->executeCommand("servernotifyregister event=$type" . ($cid != -1 ? " id=$cid" : "") , null);
+		
+		$data = fgets($this->runtime['socket'], 4096);
+		
+		if(!empty($data))
+		{		
+			$rtnData['success'] = 1;
+			$msgData = explode(" ", $data);
+			foreach($msgData as $param)
+			{
+				$paramData = explode("=", $param);
+				if(array_key_exists($paramData[0], $rtnData['data']))
+				{
+					$rtnData['data'][$paramData[0]] = $this->unescapeText(implode("=", array_slice($paramData, 1, count($paramData) -1)));
+				}
+			}
+		}
+		if(!$keepalive) $this->serverNotifyUnregister();
+		
+		return $rtnData;
+	}
+/**
+ * serverNotifyUnregister
+ * 
+ * Unregisters server notify event
+ * 
+ * @author		toxiicdev (@toxiicdev.net)
+ */	
+	public function serverNotifyUnregister()
+	{
+		$this->executeCommand("servernotifyunregister", null);	
+	}
 /**
  * getData
  * 
