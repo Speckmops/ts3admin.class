@@ -684,7 +684,73 @@ class ts3admin {
 	  }else{
 		return $this->generateOutput(true, false, base64_encode($download));
 	  }
+	}
 
+/**
+ * channelGetIconByID
+ *
+ * Will return the base64 encoded binary of the channelIcon
+ * 
+ * <pre>
+ * $result = $tsAdmin->channelGetIconByChannelID($channelId);
+ * You can display it like: echo '<img src="data:image/png;base64,'.$result["data"].'" />';
+ * </pre>
+ *
+ * @author  Stefan Zehnpfennig
+ * @param  string  $channelID  channelID
+ * @return array  base64 image
+ */
+	function channelGetIconByChannelID($channelID) {
+	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
+
+	  if(empty($channelID))
+	  {
+		return $this->generateOutput(false, array('Error: empty channelID'), false);
+	  }
+	  
+	  $channel = $this->channelInfo($channelID);
+	  
+	  if(!$channel["success"])
+	  {
+		return $this->generateOutput(false, $channel["error"], false);
+	  }
+	  
+	  $icon_id = $channel["data"]["channel_icon_id"];
+	  
+	  if($icon_id != 100 AND $icon_id != 200 AND $icon_id != 300 AND $icon_id != 500 AND $icon_id != 600 AND $icon_id != 0)
+	  {
+		  if($icon_id < 0)
+		  {
+			  $icon_id = sprintf('%u', $icon_id & 0xffffffff);
+		  }
+	  }
+	  else
+	  {
+		  return $this->generateOutput(false, "invalid channel icon", false);
+	  }
+
+	  $check = $this->ftgetfileinfo(0, '', '/icon_'.$icon_id);
+
+	  if(!$check["success"])
+	  {
+		return $this->generateOutput(false, array('Error: icon does not exist'), false);
+	  }
+
+	  $init = $this->ftInitDownload('/icon_'.$icon_id, 0, '');
+
+	  if(!$init["success"])
+	  {
+		return $this->generateOutput(false, array('Error: init failed'), false);
+	  }
+
+	  $download = $this->ftDownloadFile($init);
+
+	  if(is_array($download))
+	  {
+		return $download;
+	  }else{
+		return $this->generateOutput(true, false, base64_encode($download));
+	  }
 	}
 
 /**
