@@ -9,6 +9,7 @@ var searchData=
   ['channeldelperm',['channelDelPerm',['../classts3admin.html#a464068be6e135a550c0dfb1b39292eb1',1,'ts3admin']]],
   ['channeledit',['channelEdit',['../classts3admin.html#a4c58f0c8e36b3d14af54399b4c1abc82',1,'ts3admin']]],
   ['channelfind',['channelFind',['../classts3admin.html#ac0eceaf0f9f5ed0d5f7004830a2d389f',1,'ts3admin']]],
+  ['channelgeticonbychannelid',['channelGetIconByChannelID',['../classts3admin.html#a2909cbbac27264d9b613f54674a1a3bc',1,'ts3admin']]],
   ['channelgeticonbyid',['channelGetIconByID',['../classts3admin.html#ab6f94d2fe2b32b71e2b01428843890b7',1,'ts3admin']]],
   ['channelgroupadd',['channelGroupAdd',['../classts3admin.html#a9edb792608cae8dc39b66ccf7eeefc86',1,'ts3admin']]],
   ['channelgroupaddperm',['channelGroupAddPerm',['../classts3admin.html#a80117e242e7d86207026be656c470c03',1,'ts3admin']]],

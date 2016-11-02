@@ -4,7 +4,7 @@
  *                         ------------------                    
  *   created              : 18. December 2009
  *   last modified        : 02. November 2016
- *   version              : 1.0.1.5
+ *   version              : 1.0.1.6
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2016 Stefan Zehnpfennig
  *  
@@ -27,7 +27,7 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2016, Stefan Zehnpfennig
- * @version     1.0.1.5
+ * @version     1.0.1.6
  * @package		ts3admin
  *
  */
@@ -661,6 +661,11 @@ class ts3admin {
 	  {
 		return $this->generateOutput(false, array('Error: empty iconID'), false);
 	  }
+	  
+	  if($iconID < 0)
+	  {
+		  $iconID = sprintf('%u', $iconID & 0xffffffff);
+	  }
 
 	  $check = $this->ftgetfileinfo(0, '', '/icon_'.$iconID);
 
@@ -687,12 +692,12 @@ class ts3admin {
 	}
 
 /**
- * channelGetIconByID
+ * channelGetIconByChannelID
  *
  * Will return the base64 encoded binary of the channelIcon
  * 
  * <pre>
- * $result = $tsAdmin->channelGetIconByChannelID($channelId);
+ * $result = $tsAdmin->channelGetIconByChannelID($channelID);
  * You can display it like: echo '<img src="data:image/png;base64,'.$result["data"].'" />';
  * </pre>
  *
