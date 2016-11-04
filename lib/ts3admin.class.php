@@ -3,8 +3,8 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 02. November 2016
- *   version              : 1.0.1.7
+ *   last modified        : 04. November 2016
+ *   version              : 1.0.1.8
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2016 Stefan Zehnpfennig
  *  
@@ -27,7 +27,7 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2016, Stefan Zehnpfennig
- * @version     1.0.1.7
+ * @version     1.0.1.8
  * @package		ts3admin
  *
  */
@@ -520,7 +520,7 @@ class ts3admin {
   * }
   * </pre>
   *
-  * <b>Possible properties:</b> CHANNEL_NAME, CHANNEL_TOPIC, CHANNEL_DESCRIPTION, CHANNEL_PASSWORD, CHANNEL CODEC, CHANNEL_CODEC_QUALITY, CHANNEL_MAXCLIENTS, CHANNEL_MAXFAMILYCLIENTS, CHANNEL_ORDER, CHANNEL_FLAG_PERMANENT, CHANNEL_FLAG_SEMI_PERMANENT, CHANNEL_FLAG_TEMPORARY, CHANNEL_FLAG_DEFAULT, CHANNEL_FLAG_MAXCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_INHERITED, CHANNEL_NEEDED_TALK_POWER, CHANNEL_NAME_PHONETIC, CHANNEL_ICON_ID, CHANNEL_CODEC_IS_UNENCRYPTED, CPID
+  * <b>Possible properties:</b> CHANNEL_NAME, CHANNEL_TOPIC, CHANNEL_DESCRIPTION, CHANNEL_PASSWORD, CHANNEL_CODEC, CHANNEL_CODEC_QUALITY, CHANNEL_MAXCLIENTS, CHANNEL_MAXFAMILYCLIENTS, CHANNEL_ORDER, CHANNEL_FLAG_PERMANENT, CHANNEL_FLAG_SEMI_PERMANENT, CHANNEL_FLAG_TEMPORARY, CHANNEL_FLAG_DEFAULT, CHANNEL_FLAG_MAXCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_UNLIMITED, CHANNEL_FLAG_MAXFAMILYCLIENTS_INHERITED, CHANNEL_NEEDED_TALK_POWER, CHANNEL_NAME_PHONETIC, CHANNEL_ICON_ID, CHANNEL_CODEC_IS_UNENCRYPTED, CPID
   *
   * @author     Stefan Zehnpfennig
   * @param		array $data properties
@@ -532,7 +532,7 @@ class ts3admin {
 		$propertiesString = '';
 		
 		foreach($data as $key => $value) {
-			$propertiesString .= ' '.$key.'='.$this->escapeText($value);
+			$propertiesString .= ' '.strtolower($key).'='.$this->escapeText($value);
 		}
 		
 		return $this->getData('array', 'channelcreate '.$propertiesString);
@@ -612,7 +612,7 @@ class ts3admin {
 		$settingsString = '';
 		
 		foreach($data as $key => $value) {
-			$settingsString .= ' '.$key.'='.$this->escapeText($value);
+			$settingsString .= ' '.strtolower($key).'='.$this->escapeText($value);
 		}
 
 		return $this->getData('boolean', 'channeledit cid='.$cid.$settingsString);
@@ -1343,7 +1343,7 @@ class ts3admin {
 		$settingsString = '';
 		
 		foreach($data as $key => $value) {
-			$settingsString .= ' '.$key.'='.$this->escapeText($value);
+			$settingsString .= ' '.strtolower($key).'='.$this->escapeText($value);
 		}
 		
 		return $this->getData('boolean', 'clientdbedit cldbid='.$cldbid.$settingsString);
@@ -1502,7 +1502,7 @@ class ts3admin {
 		$settingsString = '';
 		
 		foreach($data as $key => $value) {
-			$settingsString .= ' '.$key.'='.$this->escapeText($value);
+			$settingsString .= ' '.strtolower($key).'='.$this->escapeText($value);
 		}
 		
 		return $this->getData('boolean', 'clientedit clid='.$clid.$settingsString);
@@ -1894,7 +1894,7 @@ class ts3admin {
 		$settingsString = '';
 		
 		foreach($data as $key => $value) {
-			$settingsString .= ' '.$key.'='.$this->escapeText($value);
+			$settingsString .= ' '.strtolower($key).'='.$this->escapeText($value);
 		}
 		
 		return $this->getData('boolean', 'clientupdate '.$settingsString);
@@ -2432,7 +2432,7 @@ class ts3admin {
 			$settingsString = '';
 			
 			foreach($data as $key => $val) {
-				$settingsString .= ' '.$key.'='.$this->escapeText($val);
+				$settingsString .= ' '.strtolower($key).'='.$this->escapeText($val);
 			}
 			return $this->getData('boolean', 'instanceedit '.$settingsString);
 		}else{
@@ -3114,7 +3114,7 @@ class ts3admin {
 		
 		
 		foreach($data as $key => $value) {
-			if(!empty($value)) { $settingsString .= ' '.$key.'='.$this->escapeText($value); }
+			if(!empty($value)) { $settingsString .= ' '.strtolower($key).'='.$this->escapeText($value); }
 		}
 		
 		return $this->getData('array', 'servercreate'.$settingsString);
@@ -3159,7 +3159,7 @@ class ts3admin {
 		$settingsString = '';
 		
 		foreach($data as $key => $value) {
-			$settingsString .= ' '.$key.'='.$this->escapeText($value);
+			$settingsString .= ' '.strtolower($key).'='.$this->escapeText($value);
 		}
 		
 		return $this->getData('boolean', 'serveredit'.$settingsString);

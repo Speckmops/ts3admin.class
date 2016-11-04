@@ -1,6 +1,12 @@
 Tested compatibility to version: 3.0.13.4 x64
 __________________________________________
 
+Version: 1.0.1.8 - Fri, 04 Nov 2016
+
+~ Changed misspelled property CHANNEL_CODEC (Thanks to Micky5991)
+~ Force lowercase property-names for all create and edit functions (Thanks to Micky5991)
+
+
 Version: 1.0.1.7 - Wed, 02 Nov 2016
 
 + Added constants for opus codec (thanks to Nik99)
