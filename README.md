@@ -21,19 +21,30 @@ composer require par0noid/ts3admin
 ```
 <?php
 
-#Include ts3admin composer library
+//Include ts3admin composer library
 require_once __DIR__ . '/vendor/autoload.php';
 use par0noid\ts3admin\ts3admin;
 
-#build a new ts3admin object
-$tsAdmin = new ts3admin('hostname', <queryport>);
+//build a new ts3admin object
+$tsAdmin = new ts3admin('tsserver.cc', 10011);
 
-#login as serveradmin
-$tsAdmin->login('username', 'password');
+if($tsAdmin->getElement('success', $tsAdmin->connect())) {
+    //login as serveradmin
+    $tsAdmin->login('serveradmin', 'R+oAOt9D');
 
-#select teamspeakserver
-$tsAdmin->selectServer(<ts3_server_port>);
+    //select teamspeakserver
+    $tsAdmin->selectServer(9987);
 
-#get clientlist
-$clients = $tsAdmin->clientList();
+    //get clientlist
+    $clients = $tsAdmin->clientList();
+
+    echo count($clients['data']) . ' clients on selected server<br><br>';
+
+    //print clients to browser
+    foreach($clients['data'] as $client) {
+        echo $client['client_nickname'] . '<br>';
+    }
+} else {
+    echo 'Connection could not be established.';
+}
 ```
