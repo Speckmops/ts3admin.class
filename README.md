@@ -26,11 +26,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 use par0noid\ts3admin\ts3admin;
 
 //build a new ts3admin object
-$tsAdmin = new ts3admin('tsserver.cc', 10011);
+$tsAdmin = new ts3admin('localhost', 10011);
 
 if($tsAdmin->getElement('success', $tsAdmin->connect())) {
     //login as serveradmin
-    $tsAdmin->login('serveradmin', 'R+oAOt9D');
+    $tsAdmin->login('serveradmin', 'password');
 
     //select teamspeakserver
     $tsAdmin->selectServer(9987);
