@@ -91,8 +91,9 @@ function array2table($array) {
 	return $html;
 }
 
-#Include ts3admin.class.php
-require("../lib/ts3admin.class.php");
+#Include ts3admin composer library
+require_once __DIR__ . '/../vendor/autoload.php';
+use par0noid\ts3admin\ts3admin;
 
 #build a new ts3admin object
 $tsAdmin = new ts3admin($ts3_ip, $ts3_queryport);

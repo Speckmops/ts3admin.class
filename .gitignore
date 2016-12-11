@@ -1,3 +1,10 @@
+composer.phar
+composer.lock
+/vendor/
+.idea
+*.iml
+out
+gen
 index.php
 Butterfly-128.png
 internal/ts3config
