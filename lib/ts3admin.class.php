@@ -3,10 +3,10 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 04. November 2016
- *   version              : 1.0.1.8
+ *   last modified        : 31. January 2017
+ *   version              : 1.0.1.9
  *   website              : http://ts3admin.info
- *   copyright            : (C) 2016 Stefan Zehnpfennig
+ *   copyright            : (C) 2017 Stefan Zehnpfennig
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,8 +26,8 @@
  * The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!
  * 
  * @author      Stefan Zehnpfennig
- * @copyright   Copyright (c) 2016, Stefan Zehnpfennig
- * @version     1.0.1.8
+ * @copyright   Copyright (c) 2017, Stefan Zehnpfennig
+ * @version     1.0.1.9
  * @package		ts3admin
  *
  */
@@ -641,58 +641,6 @@ class ts3admin {
 		return $this->getData('multi', 'channelfind pattern='.$this->escapeText($pattern));
 	}
 
-
-/**
- * channelGetIconByID
- *
- * Will return the base64 encoded binary of the channelIcon
- * 
- * <pre>
- * $result = $tsAdmin->channelGetIconByID($iconId);
- * You can display it like: echo '<img src="data:image/png;base64,'.$result["data"].'" />';
- * </pre>
- *
- * @author  Stefan Zehnpfennig
- * @param  string  $iconID  channelIconID
- * @return array  base64 image
- */
-	function channelGetIconByID($iconID) {
-	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
-
-	  if(empty($iconID))
-	  {
-		return $this->generateOutput(false, array('Error: empty iconID'), false);
-	  }
-	  
-	  if($iconID < 0)
-	  {
-		  $iconID = sprintf('%u', $iconID & 0xffffffff);
-	  }
-
-	  $check = $this->ftgetfileinfo(0, '', '/icon_'.$iconID);
-
-	  if(!$check["success"])
-	  {
-		return $this->generateOutput(false, array('Error: icon does not exist'), false);
-	  }
-
-	  $init = $this->ftInitDownload('/icon_'.$iconID, 0, '');
-
-	  if(!$init["success"])
-	  {
-		return $this->generateOutput(false, array('Error: init failed'), false);
-	  }
-
-	  $download = $this->ftDownloadFile($init);
-
-	  if(is_array($download))
-	  {
-		return $download;
-	  }else{
-		return $this->generateOutput(true, false, base64_encode($download));
-	  }
-	}
-
 /**
  * channelGetIconByChannelID
  *
@@ -722,42 +670,7 @@ class ts3admin {
 		return $this->generateOutput(false, $channel["error"], false);
 	  }
 	  
-	  $icon_id = $channel["data"]["channel_icon_id"];
-	  
-	  if($icon_id != 100 AND $icon_id != 200 AND $icon_id != 300 AND $icon_id != 500 AND $icon_id != 600 AND $icon_id != 0)
-	  {
-		  if($icon_id < 0)
-		  {
-			  $icon_id = sprintf('%u', $icon_id & 0xffffffff);
-		  }
-	  }
-	  else
-	  {
-		  return $this->generateOutput(false, "invalid channel icon", false);
-	  }
-
-	  $check = $this->ftgetfileinfo(0, '', '/icon_'.$icon_id);
-
-	  if(!$check["success"])
-	  {
-		return $this->generateOutput(false, array('Error: icon does not exist'), false);
-	  }
-
-	  $init = $this->ftInitDownload('/icon_'.$icon_id, 0, '');
-
-	  if(!$init["success"])
-	  {
-		return $this->generateOutput(false, array('Error: init failed'), false);
-	  }
-
-	  $download = $this->ftDownloadFile($init);
-
-	  if(is_array($download))
-	  {
-		return $download;
-	  }else{
-		return $this->generateOutput(true, false, base64_encode($download));
-	  }
+	  return $this->getIconByID($channel["data"]["channel_icon_id"]);
 	}
 
 /**
@@ -961,6 +874,61 @@ class ts3admin {
 		}
 	}
 
+/**
+ * channelGroupGetIconByCGID
+ *
+ * Will return the base64 encoded binary of the channelGroupIcon
+ * 
+ * <pre>
+ * $result = $tsAdmin->channelGroupGetIconByCGID($channelGroupID);
+ * You can display it like: echo '<img src="data:image/png;base64,'.$result["data"].'" />';
+ * </pre>
+ *
+ * @author  Stefan Zehnpfennig
+ * @param  string  $channelGroupID  channelGroupID
+ * @return array  base64 image
+ */
+	function channelGroupGetIconByCGID($channelGroupID) {
+	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
+
+	  if(empty($channelGroupID))
+	  {
+		return $this->generateOutput(false, array('Error: empty channelGroupID'), false);
+	  }
+	  
+	  $channelGroupList = $this->channelGroupList();
+	  
+	  if(!$channelGroupList["success"])
+	  {
+		return $this->generateOutput(false, $channelGroupList["error"], false);
+	  }
+	  
+	  $cgid = -1;
+	  $iconID = 0;
+	  
+	  foreach($channelGroupList['data'] as $group)
+	  {
+		  if($group['cgid'] == $channelGroupID)
+		  {
+			  $cgid = $group['cgid'];
+			  $iconID = $group['iconid'];
+			  break;
+		  }
+	  }
+	  
+	  if($cgid == -1)
+	  {
+		return $this->generateOutput(false, array('Error: invalid channelGroupID'), false);
+	  }
+	  
+	  if($iconID == '0')
+	  {
+		return $this->generateOutput(false, array('Error: channelGroup has no icon'), false);
+	  }
+	  
+	  return $this->getIconByID($iconID);
+	}
+	
 /**
   * channelGroupList
   * 
@@ -2153,6 +2121,16 @@ class ts3admin {
   * 
   * Displays detailed information about one or more specified files stored in a channels file repository.
   * 
+  * <b>Output:</b>
+  * <pre>
+  * Array
+  * {
+  *  [cid] => 0
+  *  [name] => /icon_1947482249
+  *  [size] => 744
+  *  [datetime] => 1286633633
+  * }
+  * </pre>
   *
   * @author     Stefan Zehnpfennig
   * @param		string	$cid	channelID
@@ -2222,7 +2200,7 @@ class ts3admin {
   */	
 	function ftInitDownload($name, $cid, $cpw = '', $seekpos = 0, $proto = null) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
-		return $this->getData('array', 'ftinitdownload clientftfid='.rand(1,99).' name='.$this->escapeText($name).' cid='.$cid.' cpw='.$this->escapeText($cpw).' seekpos='.$seekpos.($proto !== null ? ' proto='.$proto: ''));
+		return $this->getData('array', 'ftinitdownload clientftfid='.rand(1,65535).' name='.$this->escapeText($name).' cid='.$cid.' cpw='.$this->escapeText($cpw).' seekpos='.$seekpos.($proto !== null ? ' proto='.$proto: ''));
 	}
 
 /**
@@ -2258,7 +2236,7 @@ class ts3admin {
 		if($overwrite) { $overwrite = ' overwrite=1'; }else{ $overwrite = ' overwrite=0'; }
 		if($resume) { $resume = ' resume=1'; }else{ $resume = ' resume=0'; }
 		
-		return $this->getData('array', 'ftinitupload clientftfid='.rand(1,99).' name='.$this->escapeText($filename).' cid='.$cid.' cpw='.$this->escapeText($cpw).' size='.($size + 1).$overwrite.$resume.($proto !== null ? ' proto='.$proto: ''));
+		return $this->getData('array', 'ftinitupload clientftfid='.rand(1,65535).' name='.$this->escapeText($filename).' cid='.$cid.' cpw='.$this->escapeText($cpw).' size='.($size + 1).$overwrite.$resume.($proto !== null ? ' proto='.$proto: ''));
 	}
 	
 /**
@@ -2343,7 +2321,7 @@ class ts3admin {
 	function ftUploadFile($data, $uploadData) {
   		$this->runtime['fileSocket'] = @fsockopen($this->runtime['host'], $data['data']['port'], $errnum, $errstr, $this->runtime['timeout']);
   		if($this->runtime['fileSocket']) {
-  			$this->ftSendKey($data['data']['ftkey'], "\n");
+  			$this->ftSendKey($data['data']['ftkey']);
   			$this->ftSendData($uploadData);
   			@fclose($this->runtime['fileSocket']);
   			$this->runtime['fileSocket'] = '';
@@ -2354,6 +2332,62 @@ class ts3admin {
   		}
 	}
 
+/**
+ * getIconByID
+ *
+ * Will return the base64 encoded binary of the icon
+ * 
+ * <pre>
+ * $result = $tsAdmin->getIconByID($iconId);
+ * You can display it like: echo '<img src="data:image/png;base64,'.$result["data"].'" />';
+ * </pre>
+ *
+ * @author  Stefan Zehnpfennig
+ * @param   string  $iconID  IconID
+ * @return  array  base64 image
+ */
+	function getIconByID($iconID) {
+	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
+
+	  if(empty($iconID) or $iconID == 0)
+	  {
+		return $this->generateOutput(false, array('Error: empty iconID'), false);
+	  }
+	  
+	  if($iconID == 100 OR $iconID == 200 OR $iconID == 300 OR $iconID == 500 OR $iconID == 600)
+	  {
+		return $this->generateOutput(false, array('Error: you can\'t download teamspeak default icons'), false);
+	  }
+	  
+	  if($iconID < 0)
+	  {
+		  $iconID = sprintf('%u', $iconID & 0xffffffff);
+	  }
+
+	  $check = $this->ftgetfileinfo(0, '', '/icon_'.$iconID);
+
+	  if(!$check["success"])
+	  {
+		return $this->generateOutput(false, array('Error: icon does not exist'), false);
+	  }
+
+	  $init = $this->ftInitDownload('/icon_'.$iconID, 0, '');
+
+	  if(!$init["success"])
+	  {
+		return $this->generateOutput(false, array('Error: init failed'), false);
+	  }
+
+	  $download = $this->ftDownloadFile($init);
+
+	  if(is_array($download))
+	  {
+		return $download;
+	  }else{
+		return $this->generateOutput(true, false, base64_encode($download));
+	  }
+	}
+	
 /**
   * gm
   * 
@@ -2633,6 +2667,75 @@ class ts3admin {
         return $this->getData('boolean', 'messageupdateflag msgid='.$messageID.' flag='.$flag); 
 	}
 
+/**
+ * uploadIcon
+ *
+ * Uploads an icon to the server
+ * 
+ * <b>Output:</b>
+ * <pre>
+ * Array
+ * {
+ *  [cid] => 0
+ *  [name] => /icon_1947482249
+ *  [size] => 744
+ *  [datetime] => 1286633633
+ * }
+ * </pre>
+ *
+ * @author  Stefan Zehnpfennig
+ * @param   string  $filepath	Path to your file
+ * @param   string  $iconID  	[optional] Desired IconID (Must be higher than 1.000.000.000, and lower than 2.147.483.647)
+ * @return  array	ftGetFileInfo
+ */
+	function uploadIcon($filepath, $iconID = -1) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		
+		if($iconID == -1)
+		{
+			$iconID = mt_rand(1000000000, 2147483647);
+		}
+		
+		if($iconID <= 1000000000 and $iconID <= 2147483647)
+		{
+			return $this->generateOutput(false, array('Error: Must be higher than 1.000.000.000, and lower than 2.147.483.647'), false);
+		}
+		
+		if(!file_exists($filepath))
+		{
+			return $this->generateOutput(false, array('Error: file does not exist'), false);
+		}
+		
+		$data = null;
+		
+		try {
+			$data = file_get_contents($filepath);
+		} catch (Exception $e) {
+			return $this->generateOutput(false, array('Error: can\'t read file - '.$e->getMessage()), false);
+		}
+		
+		$size = filesize($filepath);
+		
+		$init = $this->ftInitUpload('/icon_'.$iconID, 0, $size, '', true);
+		
+		if(!$this->succeeded($init))
+		{
+			return $this->generateOutput(false, $init['error'], false);
+		}		
+
+		$result = $this->ftUploadFile($init, $data);
+		
+		if($this->succeeded($result))
+		{
+			return $this->ftGetFileInfo(0, '', '/icon_'.$iconID);
+			//return $this->generateOutput(true, null, array('iconid' => $iconID, 'size' => $size));
+		}
+		else
+		{
+			return $result;
+		}
+	}
+	
 /**
   * permFind
   * 
@@ -3483,7 +3586,62 @@ class ts3admin {
 			return $this->generateOutput(false, array('Error: no permissions given'), false);
 		}
 	}
+	
+/**
+ * serverGroupGetIconBySGID
+ *
+ * Will return the base64 encoded binary of the serverGroupIcon
+ * 
+ * <pre>
+ * $result = $tsAdmin->serverGroupGetIconBySGID($serverGroupID);
+ * You can display it like: echo '<img src="data:image/png;base64,'.$result["data"].'" />';
+ * </pre>
+ *
+ * @author  Stefan Zehnpfennig
+ * @param  string  $serverGroupID  serverGroupID
+ * @return array  base64 image
+ */
+	function serverGroupGetIconBySGID($serverGroupID) {
+	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
 
+	  if(empty($serverGroupID))
+	  {
+		return $this->generateOutput(false, array('Error: empty serverGroupID'), false);
+	  }
+	  
+	  $serverGroupList = $this->serverGroupList();
+	  
+	  if(!$serverGroupList["success"])
+	  {
+		return $this->generateOutput(false, $serverGroupList["error"], false);
+	  }
+	  
+	  $sgid = -1;
+	  $iconID = 0;
+	  
+	  foreach($serverGroupList['data'] as $group)
+	  {
+		  if($group['sgid'] == $serverGroupID)
+		  {
+			  $sgid = $group['sgid'];
+			  $iconID = $group['iconid'];
+			  break;
+		  }
+	  }
+	  
+	  if($sgid == -1)
+	  {
+		return $this->generateOutput(false, array('Error: invalid serverGroupID'), false);
+	  }
+	  
+	  if($iconID == '0')
+	  {
+		return $this->generateOutput(false, array('Error: serverGroup has no icon'), false);
+	  }
+	  
+	  return $this->getIconByID($iconID);
+	}
+	
 /**
   * serverGroupList
   * 

@@ -1,5 +1,15 @@
-Tested compatibility to version: 3.0.13.4 x64
+Tested compatibility to version: 3.0.13.6 x64
 __________________________________________
+
+Version: 1.0.1.9 - Tue, 31 Jan 2017
+
++ added getIconByID function
++ added channelGroupGetIconByCGID function
++ added serverGroupGetIconBySGID function
++ added uploadIcon function
+~ ftUploadFile seems to need no newline after sending fileTransferKey anymore, so I removed it
+~ changed description of ftGetFileInfo
+- removed channelGetIconByID function, replacement is getIconByID
 
 Version: 1.0.1.8 - Fri, 04 Nov 2016
 

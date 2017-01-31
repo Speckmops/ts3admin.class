@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['version',['version',['../classts3admin.html#a6080dae0886626b9a4cedb29240708b1',1,'ts3admin']]]
+  ['uploadicon',['uploadIcon',['../classts3admin.html#a91c8f6b4016941d7e227a124b9047823',1,'ts3admin']]]
 ];
