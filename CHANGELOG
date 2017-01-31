@@ -11,6 +11,7 @@ Version: 1.0.1.9 - Tue, 31 Jan 2017
 ~ changed description of ftGetFileInfo
 - removed channelGetIconByID function, replacement is getIconByID
 
+
 Version: 1.0.1.8 - Fri, 04 Nov 2016
 
 ~ Changed misspelled property CHANNEL_CODEC (Thanks to Micky5991)
