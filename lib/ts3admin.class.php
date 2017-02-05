@@ -3,8 +3,8 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 31. January 2017
- *   version              : 1.0.1.9
+ *   last modified        : 05. February 2017
+ *   version              : 1.0.2.0
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2017 Stefan Zehnpfennig
  *  
@@ -27,8 +27,8 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2017, Stefan Zehnpfennig
- * @version     1.0.1.9
- * @package		ts3admin
+ * @version     1.0.2.0
+ * @package     ts3admin
  *
  */
 
@@ -704,6 +704,21 @@ class ts3admin {
 	}
 
 /**
+  *	channelGroupAddClient
+  *
+  * Sets the channel group of a client to the ID specified with cgid.
+  *
+  * @author     Stefan Zehnpfennig
+  * @param		  integer $cgid	groupID
+  * @param		  integer $cid	channelID
+  * @param		  integer $cldbid	clientDBID
+  * @return     boolean success
+  */
+	function channelGroupAddClient($cgid, $cid, $cldbid) {
+    return $this->setclientchannelgroup($cgid, $cid, $cldbid);
+	}
+
+/**
   * channelGroupAddPerm
   * 
   * Adds a set of specified permissions to a channel group. Multiple permissions can be added by providing the two parameters of each permission. A permission can be specified by permid or permsid.
@@ -1050,6 +1065,91 @@ class ts3admin {
 	function channelInfo($cid) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'channelinfo cid='.$cid);
+	}
+
+/**
+  * channelClientList
+  * 
+  * Displays a list of clients online on a virtual server in a specific channel including their ID, nickname, status flags, etc. The output can be modified using several command options. Please note that the output will only contain clients which are currently in channels you're able to subscribe to.
+  *
+  * <b>Possible params:</b> [-uid] [-away] [-voice] [-times] [-groups] [-info] [-icon] [-country] [-ip] [-badges]
+  *
+  * <b>Output:</b>
+  * <pre>
+  * Array
+  * {
+  *  [clid] => 1
+  *  [cid] => 3
+  *  [client_database_id] => 2
+  *  [client_nickname] => Par0noid
+  *  [client_type] => 0
+  *  [-uid] => [client_unique_identifier] => nUixbsq/XakrrmbqU8O30R/D8Gc=
+  *  [-away] => [client_away] => 0
+  *  [-away] => [client_away_message] => 
+  *  [-voice] => [client_flag_talking] => 0
+  *  [-voice] => [client_input_muted] => 0
+  *  [-voice] => [client_output_muted] => 0
+  *  [-voice] => [client_input_hardware] => 0
+  *  [-voice] => [client_output_hardware] => 0
+  *  [-voice] => [client_talk_power] => 0
+  *  [-voice] => [client_is_talker] => 0
+  *  [-voice] => [client_is_priority_speaker] => 0
+  *  [-voice] => [client_is_recording] => 0
+  *  [-voice] => [client_is_channel_commander] => 0
+  *  [-times] => [client_idle_time] => 1714
+  *  [-times] => [client_created] => 1361027850
+  *  [-times] => [client_lastconnected] => 1361042955
+  *  [-groups] => [client_servergroups] => 6,7
+  *  [-groups] => [client_channel_group_id] => 8
+  *  [-groups] => [client_channel_group_inherited_channel_id] => 1
+  *  [-info] => [client_version] => 3.0.9.2 [Build: 1351504843]
+  *  [-info] => [client_platform] => Windows
+  *  [-icon] => [client_icon_id] => 0
+  *  [-country] => [client_country] => 
+  *  [-ip] => [connection_client_ip] => 127.0.0.1
+  *  [-badges] => [client_badges] => Overwolf=0
+  * }
+  * 
+  * <b>Usage:</b>
+  * 
+  * $ts3->channelClientList(3); //No parameters
+  * $ts3->channelClientList(3, "-uid"); //Single parameter
+  * $ts3->channelClientList(3, "-uid -away -voice -times -groups -info -country -icon -ip -badges"); //Multiple parameters
+  * </pre>
+  *
+  * @author     Stefan Zehnpfennig
+  * @param		  string	$cid	channelID
+  * @param		  string	$params	additional parameters [optional]
+  * @return     array clientList 
+  */
+	function channelClientList($cid, $params = null) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		
+		if(!empty($params)) { $params = ' '.$params; }
+		
+		$result = $this->getData('multi', 'clientlist'.$params);
+
+    if($result['success'])
+    {
+      $clients = array();
+
+      if(count($result['data']) > 0)
+      {
+        foreach($result['data'] as $client)
+        {
+          if($client['cid'] == $cid)
+          {
+            $clients[] = $client;
+          }
+        }
+      }
+
+      return $this->generateOutput(true, null, $clients);
+    }
+    else
+    {
+      return $result;
+    }
 	}
 
 /**
@@ -1708,7 +1808,7 @@ class ts3admin {
   *
   * <b>Possible params:</b> [-uid] [-away] [-voice] [-times] [-groups] [-info] [-icon] [-country] [-ip] [-badges]
   *
-  * <b>Output: (without parameters)</b>
+  * <b>Output:</b>
   * <pre>
   * Array
   * {

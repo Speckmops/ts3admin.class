@@ -1,6 +1,12 @@
 Tested compatibility to version: 3.0.13.6 x64
 __________________________________________
 
+Version: 1.0.2.0 - Sun, 05 Feb 2017
+
++ added channelClientList function
++ added channelGroupAddClient as alias for setClientChannelGroup function
+
+
 Version: 1.0.1.9 - Tue, 31 Jan 2017
 
 + added getIconByID function
