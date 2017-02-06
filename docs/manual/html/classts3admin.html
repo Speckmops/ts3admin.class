@@ -25,7 +25,7 @@
   <td id="projectlogo"><img alt="Logo" src="Butterfly-128.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ts3admin.class
-   &#160;<span id="projectnumber">1.0.1.9</span>
+   &#160;<span id="projectnumber">1.0.2.0</span>
    </div>
    <div id="projectbrief">The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!</div>
   </td>
@@ -125,6 +125,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aaa5231d22d015e1ac129bc8fc923d116"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ba48936f2c65701ac60c003a7ccc0b4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a2ba48936f2c65701ac60c003a7ccc0b4">channelClientDelPerm</a> ($cid, $cldbid, $permissions)</td></tr>
 <tr class="separator:a2ba48936f2c65701ac60c003a7ccc0b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2765ae27aad623b477f86ef0c879b03c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a2765ae27aad623b477f86ef0c879b03c">channelClientList</a> ($cid, $params=null)</td></tr>
+<tr class="separator:a2765ae27aad623b477f86ef0c879b03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a880a96aeb2c40280c4e90e5dec6c4c0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a880a96aeb2c40280c4e90e5dec6c4c0c">channelClientPermList</a> ($cid, $cldbid, $permsid=false)</td></tr>
 <tr class="separator:a880a96aeb2c40280c4e90e5dec6c4c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb31867ca4791f553147c18dc7cca6cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#abb31867ca4791f553147c18dc7cca6cc">channelCreate</a> ($data)</td></tr>
@@ -141,6 +143,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2909cbbac27264d9b613f54674a1a3bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9edb792608cae8dc39b66ccf7eeefc86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a9edb792608cae8dc39b66ccf7eeefc86">channelGroupAdd</a> ($name, $type=1)</td></tr>
 <tr class="separator:a9edb792608cae8dc39b66ccf7eeefc86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabb726aae7aaf00c2a1296af1f21f545"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#aabb726aae7aaf00c2a1296af1f21f545">channelGroupAddClient</a> ($cgid, $cid, $cldbid)</td></tr>
+<tr class="separator:aabb726aae7aaf00c2a1296af1f21f545"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80117e242e7d86207026be656c470c03"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a80117e242e7d86207026be656c470c03">channelGroupAddPerm</a> ($cgid, $permissions)</td></tr>
 <tr class="separator:a80117e242e7d86207026be656c470c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c07ea44465eee478d4c1a007fe23db9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a4c07ea44465eee478d4c1a007fe23db9">channelGroupClientList</a> ($cid=NULL, $cldbid=NULL, $cgid=NULL)</td></tr>
@@ -1055,6 +1059,80 @@ $permissions = array('permissionID', 'permissionName', 'permissionID');
 
 </div>
 </div>
+<a class="anchor" id="a2765ae27aad623b477f86ef0c879b03c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">channelClientList </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$cid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$params</em> = <code>null</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>channelClientList</p>
+<p>Displays a list of clients online on a virtual server in a specific channel including their ID, nickname, status flags, etc. The output can be modified using several command options. Please note that the output will only contain clients which are currently in channels you're able to subscribe to.</p>
+<p><b>Possible params:</b> [-uid] [-away] [-voice] [-times] [-groups] [-info] [-icon] [-country] [-ip] [-badges]</p>
+<p><b>Output:</b> </p><pre>
+Array
+{
+ [clid] =&gt; 1
+ [cid] =&gt; 3
+ [client_database_id] =&gt; 2
+ [client_nickname] =&gt; Par0noid
+ [client_type] =&gt; 0
+ [-uid] =&gt; [client_unique_identifier] =&gt; nUixbsq/XakrrmbqU8O30R/D8Gc=
+ [-away] =&gt; [client_away] =&gt; 0
+ [-away] =&gt; [client_away_message] =&gt; 
+ [-voice] =&gt; [client_flag_talking] =&gt; 0
+ [-voice] =&gt; [client_input_muted] =&gt; 0
+ [-voice] =&gt; [client_output_muted] =&gt; 0
+ [-voice] =&gt; [client_input_hardware] =&gt; 0
+ [-voice] =&gt; [client_output_hardware] =&gt; 0
+ [-voice] =&gt; [client_talk_power] =&gt; 0
+ [-voice] =&gt; [client_is_talker] =&gt; 0
+ [-voice] =&gt; [client_is_priority_speaker] =&gt; 0
+ [-voice] =&gt; [client_is_recording] =&gt; 0
+ [-voice] =&gt; [client_is_channel_commander] =&gt; 0
+ [-times] =&gt; [client_idle_time] =&gt; 1714
+ [-times] =&gt; [client_created] =&gt; 1361027850
+ [-times] =&gt; [client_lastconnected] =&gt; 1361042955
+ [-groups] =&gt; [client_servergroups] =&gt; 6,7
+ [-groups] =&gt; [client_channel_group_id] =&gt; 8
+ [-groups] =&gt; [client_channel_group_inherited_channel_id] =&gt; 1
+ [-info] =&gt; [client_version] =&gt; 3.0.9.2 [Build: 1351504843]
+ [-info] =&gt; [client_platform] =&gt; Windows
+ [-icon] =&gt; [client_icon_id] =&gt; 0
+ [-country] =&gt; [client_country] =&gt; 
+ [-ip] =&gt; [connection_client_ip] =&gt; 127.0.0.1
+ [-badges] =&gt; [client_badges] =&gt; Overwolf=0
+}</pre><pre><b>Usage:</b></pre><pre>$ts3-&gt;channelClientList(3); //No parameters
+$ts3-&gt;channelClientList(3, "-uid"); //Single parameter
+$ts3-&gt;channelClientList(3, "-uid -away -voice -times -groups -info -country -icon -ip -badges"); //Multiple parameters
+</pre><dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$cid</td><td>channelID </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$params</td><td>additional parameters [optional] </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array clientList </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a880a96aeb2c40280c4e90e5dec6c4c0c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1372,6 +1450,50 @@ Array
   <table class="params">
     <tr><td class="paramtype">integer</td><td class="paramname">$name</td><td>groupName </td></tr>
     <tr><td class="paramtype">integer</td><td class="paramname">$type</td><td>groupDbType [optional] (default: 1) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aabb726aae7aaf00c2a1296af1f21f545"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">channelGroupAddClient </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$cgid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$cid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$cldbid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>channelGroupAddClient</p>
+<p>Sets the channel group of a client to the ID specified with cgid.</p>
+<dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer</td><td class="paramname">$cgid</td><td>groupID </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$cid</td><td>channelID </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$cldbid</td><td>clientDBID </td></tr>
   </table>
   </dd>
 </dl>
@@ -2642,7 +2764,7 @@ Array
 <p>clientList</p>
 <p>Displays a list of clients online on a virtual server including their ID, nickname, status flags, etc. The output can be modified using several command options. Please note that the output will only contain clients which are currently in channels you're able to subscribe to.</p>
 <p><b>Possible params:</b> [-uid] [-away] [-voice] [-times] [-groups] [-info] [-icon] [-country] [-ip] [-badges]</p>
-<p><b>Output: (without parameters)</b> </p><pre>
+<p><b>Output:</b> </p><pre>
 Array
 {
  [clid] =&gt; 1
