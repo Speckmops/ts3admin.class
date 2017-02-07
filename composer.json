@@ -11,7 +11,7 @@
     "license": "GNU",
     "autoload": {
         "psr-4": {
-            "ts3admin": "bin"
+             "par0noid\\ts3admin\\": "lib"
         }
     },
     "authors": [

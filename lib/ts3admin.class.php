@@ -32,6 +32,8 @@
  *
  */
 
+namespace par0noid\ts3admin; 
+ 
 /** 
   * \class ts3admin
   * \brief The ts3admin.class
