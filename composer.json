@@ -8,7 +8,7 @@
     "require": {
         "php": ">=5.0.0"
     },
-    "license": "GNU",
+    "license": "GPL-3.0",
     "autoload": {
         "classmap": ["lib/"]
     },
