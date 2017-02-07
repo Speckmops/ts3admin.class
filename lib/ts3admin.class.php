@@ -3,8 +3,8 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 05. February 2017
- *   version              : 1.0.2.0
+ *   last modified        : 07. February 2017
+ *   version              : 1.0.2.1
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2017 Stefan Zehnpfennig
  *  
@@ -27,18 +27,17 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2017, Stefan Zehnpfennig
- * @version     1.0.2.0
+ * @version     1.0.2.1
  * @package     ts3admin
  *
  */
-
-namespace par0noid\ts3admin; 
  
 /** 
   * \class ts3admin
   * \brief The ts3admin.class
   */
 class ts3admin {
+
 //*******************************************************************************************	
 //****************************************** Vars *******************************************
 //*******************************************************************************************

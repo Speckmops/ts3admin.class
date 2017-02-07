@@ -1,6 +1,11 @@
 Tested compatibility to version: 3.0.13.6 x64
 __________________________________________
 
+Version: 1.0.2.1 - Tue, 07 Feb 2017
+
+~ fixed composer.json
+
+
 Version: 1.0.2.0 - Sun, 05 Feb 2017
 
 + added channelClientList function
