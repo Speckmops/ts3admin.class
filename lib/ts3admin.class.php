@@ -4698,15 +4698,15 @@ class ts3admin {
 			}
 		}
 		do {
-			$data .= @fgets($this->runtime['socket'], 4096);
-			
-			if(empty($data))
-			{
+			if(is_resource( $this->runtime['socket'] ) === false && @feof( $this->runtime['socket'] ) === false){
 				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
 				$this->addDebugLog('Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('Socket closed.'), false);
 			}
-			else if(strpos($data, 'error id=3329 msg=connection') !== false) {
+			
+			$data .= @fgets($this->runtime['socket'], 4096);
+			
+			if(strpos($data, 'error id=3329 msg=connection') !== false) {
 				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
 				$this->addDebugLog('You got banned from server. Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('You got banned from server. Connection closed.'), false);
