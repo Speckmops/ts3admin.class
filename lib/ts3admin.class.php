@@ -4698,15 +4698,15 @@ class ts3admin {
 			}
 		}
 		do {
-			$data .= @fgets($this->runtime['socket'], 4096);
-			
-			if(empty($data))
-			{
+			if(is_resource( $this->runtime['socket'] ) === false && @feof( $this->runtime['socket'] ) === false){
 				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
 				$this->addDebugLog('Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('Socket closed.'), false);
 			}
-			else if(strpos($data, 'error id=3329 msg=connection') !== false) {
+			
+			$data .= @fgets($this->runtime['socket'], 4096);
+			
+			if(strpos($data, 'error id=3329 msg=connection') !== false) {
 				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
 				$this->addDebugLog('You got banned from server. Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('You got banned from server. Connection closed.'), false);
@@ -4844,61 +4844,31 @@ class ts3admin {
 				return $this->generateOutput(true, array(), true);
 			}
 			
-			if($mode == 'array') {
-				if(empty($fetchData['data'])) { return $this->generateOutput(true, array(), array()); }
-				$datasets = explode(' ', $fetchData['data']);
-				
-				$output = array();
-				
-				foreach($datasets as $dataset) {
-					$dataset = explode('=', $dataset);
-					
-					if(count($dataset) > 2) {
-						for($i = 2; $i < count($dataset); $i++) {
-							$dataset[1] .= '='.$dataset[$i];
-						}
-						$output[$this->unEscapeText($dataset[0])] = $this->unEscapeText($dataset[1]);
-					}else{
-						if(count($dataset) == 1) {
-							$output[$this->unEscapeText($dataset[0])] = '';
-						}else{
-							$output[$this->unEscapeText($dataset[0])] = $this->unEscapeText($dataset[1]);
-						}
-						
-					}
-				}
-				return $this->generateOutput(true, array(), $output);
-			}
-			if($mode == 'multi') {
+			if($mode == 'array' || $mode == 'multi'){
 				if(empty($fetchData['data'])) { return $this->generateOutput(true, array(), array()); }
 				$datasets = explode('|', $fetchData['data']);
-				
+
 				$output = array();
-				
+
 				foreach($datasets as $datablock) {
 					$datablock = explode(' ', $datablock);
-					
+
 					$tmpArray = array();
-					
+
 					foreach($datablock as $dataset) {
-						$dataset = explode('=', $dataset);
-						if(count($dataset) > 2) {
-							for($i = 2; $i < count($dataset); $i++) {
-								$dataset[1] .= '='.$dataset[$i];
-							}
-							$tmpArray[$this->unEscapeText($dataset[0])] = $this->unEscapeText($dataset[1]);
-						}else{
-							if(count($dataset) == 1) {
-								$tmpArray[$this->unEscapeText($dataset[0])] = '';
-							}else{
-								$tmpArray[$this->unEscapeText($dataset[0])] = $this->unEscapeText($dataset[1]);
-							}
-						}					
+						$dataset = explode('=', $dataset, 2);
+						$tmpArray[ $this->unEscapeText($dataset[ 0 ]) ] = isset( $dataset[ 1 ] ) ? $this->unEscapeText( $dataset[ 1 ] ) : '';				
 					}
+					
+					if($mode == 'array'){
+						return $this->generateOutput(true, array(), $tmpArray);
+					}
+
 					$output[] = $tmpArray;
 				}
 				return $this->generateOutput(true, array(), $output);
 			}
+			
 			if($mode == 'plain') {
 				return $fetchData;
 			}
