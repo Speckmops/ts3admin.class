@@ -4857,7 +4857,7 @@ class ts3admin {
 
 					foreach($datablock as $dataset) {
 						$dataset = explode('=', $dataset, 2);
-						$tmpArray[ $dataset[ 0 ] ] = isset( $dataset[ 1 ] ) ? $this->unEscapeText( $dataset[ 1 ] ) : '';				
+						$tmpArray[ $this->unEscapeText($dataset[ 0 ]) ] = isset( $dataset[ 1 ] ) ? $this->unEscapeText( $dataset[ 1 ] ) : '';				
 					}
 					
 					if($mode == 'array'){
