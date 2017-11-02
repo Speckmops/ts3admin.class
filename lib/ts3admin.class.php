@@ -3,8 +3,8 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 07. February 2017
- *   version              : 1.0.2.1
+ *   last modified        : 02. November 2017
+ *   version              : 1.0.2.2
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2017 Stefan Zehnpfennig
  *  
@@ -27,7 +27,7 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2017, Stefan Zehnpfennig
- * @version     1.0.2.1
+ * @version     1.0.2.2
  * @package     ts3admin
  *
  */
@@ -1158,7 +1158,7 @@ class ts3admin {
   * 
   * Displays a list of channels created on a virtual server including their ID, order, name, etc. The output can be modified using several command options.
   *
-  * <b>Possible parameters:</b> [-topic] [-flags] [-voice] [-limits] [-icon] [-seconds_empty]
+  * <b>Possible parameters:</b> [-topic] [-flags] [-voice] [-limits] [-icon] [-secondsempty]
   *
   * <b>Output: (without parameters)</b>
   * <pre>
