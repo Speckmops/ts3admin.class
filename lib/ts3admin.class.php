@@ -4,7 +4,7 @@
  *                         ------------------                    
  *   created              : 18. December 2009
  *   last modified        : 02. November 2017
- *   version              : 1.0.2.2
+ *   version              : 1.0.2.3
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2017 Stefan Zehnpfennig
  *  
@@ -27,7 +27,7 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2017, Stefan Zehnpfennig
- * @version     1.0.2.2
+ * @version     1.0.2.3
  * @package     ts3admin
  *
  */
@@ -1558,7 +1558,7 @@ class ts3admin {
   * $data['property'] = 'value';
   * </pre>
   *
-  * <b>Possible properties:</b> CLIENT_NICKNAME, CLIENT_IS_TALKER, CLIENT_DESCRIPTION, CLIENT_IS_CHANNEL_COMMANDER, CLIENT_ICON_ID
+  * <b>Possible properties:</b> CLIENT_IS_TALKER, CLIENT_DESCRIPTION, CLIENT_IS_CHANNEL_COMMANDER, CLIENT_ICON_ID
   *
   * @author     Stefan Zehnpfennig
   * @param		integer	$clid 			clientID

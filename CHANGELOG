@@ -1,6 +1,11 @@
 Tested compatibility to version: 3.0.13.8 x64
 __________________________________________
 
+Version: 1.0.2.3 - Thu, 02 Nov 2017
+
+~ changed description of clientEdit (Thanks to Ibrahim for the hint)
+
+
 Version: 1.0.2.2 - Thu, 02 Nov 2017
 
 ~ parameter seconds_empty changed to secondsempty in channelList (thanks to Mateusz)
