@@ -3029,7 +3029,6 @@ class ts3admin {
                 $res = $this->getData('boolean', 'use port='.$value.$virtual); 
                 if($res['success']) { 
                    	$this->runtime['selected'] = true; 
-			$this->loadQueryData();
                 } 
                 return $res; 
             }else{ 
@@ -3037,7 +3036,6 @@ class ts3admin {
                 $res = $this->getData('boolean', 'use sid='.$value.$virtual); 
                 if($res['success']) { 
                     	$this->runtime['selected'] = true; 
-			$this->loadQueryData();
                 } 
                 return $res; 
             } 
@@ -4404,6 +4402,8 @@ class ts3admin {
   
 	public function getQueryClid()
 	{
+		if($this->runtime['bot_clid'] == '')
+			$this->loadQueryData();
 		return $this->runtime['bot_clid'];
 	}
 	
