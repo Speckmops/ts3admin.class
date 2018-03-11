@@ -593,12 +593,12 @@ class ts3admin {
   * Changes a channels configuration using given properties. Note that this command accepts multiple properties which means that you're able to change all settings of the channel specified with cid at once.
   *
   * <b>Input-Array like this:</b>
-	<pre>
-	$data = array();
-		
-	$data['setting'] = 'value';
-	$data['setting'] = 'value';
-	</pre>
+  *	<pre>
+  *	$data = array();
+  *
+  *	$data['setting'] = 'value';
+  *	$data['setting'] = 'value';
+  *	</pre>
   *
   * <b>Possible properties:</b> Take a look at channelCreate function
   *
