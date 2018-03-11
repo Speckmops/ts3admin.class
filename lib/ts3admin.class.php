@@ -3757,16 +3757,32 @@ class ts3admin {
   *  [type] => 2
   *  [iconid] => 0
   *  [savedb] => 0
+  *  [sortid] => 0
+  *  [namemode] => 0
+  *  [n_modifyp] => 100
+  *  [n_member_addp] => 0
+  *  [n_member_removep] => 0
   * }
   * </pre>
   *
   * @author     Stefan Zehnpfennig
+  * @param      integer $type groupDbType (0 = template, 1 = normal, 2 = query) By default get all groups
   * @return     array serverGroupList
   */
-	function serverGroupList() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
-		return $this->getData('multi', 'servergrouplist');
-	}
+    function serverGroupList($type = null) {
+        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        $groups = $this->getData('multi', 'servergrouplist');
+
+        if($type) {
+            foreach ($groups['data'] as $key => $value) {
+                if($value['type'] != $type) {
+                    unset($groups['data'][$key]);
+                }
+            }
+        }
+
+        return $groups;
+    }
 
 /**
   * serverGroupPermList
