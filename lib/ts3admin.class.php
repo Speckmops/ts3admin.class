@@ -3,10 +3,10 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 02. November 2017
- *   version              : 1.0.2.3
+ *   last modified        : 05. June 2018
+ *   version              : 1.0.2.4
  *   website              : http://ts3admin.info
- *   copyright            : (C) 2017 Stefan Zehnpfennig
+ *   copyright            : (C) 2018 Stefan Zehnpfennig
  *  
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -26,8 +26,8 @@
  * The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!
  * 
  * @author      Stefan Zehnpfennig
- * @copyright   Copyright (c) 2017, Stefan Zehnpfennig
- * @version     1.0.2.3
+ * @copyright   Copyright (c) 2018, Stefan Zehnpfennig
+ * @version     1.0.2.4
  * @package     ts3admin
  *
  */
@@ -593,12 +593,12 @@ class ts3admin {
   * Changes a channels configuration using given properties. Note that this command accepts multiple properties which means that you're able to change all settings of the channel specified with cid at once.
   *
   * <b>Input-Array like this:</b>
-	<pre>
-	$data = array();
-		
-	$data['setting'] = 'value';
-	$data['setting'] = 'value';
-	</pre>
+  *	<pre>
+  *	$data = array();
+  *		
+  *	$data['setting'] = 'value';
+  *	$data['setting'] = 'value';
+  *	</pre>
   *
   * <b>Possible properties:</b> Take a look at channelCreate function
   *
@@ -1462,7 +1462,6 @@ class ts3admin {
   *  [client_month_bytes_downloaded] => 0
   *  [client_total_bytes_uploaded] => 0
   *  [client_total_bytes_downloaded] => 0
-  *  [client_icon_id] => 0
   *  [client_base64HashClientUID] => jneilbgomklpfnkjclkoggokfdmdlhnbbpmdpagh
   *  [client_lastip] => 127.0.0.1
   * }
@@ -2041,6 +2040,22 @@ class ts3admin {
 		return $this->getData('multi', 'complainlist'.$tcldbid);
 	}
 	
+/**
+  * customDelete
+  * 
+  * Removes a custom property from a client specified by the cldbid.
+  *
+  *
+  * @author     Stefan Zehnpfennig
+  * @param    string  $cldbid   clientDBID
+  * @param    string  $ident    customIdent
+  * @return   boolean   success
+  */
+	function customDelete($cldbid, $ident) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		return $this->getData('boolean', 'customdelete cldbid='.$cldbid.' ident='.$this->escapeText($ident));
+	}
+
 
 /**
   * customInfo
@@ -2106,6 +2121,23 @@ class ts3admin {
 	function customSearch($ident, $pattern) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'customsearch ident='.$this->escapeText($ident).' pattern='.$this->escapeText($pattern));
+	}
+
+/**
+  * customSet
+  * 
+  * Creates or updates a custom property for client specified by the cldbid. Ident and value can be any value, and are the key value pair of the custom property.
+  *
+  *
+  * @author     Stefan Zehnpfennig
+  * @param    string  $cldbid   clientDBID
+  * @param    string  $ident    customIdent
+  * @param    string  $value    customValue
+  * @return   boolean   success
+  */
+	function customSet($cldbid, $ident, $value) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		return $this->getData('boolean', 'customset cldbid='.$cldbid.' ident='.$this->escapeText($ident).' value='.$this->escapeText($value));
 	}
 
 /**
@@ -4004,17 +4036,19 @@ class ts3admin {
 	function serverList($options = NULL) {
 		return $this->getData('multi', 'serverlist'.(!empty($options) ? ' '.$options : ''));
 	}
-
+	
+	
 /**
   * serverProcessStop
   * 
   * Stops the entire TeamSpeak 3 Server instance by shutting down the process.
   *
   * @author     Stefan Zehnpfennig
+  * @param		string  $reasonMessage	reasonMessage [optional]
   * @return     boolean success
   */
-	function serverProcessStop() {
-		return $this->getData('boolean', 'serverprocessstop');
+	function serverProcessStop($reasonMessage = null) {
+		return $this->getData('boolean', 'serverprocessstop'.($reasonMessage != null && !empty($reasonMessage) ? " reasonmsg=".$this->escapeText($reasonMessage) : ""));
 	}
 
 /**
@@ -4102,10 +4136,11 @@ class ts3admin {
   *
   * @author     Stefan Zehnpfennig
   * @param		integer $sid	serverID
+  * @param		string  $reasonMessage	reasonMessage [optional]
   * @return     boolean success
   */
-	function serverStop($sid) {
-		return $this->getdata('boolean', 'serverstop sid='.$sid);
+	function serverStop($sid, $reasonMessage = null) {
+		return $this->getdata('boolean', 'serverstop sid='.$sid.($reasonMessage != null && !empty($reasonMessage) ? " reasonmsg=".$this->escapeText($reasonMessage) : ""));
 	}
 
 /**
@@ -4771,7 +4806,11 @@ class ts3admin {
 		
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		
-		if($type == 'textchannel')
+		$whoami = $this->whoami();
+		
+		if(!$whoami['success']) { return $whoami; }
+		
+		if($type == 'textchannel' && $whoami['data']['client_channel_id'] != $cid)
 		{
 			$this->clientMove($this->getQueryClid(), $cid);
 		}
