@@ -1772,7 +1772,39 @@ class ts3admin {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'clientinfo clid='.$clid);
 	}
-
+/**
+  * clientInfoFromDb
+  *
+  * Displays detailed information about a client including unique ID, nickname, client version, etc by cldbid.
+  *
+  * <b>Output:</b>
+  * <pre>
+  * Array {
+  * [client_unique_identifier] => DBBrFo5v4Z/vANmZKccjAEilfdw=
+  * [client_nickname] => Wright
+  * [client_database_id] => 2
+  * [client_created] => 1529950296
+  * [client_lastconnected] => 1530897699
+  * [client_totalconnections] => 82
+  * [client_flag_avatar] =>
+  * [client_description] =>
+  * [client_month_bytes_uploaded] => 0
+  * [client_month_bytes_downloaded] => 0
+  * [client_total_bytes_uploaded] => 0
+  * [client_total_bytes_downloaded] => 0
+  * [client_base64HashClientUID] => ambaglbgiogpobjpopaanjjjcjmhcdaaeikfhnnm
+  * [client_lastip] => 127.0.0.1
+  * }
+  * </pre>
+  *
+  * @author    Wright
+  * @param     integer	$cldbid	clientDBID
+  * @return    array clientInformation
+  */
+	function clientInfoFromDb($cldbid) {
+		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		return $this->getData('array', 'clientdbinfo cldbid='.$cldbid);
+	}
 /**
   * clientKick
   * 
