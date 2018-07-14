@@ -248,6 +248,8 @@ class ts3admin {
   * banList
   * 
   * Displays a list of active bans on the selected virtual server.
+  *
+  * Note: If [name] is always empty use [lastnickname]
   * 
   * <b>Output:</b>
   * <pre>
@@ -264,6 +266,7 @@ class ts3admin {
   *  [invokeruid] => nUixbsq/XakrrmbqU8O30R/D8Gc=
   *  [reason] => insult
   *  [enforcements] => 0
+  *  [lastnickname} => eugen
   * }
   * </pre>
   *
