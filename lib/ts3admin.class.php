@@ -1748,6 +1748,7 @@ class ts3admin {
   *  [client_country] => 
   *  [client_channel_group_inherited_channel_id] => 2
   *  [client_badges] => Overwolf=0
+  *  [client_myteamspeak_id] => 
   *  [client_base64HashClientUID] => jneilbgomklpfnkjclkoggokfdmdlhnbbpmdpagh
   *  [connection_filetransfer_bandwidth_sent] => 0
   *  [connection_filetransfer_bandwidth_received] => 0
