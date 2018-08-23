@@ -2,3 +2,4 @@ index.php
 internal/
 vendor/
 *.lock
+.idea
