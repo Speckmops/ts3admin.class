@@ -1,5 +1,14 @@
-Tested compatibility to version: 3.0.13.8 x64
+Tested compatibility to version: 3.2.0 x64
 __________________________________________
+
+Version: 1.0.2.4 - Tue, 05 Jun 2018
+
++ added customSet and customDelete function
++ added reason message to serverStop and serverProcessStop
+~ fixed error in readChatMessage when you're in the default channel and want to read text from it
+~ channelEdit comment embellished
+- removed CLIENT_ICON_ID from clientdbinfo
+
 
 Version: 1.0.2.3 - Thu, 02 Nov 2017
 

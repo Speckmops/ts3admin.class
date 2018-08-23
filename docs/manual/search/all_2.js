@@ -55,6 +55,8 @@ var searchData=
   ['connect',['connect',['../classts3admin.html#a78572828d11dcdf2a498497d9001d557',1,'ts3admin']]],
   ['convertsecondstoarraytime',['convertSecondsToArrayTime',['../classts3admin.html#a33d0cc13d576ead9c9760bfe8661d29f',1,'ts3admin']]],
   ['convertsecondstostrtime',['convertSecondsToStrTime',['../classts3admin.html#a1ad0f3286df821838537792aece007cd',1,'ts3admin']]],
+  ['customdelete',['customDelete',['../classts3admin.html#a905d3d15efaa2c6fce77495de054936f',1,'ts3admin']]],
   ['custominfo',['customInfo',['../classts3admin.html#afac57d9d3a4f382259dd2cdc64de20f4',1,'ts3admin']]],
-  ['customsearch',['customSearch',['../classts3admin.html#af810e67182f54282eadc89ce2d315a1e',1,'ts3admin']]]
+  ['customsearch',['customSearch',['../classts3admin.html#af810e67182f54282eadc89ce2d315a1e',1,'ts3admin']]],
+  ['customset',['customSet',['../classts3admin.html#a06f265842054b2e949874d037c4afd2e',1,'ts3admin']]]
 ];
