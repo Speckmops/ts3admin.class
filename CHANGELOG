@@ -1,5 +1,14 @@
-Tested compatibility to version: 3.2.0 x64
+Tested compatibility to version: 3.3.1 x64
 __________________________________________
+
+Version: 1.0.2.5 - Thu, 30 Aug 2018
+
+~ changed description of logAdd, loglevels added (thanks to derrodirik)
+~ changed description of banList (thanks to derrodirik)
+~ changed description of clientGetNameFromUid (thanks to WrightProjects)
+~ added filter function to serverGroupList (thanks to thomas-rolling)
+~ overworked documentation, especially return-types (thanks to thomas-rolling)
+
 
 Version: 1.0.2.4 - Tue, 05 Jun 2018
 

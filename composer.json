@@ -4,7 +4,7 @@
     "keywords": ["ts3","ts3admin","admin","teamspeak","teamspeak3"],
     "homepage": "https://github.com/par0noid/ts3admin.class",
     "type": "library",
-	"version": "1.0.2.4",
+	"version": "1.0.2.5",
     "require": {
         "php": ">=5.0.0"
     },

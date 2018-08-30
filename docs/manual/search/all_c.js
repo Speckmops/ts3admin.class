@@ -16,7 +16,7 @@ var searchData=
   ['servergroupdeleteclient',['serverGroupDeleteClient',['../classts3admin.html#a0d982897e1ebb4ebe12cd5eee6db0a3b',1,'ts3admin']]],
   ['servergroupdeleteperm',['serverGroupDeletePerm',['../classts3admin.html#ae8e8e1cbbf1281b444b01e54fc586494',1,'ts3admin']]],
   ['servergroupgeticonbysgid',['serverGroupGetIconBySGID',['../classts3admin.html#a161c011310ca77b6691bdf11e53b1c25',1,'ts3admin']]],
-  ['servergrouplist',['serverGroupList',['../classts3admin.html#ac89ee94ef837a904529d6d56cf1f7ae8',1,'ts3admin']]],
+  ['servergrouplist',['serverGroupList',['../classts3admin.html#a7009fd7705a07c74e1f3d0ca1f3701b3',1,'ts3admin']]],
   ['servergrouppermlist',['serverGroupPermList',['../classts3admin.html#a6720544c69b6b994442733b64067003d',1,'ts3admin']]],
   ['servergrouprename',['serverGroupRename',['../classts3admin.html#a03622d2fc78eaa4c561a5799e8f4e9e9',1,'ts3admin']]],
   ['servergroupsbyclientid',['serverGroupsByClientID',['../classts3admin.html#a5fc18de3af7cb86abcf366dffa163a52',1,'ts3admin']]],

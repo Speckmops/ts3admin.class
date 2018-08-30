@@ -3,8 +3,8 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 05. June 2018
- *   version              : 1.0.2.4
+ *   last modified        : 30. August 2018
+ *   version              : 1.0.2.5
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2018 Stefan Zehnpfennig
  *  
@@ -27,7 +27,7 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2018, Stefan Zehnpfennig
- * @version     1.0.2.4
+ * @version     1.0.2.5
  * @package     ts3admin
  *
  */
@@ -266,7 +266,7 @@ class ts3admin {
   *  [invokeruid] => nUixbsq/XakrrmbqU8O30R/D8Gc=
   *  [reason] => insult
   *  [enforcements] => 0
-  *  [lastnickname} => eugen
+  *  [lastnickname] => eugen
   * }
   * </pre>
   *
@@ -2648,6 +2648,8 @@ class ts3admin {
   * 
   * Writes a custom entry into the servers log. Depending on your permissions, you'll be able to add entries into the server instance log and/or your virtual servers log. The loglevel parameter specifies the type of the entry.
   *
+  * <b>Hint:</b> Log level 1: "Error", Log Level 2: "Warning", Log Level 3: "Debug", Log level 4: "Info"
+  *
   * @author     Stefan Zehnpfennig
   * @param		integer	$logLevel	loglevel between 1 and 4
   * @param		string	$logMsg		logMessage
@@ -3232,7 +3234,7 @@ class ts3admin {
   * 
   * Loads the query current nickname and current clid
   *
-  * @author     toxiicdev (@toxiicdev.net)
+  * @author     toxiicdev 
   */
 	private function loadQueryData()
 	{
@@ -4711,7 +4713,7 @@ class ts3admin {
   * 
   * Returns the server query client id
   *
-  * @author     toxiicdev (@toxiicdev.net)
+  * @author     toxiicdev 
   *	@return		int value
   */
   
@@ -4802,7 +4804,7 @@ class ts3admin {
   *		[targetmode] => 3
   * }
   * </pre>
-  * @author	toxiicdev (@toxiicdev.net)
+  * @author	toxiicdev 
   * @param	string	$type		textserver|textchannel|textprivate
   * @param	boolean	$keepalive	default false
   * @param	int		$cid		channel id (required only for textchannel)
@@ -4860,7 +4862,7 @@ class ts3admin {
  * 
  * Unregisters server notify event
  * 
- * @author		toxiicdev (@toxiicdev.net)
+ * @author		toxiicdev 
  */	
 	public function serverNotifyUnregister()
 	{

@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="icon.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">ts3admin.class
-   &#160;<span id="projectnumber">1.0.2.4</span>
+   &#160;<span id="projectnumber">1.0.2.5</span>
    </div>
    <div id="projectbrief">The ts3admin.class is a powerful api for communication with Teamspeak 3 Servers from your website! Your creativity knows no bounds!</div>
   </td>
@@ -326,8 +326,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae8e8e1cbbf1281b444b01e54fc586494"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a161c011310ca77b6691bdf11e53b1c25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a161c011310ca77b6691bdf11e53b1c25">serverGroupGetIconBySGID</a> ($serverGroupID)</td></tr>
 <tr class="separator:a161c011310ca77b6691bdf11e53b1c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac89ee94ef837a904529d6d56cf1f7ae8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#ac89ee94ef837a904529d6d56cf1f7ae8">serverGroupList</a> ()</td></tr>
-<tr class="separator:ac89ee94ef837a904529d6d56cf1f7ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7009fd7705a07c74e1f3d0ca1f3701b3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a7009fd7705a07c74e1f3d0ca1f3701b3">serverGroupList</a> ($type=null)</td></tr>
+<tr class="separator:a7009fd7705a07c74e1f3d0ca1f3701b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6720544c69b6b994442733b64067003d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a6720544c69b6b994442733b64067003d">serverGroupPermList</a> ($sgid, $permsid=false)</td></tr>
 <tr class="separator:a6720544c69b6b994442733b64067003d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03622d2fc78eaa4c561a5799e8f4e9e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classts3admin.html#a03622d2fc78eaa4c561a5799e8f4e9e9">serverGroupRename</a> ($sgid, $name)</td></tr>
@@ -594,7 +594,7 @@ const&#160;</td><td class="memItemRight" valign="bottom"><b>TokenServerGroup</b>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 </div>
 </div>
@@ -827,7 +827,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -848,7 +848,7 @@ Array
 <p>banDeleteAll</p>
 <p>Deletes all active ban rules from the server.</p>
 <dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -868,6 +868,7 @@ Array
 </div><div class="memdoc">
 <p>banList</p>
 <p>Displays a list of active bans on the selected virtual server.</p>
+<p>Note: If [name] is always empty use [lastnickname]</p>
 <p><b>Output:</b> </p><pre>
 Array
 {
@@ -882,6 +883,7 @@ Array
  [invokeruid] =&gt; nUixbsq/XakrrmbqU8O30R/D8Gc=
  [reason] =&gt; insult
  [enforcements] =&gt; 0
+ [lastnickname] =&gt; eugen
 }
 </pre><dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>array banlist </dd></dl>
@@ -961,7 +963,7 @@ $permissions['permissionName'] = 'permissionValue';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1012,7 +1014,7 @@ $permissions['permissionName'] = 'permissionValue';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1064,7 +1066,7 @@ $permissions = array('permissionID', 'permissionName', 'permissionID');
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1276,7 +1278,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1320,7 +1322,7 @@ $permissions[] = 'permissionName';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1352,7 +1354,8 @@ $permissions[] = 'permissionName';
 <p>channelEdit</p>
 <p>Changes a channels configuration using given properties. Note that this command accepts multiple properties which means that you're able to change all settings of the channel specified with cid at once.</p>
 <p><b>Input-Array like this:</b> </p><pre>
-$data = array();</pre><pre>$data['setting'] = 'value';
+$data = array();
+$data['setting'] = 'value';
 $data['setting'] = 'value';
 </pre><p><b>Possible properties:</b> Take a look at channelCreate function</p>
 <dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
@@ -1363,7 +1366,7 @@ $data['setting'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1480,7 +1483,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1526,7 +1529,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1570,7 +1573,7 @@ $permissions['permissionName'] = 'permissionValue';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1728,7 +1731,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1771,7 +1774,7 @@ $permissions[] = 'permissionName';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -1924,7 +1927,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -2090,7 +2093,7 @@ $ts3-&gt;channelList("-topic -flags -voice -limits -icon"); //Multiple parameter
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -2183,7 +2186,7 @@ $permissions['permissionName'] = array('permissionValue', 'permskip');
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -2242,7 +2245,7 @@ You can display it like: echo '&lt;img src="data:image/png;base64,'.$result["dat
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -2284,7 +2287,7 @@ $data['property'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -2478,7 +2481,7 @@ $permissions['permissionName'] = 'permissionValue';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -2521,7 +2524,7 @@ $data['property'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -2763,6 +2766,7 @@ Array
  [client_country] =&gt; 
  [client_channel_group_inherited_channel_id] =&gt; 2
  [client_badges] =&gt; Overwolf=0
+ [client_myteamspeak_id] =&gt; 
  [client_base64HashClientUID] =&gt; jneilbgomklpfnkjclkoggokfdmdlhnbbpmdpagh
  [connection_filetransfer_bandwidth_sent] =&gt; 0
  [connection_filetransfer_bandwidth_received] =&gt; 0
@@ -2830,7 +2834,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -2941,7 +2945,7 @@ $ts3-&gt;clientList("-uid -away -voice -times -groups -info -country -icon -ip -
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -2984,7 +2988,7 @@ Array
 </pre><dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">intege</td><td class="paramname">$cldbid</td><td>clientDBID </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$cldbid</td><td>clientDBID </td></tr>
     <tr><td class="paramtype">boolean</td><td class="paramname">$permsid</td><td>set true to add -permsid param [optional] </td></tr>
   </table>
   </dd>
@@ -3028,7 +3032,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -3093,7 +3097,7 @@ $data['property'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -3132,7 +3136,7 @@ $data['property'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -3171,7 +3175,7 @@ $data['property'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -3199,7 +3203,7 @@ $data['property'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -3258,7 +3262,7 @@ Array
 <p>connect</p>
 <p>Connects to a ts3instance query port</p>
 <dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -3600,7 +3604,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -3650,7 +3654,7 @@ $files[] = '/dokumente';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -3732,7 +3736,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4045,7 +4049,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4084,7 +4088,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4251,7 +4255,7 @@ You can display it like: echo '&lt;img src="data:image/png;base64,'.$result["dat
 </div><div class="memdoc">
 <p>getQueryClid</p>
 <p>Returns the server query client id</p>
-<dl class="section author"><dt>Author</dt><dd>toxiicdev (.net) </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>toxiicdev </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>int value </dd></dl>
 
 </div>
@@ -4280,7 +4284,7 @@ You can display it like: echo '&lt;img src="data:image/png;base64,'.$result["dat
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4355,7 +4359,7 @@ $data['setting'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4424,6 +4428,7 @@ Array
 </div><div class="memdoc">
 <p>logAdd</p>
 <p>Writes a custom entry into the servers log. Depending on your permissions, you'll be able to add entries into the server instance log and/or your virtual servers log. The loglevel parameter specifies the type of the entry.</p>
+<p><b>Hint:</b> Log level 1: "Error", Log Level 2: "Warning", Log Level 3: "Debug", Log level 4: "Info"</p>
 <dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -4432,7 +4437,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4471,7 +4476,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4492,7 +4497,7 @@ Array
 <p>logout</p>
 <p>Deselects the active virtual server and logs out from the server instance.</p>
 <dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4558,7 +4563,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>multidimensional-array logEntries </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array logEntries </dd></dl>
 
 </div>
 </div>
@@ -4604,7 +4609,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4632,7 +4637,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -4822,7 +4827,7 @@ Array
 </pre><dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$permsids</td><td>permNames </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$permsids</td><td>permNames </td></tr>
   </table>
   </dd>
 </dl>
@@ -5092,7 +5097,7 @@ $customFieldSet['ident'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5151,7 +5156,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5198,7 +5203,7 @@ Array
     [msg] =&gt; It's just a prank bro
     [targetmode] =&gt; 3
 }
-</pre> <dl class="section author"><dt>Author</dt><dd>toxiicdev (.net) </dd></dl>
+</pre> <dl class="section author"><dt>Author</dt><dd>toxiicdev </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$type</td><td>textserver|textchannel|textprivate </td></tr>
@@ -5253,7 +5258,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5316,7 +5321,7 @@ serverID </li>
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a href="http://forum.teamspeak.com/showthread.php/84280-Sendtextmessage-by-query-client">http://forum.teamspeak.com/showthread.php/84280-Sendtextmessage-by-query-client</a> <a href="http://forum.teamspeak.com/showthread.php/84280-Sendtextmessage-by-query-client">http://forum.teamspeak.com/showthread.php/84280-Sendtextmessage-by-query-client</a> </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5383,7 +5388,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5415,7 +5420,7 @@ $data['setting'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5498,7 +5503,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5542,7 +5547,7 @@ $permissions['permissionName'] = array('permissionValue', 'permskip', 'permnegat
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5586,7 +5591,7 @@ $permissions['permissionName'] = array('permissionValue', 'permskip', 'permnegat
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5630,7 +5635,7 @@ $permissions[] = 'permissionName';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5677,7 +5682,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>multidimensional-array serverGroupClientList </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array serverGroupClientList </dd></dl>
 
 </div>
 </div>
@@ -5774,7 +5779,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5813,7 +5818,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5857,7 +5862,7 @@ $permissions[] = 'permissionName';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -5892,8 +5897,8 @@ You can display it like: echo '&lt;img src="data:image/png;base64,'.$result["dat
 
 </div>
 </div>
-<a id="ac89ee94ef837a904529d6d56cf1f7ae8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac89ee94ef837a904529d6d56cf1f7ae8">&#9670;&nbsp;</a></span>serverGroupList()</h2>
+<a id="a7009fd7705a07c74e1f3d0ca1f3701b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7009fd7705a07c74e1f3d0ca1f3701b3">&#9670;&nbsp;</a></span>serverGroupList()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5901,7 +5906,8 @@ You can display it like: echo '&lt;img src="data:image/png;base64,'.$result["dat
         <tr>
           <td class="memname">serverGroupList </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$type</em> = <code>null</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -5916,8 +5922,19 @@ Array
  [type] =&gt; 2
  [iconid] =&gt; 0
  [savedb] =&gt; 0
+ [sortid] =&gt; 0
+ [namemode] =&gt; 0
+ [n_modifyp] =&gt; 100
+ [n_member_addp] =&gt; 0
+ [n_member_removep] =&gt; 0
 }
 </pre><dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">integer</td><td class="paramname">$type</td><td>groupDbType (0 = template, 1 = normal, 2 = query) By default get all groups </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>array serverGroupList </dd></dl>
 
 </div>
@@ -6005,7 +6022,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6258,7 +6275,7 @@ Array
 </div><div class="memdoc">
 <p>serverNotifyUnregister</p>
 <p>Unregisters server notify event</p>
-<dl class="section author"><dt>Author</dt><dd>toxiicdev (.net) </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>toxiicdev </dd></dl>
 
 </div>
 </div>
@@ -6286,7 +6303,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6347,7 +6364,7 @@ Array
 <p>serverSnapshotCreate</p>
 <p>Displays a snapshot of the selected virtual server containing all settings, groups and known client identities. The data from a server snapshot can be used to restore a virtual servers configuration, channels and permissions using the serversnapshotdeploy command.</p>
 <dl class="section author"><dt>Author</dt><dd>Stefan Zehnpfennig </dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>string snapshot </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array snapshot </dd></dl>
 
 </div>
 </div>
@@ -6389,7 +6406,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6417,7 +6434,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6456,7 +6473,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6511,12 +6528,12 @@ Array
     <tr><td class="paramtype">string</td><td class="paramname">$pw</td><td>temporary password </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$duration</td><td>durations in seconds </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$desc</td><td>description [optional] </td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$tcid</td><td>cid user enters on connect (0 = Default channel) [optional] </td></tr>
+    <tr><td class="paramtype">integer</td><td class="paramname">$tcid</td><td>cid user enters on connect (0 = Default channel) [optional] </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$tcpw</td><td>channelPW </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6544,7 +6561,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6622,7 +6639,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6650,7 +6667,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6772,7 +6789,7 @@ $customFieldSet['ident'] = 'value';
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6831,7 +6848,7 @@ Array
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>boolean success </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array success </dd></dl>
 
 </div>
 </div>
@@ -6874,7 +6891,7 @@ Array
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$filepath</td><td>Path to your file </td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$iconID</td><td>[optional] Desired IconID (Must be higher than 1.000.000.000, and lower than 2.147.483.647) </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;integer</td><td class="paramname">$iconID</td><td>[optional] Desired IconID (Must be higher than 1.000.000.000, and lower than 2.147.483.647) </td></tr>
   </table>
   </dd>
 </dl>
