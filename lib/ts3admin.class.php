@@ -4694,7 +4694,7 @@ class ts3admin {
 		}
 		else
 		{
-			if(strpos(fgets($socket), 'TS3') !== false)
+			if(strpos(fgets($socket), 'T') !== false)
 			{
 				$tmpVar = fgets($socket);
 				$this->runtime['socket'] = $socket;
