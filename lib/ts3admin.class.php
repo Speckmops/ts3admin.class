@@ -3263,11 +3263,12 @@ class ts3admin {
   * @param		boolean	$virtual	set true to add -virtual param [optional]
   * @return     array success
   */
-	function selectServer($value, $type = 'port', $virtual = false) { 
+	function selectServer($value, $type = 'port', $virtual = false, $name = null) { 
+		if($name == null && strlen($name) >=3 ){ $name = ''; }else{ $name = " client_nickname=".$name.""; }
         if(in_array($type, array('port', 'serverId'))) { 
             if($type == 'port') { 
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
-                $res = $this->getData('boolean', 'use port='.$value.$virtual); 
+                $res = $this->getData('boolean', 'use port='.$value.$virtual.$name); 
                 if($res['success']) { 
                    	$this->runtime['selected'] = true; 
 			$this->loadQueryData();
