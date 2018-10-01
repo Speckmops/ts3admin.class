@@ -3261,6 +3261,7 @@ class ts3admin {
   * @param		integer	$value		Port or ID
   * @param		string	$type		value type ('port', 'serverId') (default='port')
   * @param		boolean	$virtual	set true to add -virtual param [optional]
+  * @param		string 	$name		set the name of the client before entry (has to be more than 3 characters) [optional]
   * @return     array success
   */
 	function selectServer($value, $type = 'port', $virtual = false, $name = null) { 
