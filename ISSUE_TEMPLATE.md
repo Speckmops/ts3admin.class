@@ -1,8 +1,4 @@
 ## System Information
-***Operating System:***
-
-***Operating System Type:*** (x86|x64)
-
 ***TS3-admin.class Version:*** (do not use generic words like "latest" or equal, insert the number)
 
 ***PHP Version, Apache Version:*** (do not use generic words like "latest" or equal, insert the number)
