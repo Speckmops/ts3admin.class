@@ -3265,7 +3265,7 @@ class ts3admin {
   * @return     array success
   */
 	function selectServer($value, $type = 'port', $virtual = false, $name = null) { 
-		if($name == null OR strlen($name) <= 3 ){ $name = ''; }else{ $name = " client_nickname=".$this->escapeText($name).""; }
+		if(strlen($name) < 3 ){ $name = ''; }else{ $name = " client_nickname=".$this->escapeText($name).""; }
         if(in_array($type, array('port', 'serverId'))) { 
             if($type == 'port') { 
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
@@ -3277,7 +3277,7 @@ class ts3admin {
                 return $res; 
             }else{ 
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
-                $res = $this->getData('boolean', 'use sid='.$value.$virtual); 
+                $res = $this->getData('boolean', 'use sid='.$value.$virtual.$name); 
                 if($res['success']) { 
                     	$this->runtime['selected'] = true; 
 			$this->loadQueryData();
