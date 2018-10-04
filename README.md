@@ -1,4 +1,4 @@
-# First-Coder ts3admin.class #
+# First-Coder TS3-admin.class #
 ###### written by Stefan 'par0noid' Zehnpfennig (edited by L.Gmann) ######
 
 ## About us
