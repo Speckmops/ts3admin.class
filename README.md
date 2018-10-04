@@ -41,7 +41,7 @@ Just Download the latest version under 'releases' and upload the ts3admin.class.
 
 ## Authors
 
-* **L. Gmann** - *Developer and Manager*
+* **L. Gmann** - *Developer*
 * **par0noid** - *Developer*
 
 ## License
