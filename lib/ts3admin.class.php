@@ -3261,13 +3261,15 @@ class ts3admin {
   * @param		integer	$value		Port or ID
   * @param		string	$type		value type ('port', 'serverId') (default='port')
   * @param		boolean	$virtual	set true to add -virtual param [optional]
+  * @param		string 	$name		set the name of the client before entry (has to be more than 3 characters) [optional]
   * @return     array success
   */
-	function selectServer($value, $type = 'port', $virtual = false) { 
+	function selectServer($value, $type = 'port', $virtual = false, $name = null) { 
+		if(strlen($name) < 3 ){ $name = ''; }else{ $name = " client_nickname=".$this->escapeText($name).""; }
         if(in_array($type, array('port', 'serverId'))) { 
             if($type == 'port') { 
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
-                $res = $this->getData('boolean', 'use port='.$value.$virtual); 
+                $res = $this->getData('boolean', 'use port='.$value.$virtual.$name); 
                 if($res['success']) { 
                    	$this->runtime['selected'] = true; 
 			$this->loadQueryData();
@@ -3275,7 +3277,7 @@ class ts3admin {
                 return $res; 
             }else{ 
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
-                $res = $this->getData('boolean', 'use sid='.$value.$virtual); 
+                $res = $this->getData('boolean', 'use sid='.$value.$virtual.$name); 
                 if($res['success']) { 
                     	$this->runtime['selected'] = true; 
 			$this->loadQueryData();
