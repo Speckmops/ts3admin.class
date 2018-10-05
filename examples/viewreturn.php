@@ -12,7 +12,7 @@
 $ts3_ip = '127.0.0.1';
 $ts3_queryport = 10011;
 $ts3_port = 9987; // Set 0 if you don't want to select a server
-$ts3_user = 'serveradmin'; // leave blank if you want to execute your command as a guest
+$ts3_user = 'serveradmin';
 $ts3_pass = 'password';
 /*----------------------*/
 
@@ -99,10 +99,8 @@ $tsAdmin = new ts3admin($ts3_ip, $ts3_queryport);
 
 $html = '';
 
-if($tsAdmin->getElement('success', $tsAdmin->connect())) {
-	
-	#login if username is given
-	if(!empty($ts3_user)) { $tsAdmin->login($ts3_user, $ts3_pass); }
+#login
+if($tsAdmin->getElement('success', $tsAdmin->connect($ts3_user, $ts3_pass))) {
 	
 	#select teamspeakserver if needed
 	if($ts3_port != 0) { $tsAdmin->selectServer($ts3_port); }

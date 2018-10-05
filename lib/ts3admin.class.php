@@ -3,7 +3,7 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 30. August 2018
+ *   last modified        : 05. October 2018
  *   version              : 1.0.2.5
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2018 Stefan Zehnpfennig
@@ -11,7 +11,7 @@
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ *  any later version.
  *  
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -27,7 +27,7 @@
  * 
  * @author      Stefan Zehnpfennig
  * @copyright   Copyright (c) 2018, Stefan Zehnpfennig
- * @version     1.0.2.5
+ * @version     1.1.0.0
  * @package     ts3admin
  *
  */
@@ -43,12 +43,19 @@ class ts3admin {
 //*******************************************************************************************
 
 /**
-  * runtime is an private handle and configuration storage
+  * config is an private configuration storage
   *
   * @author     Stefan Zehnpfennig
   */
-	private $runtime = array('socket' => '', 'selected' => false, 'host' => '', 'queryport' => '10011', 'timeout' => 2, 'debug' => array(), 'fileSocket' => '', 'bot_clid' => '', 'bot_name' => '');
-
+	private $config = array('selected' => false, 'ssh' => false, 'host' => '', 'queryport' => '10011', 'timeout' => 2, 'debug' => array(), 'fileSocket' => '', 'bot_clid' => '', 'bot_name' => '');
+	
+/**
+  * runtime is an private handle storage 
+  * 
+  * @author		L. Gmann
+  */
+	private $runtime = array('socket' => null, 'stream' => null);
+	
 //*******************************************************************************************	
 //*************************************** Constants *****************************************
 //*******************************************************************************************
@@ -122,7 +129,7 @@ class ts3admin {
   * @return     array banId
   */
 	function banAddByIp($ip, $time = 0, $banreason = NULL) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($banreason)) { $msg = ' banreason='.$this->escapeText($banreason); } else { $msg = NULL; }
 
@@ -149,7 +156,7 @@ class ts3admin {
   * @return     array banId
   */
 	function banAddByUid($uid, $time = 0, $banreason = NULL) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($banreason)) { $msg = ' banreason='.$this->escapeText($banreason); } else { $msg = NULL; }
 		
@@ -176,7 +183,7 @@ class ts3admin {
   * @return     array banId
   */
 	function banAddByName($name, $time = 0, $banreason = NULL) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($banreason)) { $msg = ' banreason='.$this->escapeText($banreason); } else { $msg = NULL; }
 										
@@ -204,7 +211,7 @@ class ts3admin {
   * @return     array banIds
   */
 	function banClient($clid, $time = 0, $banreason = NULL) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($banreason)) { $msg = ' banreason='.$this->escapeText($banreason); } else { $msg = ''; }
 		
@@ -227,7 +234,7 @@ class ts3admin {
   * @return     array success
   */
 	function banDelete($banID) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'bandel banid='.$banID);
 	}
 
@@ -240,7 +247,7 @@ class ts3admin {
   * @return     array success
   */
 	function banDeleteAll() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'bandelall');
 	}
 
@@ -274,7 +281,7 @@ class ts3admin {
   * @return     array banlist
   */
 	function banList() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }		
+		if(!$this->config['selected']) { return $this->checkSelected(); }		
 		return $this->getData('multi', 'banlist');
 	}
 
@@ -318,7 +325,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelAddPerm($cid, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(count($permissions) > 0) {
 			//Permissions given
@@ -385,7 +392,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelClientAddPerm($cid, $cldbid, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(count($permissions) > 0) {
 			//Permissions given
@@ -453,7 +460,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelClientDelPerm($cid, $cldbid, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
 		if(count($permissions) > 0) {
@@ -493,7 +500,7 @@ class ts3admin {
   * @return     array	channelclientpermlist
   */
 	function channelClientPermList($cid, $cldbid, $permsid = false) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }		
+		if(!$this->config['selected']) { return $this->checkSelected(); }		
 		return $this->getData('multi', 'channelclientpermlist cid='.$cid.' cldbid='.$cldbid.($permsid ? ' -permsid' : ''));
 	}
 
@@ -531,7 +538,7 @@ class ts3admin {
   * @return     array channelInfo
   */
 	function channelCreate($data) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		$propertiesString = '';
 		
@@ -553,7 +560,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelDelete($cid, $force = 1) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'channeldelete cid='.$cid.' force='.$force);
 	}
 
@@ -576,7 +583,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelDelPerm($cid, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
 		if(count($permissions) > 0) {
@@ -610,7 +617,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelEdit($cid, $data) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		$settingsString = '';
 		
@@ -640,7 +647,7 @@ class ts3admin {
   * @return     array channelList 
   */
 	function channelFind($pattern) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'channelfind pattern='.$this->escapeText($pattern));
 	}
 
@@ -659,7 +666,7 @@ class ts3admin {
  * @return array  base64 image
  */
 	function channelGetIconByChannelID($channelID) {
-	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
+	  if(!$this->config['selected']) { return $this->checkSelected(); }
 
 	  if(empty($channelID))
 	  {
@@ -702,7 +709,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelGroupAdd($name, $type = 1) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'channelgroupadd name='.$this->escapeText($name).' type='.$type);
 	}
 
@@ -740,7 +747,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelGroupAddPerm($cgid, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(count($permissions) > 0) {
 			//Permissions given
@@ -808,7 +815,7 @@ class ts3admin {
   * @return     array channelGroupClientList
   */
 	function channelGroupClientList($cid = NULL, $cldbid = NULL, $cgid = NULL) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		return $this->getData('multi', 'channelgroupclientlist'.(!empty($cid) ? ' cid='.$cid : '').(!empty($cldbid) ? ' cldbid='.$cldbid : '').(!empty($cgid) ? ' cgid='.$cgid : ''));
 	}
@@ -841,7 +848,7 @@ class ts3admin {
   * @return     array groupId
   */
 	function channelGroupCopy($scgid, $tcgid, $name, $type = 1) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'channelgroupcopy scgid='.$scgid.' tcgid='.$tcgid.' name='.$this->escapeText($name).' type='.$type);
 	}
 
@@ -856,7 +863,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelGroupDelete($cgid, $force = 1) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'channelgroupdel cgid='.$cgid.' force='.$force);
 	}
 
@@ -878,7 +885,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelGroupDelPerm($cgid, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
 		if(count($permissions) > 0) {
@@ -907,7 +914,7 @@ class ts3admin {
  * @return array  base64 image
  */
 	function channelGroupGetIconByCGID($channelGroupID) {
-	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
+	  if(!$this->config['selected']) { return $this->checkSelected(); }
 
 	  if(empty($channelGroupID))
 	  {
@@ -973,7 +980,7 @@ class ts3admin {
   * @return     array channelGroupList
   */
 	function channelGroupList() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		return $this->getData('multi', 'channelgrouplist');
 	}
@@ -1002,7 +1009,7 @@ class ts3admin {
   * @return		array	channelGroupPermlist
   */
   	function channelGroupPermList($cgid, $permsid = false) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }		
+		if(!$this->config['selected']) { return $this->checkSelected(); }		
 		return $this->getData('multi', 'channelgrouppermlist cgid='.$cgid.($permsid ? ' -permsid' : ''));
 	}
 
@@ -1017,7 +1024,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelGroupRename($cgid, $name) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'channelgrouprename cgid='.$cgid.' name='.$this->escapeText($name));
 	}
 
@@ -1066,7 +1073,7 @@ class ts3admin {
   * @return     array channelInfo
   */
 	function channelInfo($cid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'channelinfo cid='.$cid);
 	}
 
@@ -1126,7 +1133,7 @@ class ts3admin {
   * @return     array clientList 
   */
 	function channelClientList($cid, $params = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($params)) { $params = ' '.$params; }
 		
@@ -1205,7 +1212,7 @@ class ts3admin {
   * @return		array	channelList
   */
 	function channelList($params = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		if(!empty($params)) { $params = ' '.$params; }
 		
 		return $this->getData('multi', 'channellist'.$params);
@@ -1223,7 +1230,7 @@ class ts3admin {
   * @return     array success
   */
 	function channelMove($cid, $cpid, $order = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }		
+		if(!$this->config['selected']) { return $this->checkSelected(); }		
 		return $this->getData('boolean', 'channelmove cid='.$cid.' cpid='.$cpid.($order != null ? ' order='.$order : ''));
 	}
 
@@ -1251,7 +1258,7 @@ class ts3admin {
   * @return     array channelpermlist
   */
 	function channelPermList($cid, $permsid = false) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }	
+		if(!$this->config['selected']) { return $this->checkSelected(); }	
 		return $this->getData('multi', 'channelpermlist cid='.$cid.($permsid ? ' -permsid' : ''));
 	}
 
@@ -1274,7 +1281,7 @@ class ts3admin {
   * @return     array success
   */
 	function clientAddPerm($cldbid, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(count($permissions) > 0) {
 			//Permissions given
@@ -1335,7 +1342,7 @@ class ts3admin {
  * @return array  base64 image
  */
 	function clientAvatar($uid) {
-	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
+	  if(!$this->config['selected']) { return $this->checkSelected(); }
 
 	  if(empty($uid))
 	  {
@@ -1386,7 +1393,7 @@ class ts3admin {
   * @return     array success
   */
 	function clientDbDelete($cldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'clientdbdelete cldbid='.$cldbid);
 	}
 
@@ -1409,7 +1416,7 @@ class ts3admin {
   * @return     array success
   */
 	function clientDbEdit($cldbid, $data) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		$settingsString = '';
 		
@@ -1439,7 +1446,7 @@ class ts3admin {
   * @return     array clientList 
   */
 	function clientDbFind($pattern, $uid = false) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'clientdbfind pattern='.$this->escapeText($pattern).($uid ? ' -uid' : ''));
 	}
 
@@ -1474,7 +1481,7 @@ class ts3admin {
   * @return     array	clientDbInfo
   */
 	function clientDbInfo($cldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'clientdbinfo cldbid='.$cldbid);
 	}
 
@@ -1508,7 +1515,7 @@ class ts3admin {
   * @return     array clientdblist
   */
 	function clientDbList($start = 0, $duration = -1, $count = false) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'clientdblist'.($start != 0 ? ' start='.$start : '').($duration != -1 ? ' duration='.$duration : '').($count ? ' -count' : ''));
 	}
 
@@ -1531,7 +1538,7 @@ class ts3admin {
   * @return     array success
   */
 	function clientDelPerm($cldbid, $permissionIds) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		$permissionArray = array();
 		
@@ -1567,7 +1574,7 @@ class ts3admin {
   * @return     array success
   */
 	function clientEdit($clid, $data) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		$settingsString = '';
 		
@@ -1597,7 +1604,7 @@ class ts3admin {
   * @return     array clienList
   */
 	function clientFind($pattern) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'clientfind pattern='.$this->escapeText($pattern));
 	}
 
@@ -1620,7 +1627,7 @@ class ts3admin {
   * @return     array clientInfo
   */
 	function clientGetDbIdFromUid($cluid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'clientgetdbidfromuid cluid='.$cluid);
 	}
 
@@ -1644,7 +1651,7 @@ class ts3admin {
   * @return     array clientList 
   */
 	function clientGetIds($cluid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'clientgetids cluid='.$cluid);
 	}
 
@@ -1668,7 +1675,7 @@ class ts3admin {
   * @return     array clientInfo
   */
 	function clientGetNameFromDbid($cldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'clientgetnamefromdbid cldbid='.$cldbid);
 	}
 	
@@ -1692,7 +1699,7 @@ class ts3admin {
   * @return     array clientInfo
   */
 	function clientGetNameFromUid($cluid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'clientgetnamefromuid cluid='.$cluid);
 	}
 
@@ -1772,7 +1779,7 @@ class ts3admin {
   * @return     array	clientInformation
   */
 	function clientInfo($clid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'clientinfo clid='.$clid);
 	}
 
@@ -1788,7 +1795,7 @@ class ts3admin {
   * @return     array success
   */
 	function clientKick($clid, $kickMode = "server", $kickmsg = "") {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(in_array($kickMode, array('server', 'channel'))) {
 		
@@ -1859,7 +1866,7 @@ class ts3admin {
   * @return     array clientList 
   */
 	function clientList($params = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($params)) { $params = ' '.$params; }
 		
@@ -1878,7 +1885,7 @@ class ts3admin {
   * @return     array success
   */
 	function clientMove($clid, $cid, $cpw = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'clientmove clid='.$clid.' cid='.$cid.(!empty($cpw) ? ' cpw='.$this->escapeText($cpw) : ''));
 	}
 
@@ -1905,7 +1912,7 @@ class ts3admin {
   * @return     array clientPermList
   */
 	function clientPermList($cldbid, $permsid = false) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }		
+		if(!$this->config['selected']) { return $this->checkSelected(); }		
 		return $this->getData('multi', 'clientpermlist cldbid='.$cldbid.($permsid ? ' -permsid' : ''));
 	}
 
@@ -1920,7 +1927,7 @@ class ts3admin {
   * @return     array success
   */
 	function clientPoke($clid, $msg) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'clientpoke clid='.$clid.' msg='.$this->escapeText($msg));
 	}
 
@@ -1982,7 +1989,7 @@ class ts3admin {
   * @return     array success
   */
 	function complainAdd($tcldbid, $msg) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'complainadd tcldbid='.$tcldbid.' message='.$this->escapeText($msg));
 	}
 
@@ -1997,7 +2004,7 @@ class ts3admin {
   * @return     array success
   */
 	function complainDelete($tcldbid, $fcldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'complaindel tcldbid='.$tcldbid.' fcldbid='.$fcldbid);
 	}
 
@@ -2011,7 +2018,7 @@ class ts3admin {
   * @return     array success
   */
 	function complainDeleteAll($tcldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'complaindelall tcldbid='.$tcldbid);
 	}
 
@@ -2038,7 +2045,7 @@ class ts3admin {
   * @return     array complainList
   */
 	function complainList($tcldbid = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		if(!empty($tcldbid)) { $tcldbid = ' tcldbid='.$tcldbid; }
 		return $this->getData('multi', 'complainlist'.$tcldbid);
 	}
@@ -2055,7 +2062,7 @@ class ts3admin {
   * @return   boolean   success
   */
 	function customDelete($cldbid, $ident) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'customdelete cldbid='.$cldbid.' ident='.$this->escapeText($ident));
 	}
 
@@ -2088,7 +2095,7 @@ class ts3admin {
   * @return     array customInfos
   */
 	function customInfo($cldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'custominfo cldbid='.$cldbid);
 	}
 
@@ -2122,7 +2129,7 @@ class ts3admin {
   * @return     array	customSearchInfos
   */
 	function customSearch($ident, $pattern) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'customsearch ident='.$this->escapeText($ident).' pattern='.$this->escapeText($pattern));
 	}
 
@@ -2139,7 +2146,7 @@ class ts3admin {
   * @return   boolean   success
   */
 	function customSet($cldbid, $ident, $value) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'customset cldbid='.$cldbid.' ident='.$this->escapeText($ident).' value='.$this->escapeText($value));
 	}
 
@@ -2188,7 +2195,7 @@ class ts3admin {
   * @return     array success
   */
 	function ftCreateDir($cid, $cpw = null, $dirname) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'ftcreatedir cid='.$cid.' cpw='.$this->escapeText($cpw).' dirname='.$this->escapeText($dirname));
 	}
 
@@ -2213,7 +2220,7 @@ class ts3admin {
   * @return     array success
   */
 	function ftDeleteFile($cid, $cpw = '', $files) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		$fileArray = array();
 		
 		if(count($files) > 0) {
@@ -2239,12 +2246,12 @@ class ts3admin {
 	function ftDownloadFile($data) {
 		$errnum = null;
 		$errstr = null;
-  		$this->runtime['fileSocket'] = @fsockopen($this->runtime['host'], $data['data']['port'], $errnum, $errstr, $this->runtime['timeout']);
-  		if($this->runtime['fileSocket']) {
+  		$this->config['fileSocket'] = @fsockopen($this->config['host'], $data['data']['port'], $errnum, $errstr, $this->config['timeout']);
+  		if($this->config['fileSocket']) {
   			$this->ftSendKey($data['data']['ftkey']);
   			$content = $this->ftRead($data['data']['size']);
-  			@fclose($this->runtime['fileSocket']);
-  			$this->runtime['fileSocket'] = '';
+  			@fclose($this->config['fileSocket']);
+  			$this->config['fileSocket'] = '';
   			return $content;
   		}else{
   			$this->addDebugLog('fileSocket returns '.$errnum. ' | '.$errstr);
@@ -2275,7 +2282,7 @@ class ts3admin {
   * @return     array success
   */
 	function ftGetFileInfo($cid, $cpw = '', $file) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 
 		return $this->getData('multi', 'ftgetfileinfo cid='.$cid.' cpw='.$this->escapeText($cpw).' name='.$this->escapeText($file));
 	}
@@ -2305,7 +2312,7 @@ class ts3admin {
   * @return     array	fileList
   */
 	function ftGetFileList($cid, $cpw = '', $path) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'ftgetfilelist cid='.$cid.' cpw='.$this->escapeText($cpw).' path='.$this->escapeText($path));
 	}
 	
@@ -2335,7 +2342,7 @@ class ts3admin {
   * @return     array	initDownloadFileInfo
   */	
 	function ftInitDownload($name, $cid, $cpw = '', $seekpos = 0, $proto = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'ftinitdownload clientftfid='.rand(1,65535).' name='.$this->escapeText($name).' cid='.$cid.' cpw='.$this->escapeText($cpw).' seekpos='.$seekpos.($proto !== null ? ' proto='.$proto: ''));
 	}
 
@@ -2367,7 +2374,7 @@ class ts3admin {
   * @return     array	initUploadFileInfo
   */	
 	function ftInitUpload($filename, $cid, $size, $cpw = '', $overwrite = false, $resume = false, $proto = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if($overwrite) { $overwrite = ' overwrite=1'; }else{ $overwrite = ' overwrite=0'; }
 		if($resume) { $resume = ' resume=1'; }else{ $resume = ' resume=0'; }
@@ -2404,7 +2411,7 @@ class ts3admin {
   * @return     array	fileTransferList
   */
 	function ftList() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'ftlist');
 	}
 
@@ -2423,7 +2430,7 @@ class ts3admin {
   * @return     array success
   */
 	function ftRenameFile($cid, $cpw = null, $oldname, $newname, $tcid = null,  $tcpw = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		$newTarget = ($tcid != null ? ' tcid='.$tcid.' '.$tcpw : '');
 		return $this->getData('boolean', 'ftrenamefile cid='.$cid.' cpw='.$cpw.' oldname='.$this->escapeText($oldname).' newname='.$this->escapeText($newname).$newTarget);
 	}
@@ -2439,7 +2446,7 @@ class ts3admin {
   * @return     array success
   */
 	function ftStop($serverftfid, $delete = true) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }		
+		if(!$this->config['selected']) { return $this->checkSelected(); }		
 		return $this->getData('boolean', 'ftstop serverftfid='.$serverftfid.' delete='.($delete ? '1' : '0'));
 	}
 
@@ -2455,12 +2462,12 @@ class ts3admin {
   * @return     array response
   */
 	function ftUploadFile($data, $uploadData) {
-  		$this->runtime['fileSocket'] = @fsockopen($this->runtime['host'], $data['data']['port'], $errnum, $errstr, $this->runtime['timeout']);
-  		if($this->runtime['fileSocket']) {
+  		$this->config['fileSocket'] = @fsockopen($this->config['host'], $data['data']['port'], $errnum, $errstr, $this->config['timeout']);
+  		if($this->config['fileSocket']) {
   			$this->ftSendKey($data['data']['ftkey']);
   			$this->ftSendData($uploadData);
-  			@fclose($this->runtime['fileSocket']);
-  			$this->runtime['fileSocket'] = '';
+  			@fclose($this->config['fileSocket']);
+  			$this->config['fileSocket'] = '';
   			return $this->generateOutput(true, array(), true);
   		}else{
   			$this->addDebugLog('fileSocket returns '.$errnum. ' | '.$errstr);
@@ -2483,7 +2490,7 @@ class ts3admin {
  * @return  array  base64 image
  */
 	function getIconByID($iconID) {
-	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
+	  if(!$this->config['selected']) { return $this->checkSelected(); }
 
 	  if(empty($iconID) or $iconID == 0)
 	  {
@@ -2670,20 +2677,6 @@ class ts3admin {
 	}
 
 /**
-  * login
-  * 
-  * Authenticates with the TeamSpeak 3 Server instance using given ServerQuery login credentials.
-  *
-  * @author     Stefan Zehnpfennig
-  * @param		string	$username	username
-  * @param		string	$password	password
-  * @return     array success
-  */
-	function login($username, $password) {
-		return $this->getData('boolean', 'login '.$this->escapeText($username).' '.$this->escapeText($password));
-	}
-
-/**
   * logout
   * 
   * Deselects the active virtual server and logs out from the server instance.
@@ -2692,7 +2685,7 @@ class ts3admin {
   * @return     array success
   */
 	function logout() {
-		$this->runtime['selected'] = false;
+		$this->config['selected'] = false;
 		return $this->getData('boolean', 'logout');
 	}
 
@@ -2745,7 +2738,7 @@ class ts3admin {
   * @return     array success
   */
 	function messageAdd($cluid, $subject, $message) {		
-        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        if(!$this->config['selected']) { return $this->checkSelected(); }
         return $this->getData('boolean', 'messageadd cluid='.$cluid.' subject='.$this->escapeText($subject).' message='.$this->escapeText($message)); 
 	}
 
@@ -2759,7 +2752,7 @@ class ts3admin {
   * @return     array success
   */
 	function messageDelete($messageID) {		
-        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        if(!$this->config['selected']) { return $this->checkSelected(); }
         return $this->getData('boolean', 'messagedel msgid='.$messageID); 
 	}
 
@@ -2773,7 +2766,7 @@ class ts3admin {
   * @return     array messageInformation
   */
 	function messageGet($messageID) {		
-        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        if(!$this->config['selected']) { return $this->checkSelected(); }
         return $this->getData('array', 'messageget msgid='.$messageID); 
 	}
 
@@ -2786,7 +2779,7 @@ class ts3admin {
   * @return     array messageInformation
   */
 	function messageList() {		
-        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        if(!$this->config['selected']) { return $this->checkSelected(); }
         return $this->getData('array', 'messagelist'); 
 	}
 
@@ -2801,7 +2794,7 @@ class ts3admin {
   * @return     array messageInformation
   */
 	function messageUpdateFlag($messageID, $flag = 1) {		
-        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        if(!$this->config['selected']) { return $this->checkSelected(); }
         return $this->getData('boolean', 'messageupdateflag msgid='.$messageID.' flag='.$flag); 
 	}
 
@@ -2827,7 +2820,7 @@ class ts3admin {
  * @return  array	ftGetFileInfo
  */
 	function uploadIcon($filepath, $iconID = -1) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if($iconID == -1)
 		{
@@ -2892,7 +2885,7 @@ class ts3admin {
   * @return     array permissionInfoList
   */
 	function permFind($perm) { 
-        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        if(!$this->config['selected']) { return $this->checkSelected(); }
         return $this->getData('multi', 'permfind '.(is_int($perm) || ctype_digit($perm) ? 'permid=' : 'permsid=').$perm); 
     }
 	
@@ -2919,7 +2912,7 @@ class ts3admin {
   * @return     array permissionInfo
   */
 	function permGet($perm) { 
-        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        if(!$this->config['selected']) { return $this->checkSelected(); }
         return $this->getData('array', 'permget '.(is_int($perm) || ctype_digit($perm) ? 'permid=' : 'permsid=').$perm); 
     }	
 	
@@ -3114,7 +3107,7 @@ class ts3admin {
   * @return     array permOverview
   */
 	function permOverview($cid, $cldbid, $permid='0', $permsid=false ) { 
-        if(!$this->runtime['selected']) { return $this->checkSelected(); } 
+        if(!$this->config['selected']) { return $this->checkSelected(); } 
         if($permsid) { $additional = ' permsid='.$permsid; }else{ $additional = ''; } 
          
         return $this->getData('multi', 'permoverview cid='.$cid.' cldbid='.$cldbid.($permsid == false ? ' permid='.$permid : '').$additional); 
@@ -3137,7 +3130,7 @@ class ts3admin {
   * @return     array token
   */
 	function permReset() { 
-        if(!$this->runtime['selected']) { return $this->checkSelected(); } 
+        if(!$this->config['selected']) { return $this->checkSelected(); } 
         return $this->getData('array', 'permreset'); 
     }
 	
@@ -3221,13 +3214,21 @@ class ts3admin {
 /**
   * quit closes the connection to host 
   *
-  * @author     Stefan Zehnpfennig
+  * @author     Stefan Zehnpfennig & L. Gmann
   * @return 	void
   */
 	private function quit() {
 		$this->logout();
-		@fputs($this->runtime['socket'], "quit\n");
-		@fclose($this->runtime['socket']);
+		if($this->config['ssh']) {
+			if(is_resource($this->runtime['socket'])) {
+				fputs($this->runtime['stream'], 'quit' . "\n");
+				@ssh2_exec($this->runtime['socket'], 'exit');
+				unset($connection);
+			}
+		} else {
+			@fputs($this->runtime['socket'], "quit\n");
+			@fclose($this->runtime['socket']);
+		}
 	}
 /**
   * loadQueryData
@@ -3238,15 +3239,19 @@ class ts3admin {
   */
 	private function loadQueryData()
 	{
+		if(empty($this->runtime['bot_clid'])) {
+			$this->loadQueryData();
+		}
+		
 		$whoAmI = $this->getElement('data', $this->whoAmI());
-		$this->runtime['bot_name'] = $whoAmI['client_nickname'];
+		$this->config['bot_name'] = $whoAmI['client_nickname'];
 		
 		$clients = $this->clientList();
 		foreach($clients['data'] as $client)
 		{
-			if(strstr($this->runtime['bot_name'], $client['client_nickname']))
+			if(strstr($this->config['bot_name'], $client['client_nickname']))
 			{
-				$this->runtime['bot_clid'] = $client['clid'];
+				$this->config['bot_clid'] = $client['clid'];
 				break;
 			}
 		}
@@ -3257,30 +3262,33 @@ class ts3admin {
   * 
   * Selects the virtual server specified with sid or port to allow further interaction. The ServerQuery client will appear on the virtual server and acts like a real TeamSpeak 3 Client, except it's unable to send or receive voice data. If your database contains multiple virtual servers using the same UDP port, use will select a random virtual server using the specified port.
   *
-  * @author     Stefan Zehnpfennig
+  * @author     Stefan Zehnpfennig & Pantoflarz
   * @param		integer	$value		Port or ID
   * @param		string	$type		value type ('port', 'serverId') (default='port')
   * @param		boolean	$virtual	set true to add -virtual param [optional]
   * @param		string 	$name		set the name of the client before entry (has to be more than 3 characters) [optional]
   * @return     array success
   */
-	function selectServer($value, $type = 'port', $virtual = false, $name = null) { 
-		if(strlen($name) < 3 ){ $name = ''; }else{ $name = " client_nickname=".$this->escapeText($name).""; }
+	function selectServer($value, $type = 'port', $virtual = false, $name = null) {
+		if(strlen($name) < 3 ) {
+			$name = '';
+		} else {
+			$name = " client_nickname=".$this->escapeText($name);
+		}
+		
         if(in_array($type, array('port', 'serverId'))) { 
             if($type == 'port') { 
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
                 $res = $this->getData('boolean', 'use port='.$value.$virtual.$name); 
                 if($res['success']) { 
-                   	$this->runtime['selected'] = true; 
-			$this->loadQueryData();
+                   	$this->config['selected'] = true;
                 } 
                 return $res; 
             }else{ 
                 if($virtual) { $virtual = ' -virtual'; }else{ $virtual = ''; } 
                 $res = $this->getData('boolean', 'use sid='.$value.$virtual.$name); 
                 if($res['success']) { 
-                    	$this->runtime['selected'] = true; 
-			$this->loadQueryData();
+                    	$this->config['selected'] = true;
                 } 
                 return $res; 
             } 
@@ -3317,7 +3325,7 @@ class ts3admin {
   * @return     array	success
   */
 	function sendMessage($mode, $target, $msg) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'sendtextmessage targetmode='.$mode.' target='.$target.' msg='.$this->escapeText($msg));
 	}
 
@@ -3397,7 +3405,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverEdit($data) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		$settingsString = '';
 		
@@ -3427,7 +3435,7 @@ class ts3admin {
   * @return     array groupId
   */
 	function serverGroupAdd($name, $type = 1) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'servergroupadd name='.$this->escapeText($name).' type='.$type);
 	}
 
@@ -3442,7 +3450,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverGroupAddClient($sgid, $cldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'servergroupaddclient sgid='.$sgid.' cldbid='.$cldbid);
 	}
 
@@ -3465,7 +3473,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverGroupAddPerm($sgid, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(count($permissions) > 0) {
 			//Permissions given
@@ -3531,7 +3539,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverGroupAutoAddPerm($sgtype, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(count($permissions) > 0) {
 			//Permissions given
@@ -3597,7 +3605,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverGroupAutoDeletePerm($sgtype, $permissions) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
 		if(count($permissions) > 0) {
@@ -3634,7 +3642,7 @@ class ts3admin {
   * @return     array	serverGroupClientList
   */
 	function serverGroupClientList($sgid, $names = false) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		if($names) { $names = ' -names'; }else{ $names = ''; }
 		return $this->getData('multi', 'servergroupclientlist sgid='.$sgid.$names);
 	}
@@ -3660,7 +3668,7 @@ class ts3admin {
   * @return     array groupId
   */
 	function serverGroupCopy($ssgid, $tsgid, $name, $type = 1) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'servergroupcopy ssgid='.$ssgid.' tsgid='.$tsgid.' name='.$this->escapeText($name).' type='.$type);
 	}
 
@@ -3675,7 +3683,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverGroupDelete($sgid, $force = 1) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'servergroupdel sgid='.$sgid.' force='.$force);
 	}
 
@@ -3690,7 +3698,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverGroupDeleteClient($sgid, $cldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'servergroupdelclient sgid='.$sgid.' cldbid='.$cldbid);
 	}
 
@@ -3713,7 +3721,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverGroupDeletePerm($sgid, $permissionIds) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
 		if(count($permissionIds) > 0) {
@@ -3742,7 +3750,7 @@ class ts3admin {
  * @return array  base64 image
  */
 	function serverGroupGetIconBySGID($serverGroupID) {
-	  if(!$this->runtime['selected']) { return $this->checkSelected(); }
+	  if(!$this->config['selected']) { return $this->checkSelected(); }
 
 	  if(empty($serverGroupID))
 	  {
@@ -3809,7 +3817,7 @@ class ts3admin {
   * @return     array serverGroupList
   */
     function serverGroupList($type = null) {
-        if(!$this->runtime['selected']) { return $this->checkSelected(); }
+        if(!$this->config['selected']) { return $this->checkSelected(); }
         $groups = $this->getData('multi', 'servergrouplist');
 
         if($type) {
@@ -3846,7 +3854,7 @@ class ts3admin {
   * @return     array serverGroupPermList
   */
 	function serverGroupPermList($sgid, $permsid = false) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		if($permsid) { $additional = ' -permsid'; }else{ $additional = ''; }
 		return $this->getData('multi', 'servergrouppermlist sgid='.$sgid.$additional);
 	}
@@ -3862,7 +3870,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverGroupRename($sgid, $name) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'servergrouprename sgid='.$sgid.' name='.$this->escapeText($name));
 	}
 
@@ -3886,7 +3894,7 @@ class ts3admin {
   * @return     array serverGroupsByClientId
   */
 	function serverGroupsByClientID($cldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'servergroupsbyclientid cldbid='.$cldbid);
 	}
 
@@ -4023,7 +4031,7 @@ class ts3admin {
   * @return     array serverInformation
   */
 	function serverInfo() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'serverinfo');
 	}
 
@@ -4105,7 +4113,7 @@ class ts3admin {
   * @return     array serverRequestConnectionInfo
   */
 	function serverRequestConnectionInfo() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('array', 'serverrequestconnectioninfo');
 	}
 
@@ -4118,7 +4126,7 @@ class ts3admin {
   * @return     array snapshot
   */
 	function serverSnapshotCreate() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('plain', 'serversnapshotcreate');
 	}
 
@@ -4135,7 +4143,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverSnapshotDeploy($snapshot, $mapping = false) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'serversnapshotdeploy '.($mapping ? '-mapping ' : '').$snapshot);
 	}
 	
@@ -4180,7 +4188,7 @@ class ts3admin {
   * @return     array success
   */
 	function serverTempPasswordAdd($pw, $duration, $desc = 'none', $tcid = 0, $tcpw = null) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getdata('boolean', 'servertemppasswordadd pw='.$this->escapeText($pw).' desc='.(!empty($desc) ? $this->escapeText($desc) : 'none').' duration='.$duration.' tcid='.$tcid.(!empty($tcpw) ? ' tcpw='.$this->escapeText($tcpw) : ''));
 	}
 
@@ -4194,7 +4202,7 @@ class ts3admin {
   * @return     array success
   */	
 	function serverTempPasswordDel($pw) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getdata('boolean', 'servertemppassworddel pw='.$this->escapeText($pw));
 	}
 
@@ -4221,7 +4229,7 @@ class ts3admin {
   * @return     array	serverTemppasswordList
   */
 	function serverTempPasswordList() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('multi', 'servertemppasswordlist');
 	}
 	
@@ -4238,7 +4246,7 @@ class ts3admin {
   * @return     array success
   */
 	function setClientChannelGroup($cgid, $cid, $cldbid) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		return $this->getData('boolean', 'setclientchannelgroup cgid='.$cgid.' cid='.$cid.' cldbid='.$cldbid);
 	}
 
@@ -4278,7 +4286,7 @@ class ts3admin {
   * @return     array	tokenInformation
   */
 	function tokenAdd($tokentype, $tokenid1, $tokenid2, $description ='', $customFieldSet = array()) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		if(!empty($description)) { $description = ' tokendescription=' . $this->escapeText($description); }
 
@@ -4309,7 +4317,7 @@ class ts3admin {
   * @return     array success
   */
 	function tokenDelete($token) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }			
+		if(!$this->config['selected']) { return $this->checkSelected(); }			
 		return $this->getData('boolean', 'privilegekeydelete token='.$token);
 	}
 
@@ -4335,7 +4343,7 @@ class ts3admin {
   * @return     array tokenListist 
   */
 	function tokenList() {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 
 		return $this->getData('multi', 'privilegekeylist');
 	}
@@ -4350,7 +4358,7 @@ class ts3admin {
   * @return     array success
   */
 	function tokenUse($token) {
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }			
+		if(!$this->config['selected']) { return $this->checkSelected(); }			
 		return $this->getData('boolean', 'privilegekeyuse token='.$token);
 	}
 
@@ -4543,18 +4551,20 @@ class ts3admin {
  *
  * Note: When specifying a numerical IPv6 address (e.g. fe80::1), you must enclose the IP in square brackets—for example, [fe80::1]
  * 
- * @author	Stefan Zehnpfennig
+ * @author	Stefan Zehnpfennig & L. Gmann
  * @param	string	$host		ts3host
  * @param	integer	$queryport	ts3queryport
+ * @param	bool 	$ssh		ssh protocol (default = false) [optional]
  * @param	integer	$timeout	socket timeout (default = 2) [optional]
  * @return	void
 */
-	function __construct($host, $queryport, $timeout = 2) {
+	function __construct($host, $queryport, $ssh = false, $timeout = 2) {
 		if($queryport >= 1 and $queryport <= 65536) {
 			if($timeout >= 1) {
-				$this->runtime['host'] = $host;
-				$this->runtime['queryport'] = $queryport;
-				$this->runtime['timeout'] = $timeout;
+				$this->config['host'] = $host;
+				$this->config['queryport'] = $queryport;
+				$this->config['ssh'] = $ssh;
+				$this->config['timeout'] = $timeout;
 			}else{
 				$this->addDebugLog('invalid timeout value');
 			}
@@ -4678,34 +4688,100 @@ class ts3admin {
   * 
   * Connects to a ts3instance query port
   *
-  * @author     Stefan Zehnpfennig
-  * @return		array success
+  * @author     Stefan Zehnpfennig & L. Gmann
+  * @param		string	$username	username
+  * @param		string	$password	password
+  * @return		array 	success & first console line
   */
-	function connect() {
+	function connect($username = false, $password = false) {
 		if($this->isConnected()) { 
 			$this->addDebugLog('Error: you are already connected!');
 			return $this->generateOutput(false, array('Error: the script is already connected!'), false);
 		}
 		
-		$socket = @fsockopen($this->runtime['host'], $this->runtime['queryport'], $errnum, $errstr, $this->runtime['timeout']);
-
-		if(!$socket)
-		{
-			$this->addDebugLog('Error: connection failed!');
-			return $this->generateOutput(false, array('Error: connection failed!', 'Server returns: '.$errstr), false);
+		if($this->config['ssh']) { 
+			if(!extension_loaded('ssh2')) {
+				$this->addDebugLog('Error: extension ssh2 is missing!');
+				return $this->generateOutput(false, array('Error: the script need the php ssh2 extension!'), false);
+			}
 		}
-		else
+		
+		if(!$username || !$password) {
+			$this->addDebugLog('Error: login parameter missing!');
+			return $this->generateOutput(false, array('Error: please add the parameter username and password!'), false);
+		}
+		
+		if($this->config['ssh'])
 		{
-			if(strpos(fgets($socket), 'TS3') !== false)
+			$socket = @ssh2_connect($this->config['host'], $this->config['queryport']);
+			
+			if($socket === false)
 			{
-				$tmpVar = fgets($socket);
-				$this->runtime['socket'] = $socket;
-				return $this->generateOutput(true, array(), true);
+				$this->addDebugLog('Error: connection failed!');
+				return $this->generateOutput(false, array('Error: connection failed!'), false);
 			}
 			else
 			{
-				$this->addDebugLog('host isn\'t a ts3 instance!');
-				return $this->generateOutput(false, array('Error: host isn\'t a ts3 instance!'), false);
+				if(@ssh2_auth_password($socket, $this->escapeText($username), $this->escapeText($password)))
+				{
+					$stream = @ssh2_shell($socket, "raw");
+					if($stream === false)
+					{
+						return $this->generateOutput(false, array('Error: failed to open a secure shell on server!'), false);
+					}
+					else
+					{
+						@stream_set_timeout($stream, intval($this->config['timeout']));
+						@stream_set_blocking($stream, true);
+						
+						$header = fgets($stream);
+						if(strpos($header, 'T') !== false)
+						{
+							$tmpVar = fgets($stream);
+							$this->runtime['socket'] = $socket;
+							$this->runtime['stream'] = $stream;
+							
+							return $this->generateOutput(true, array(), $header);
+						}
+						else
+						{
+							fputs($stream, 'quit' . "\n");
+							$this->addDebugLog('host isn\'t a ts3 instance!');
+							return $this->generateOutput(false, array('Error: host isn\'t a ts3 instance!'), false);
+						}
+					}
+				}
+				else
+				{
+					return $this->generateOutput(false, array('Error: invalid loginname or password!'), false);
+				}
+			}
+		}
+		else
+		{
+			$socket = @fsockopen($this->config['host'], $this->config['queryport'], $errnum, $errstr, $this->config['timeout']);
+			
+			if(!$socket)
+			{
+				$this->addDebugLog('Error: connection failed!');
+				return $this->generateOutput(false, array('Error: connection failed!', 'Server returns: '.$errstr), false);
+			}
+			else
+			{
+				$header = fgets($socket);
+				if(strpos($header, 'T') !== false)
+				{
+					$this->runtime['socket'] = $socket;
+					$tmpVar = fgets($socket);
+					$data = $this->getData('boolean', 'login '.$this->escapeText($username).' '.$this->escapeText($password));
+					$data['data'] = $header;
+					return $data;
+				}
+				else
+				{
+					$this->addDebugLog('host isn\'t a ts3 instance!');
+					return $this->generateOutput(false, array('Error: host isn\'t a ts3 instance!'), false);
+				}
 			}
 		}
 	}
@@ -4721,7 +4797,7 @@ class ts3admin {
   
 	public function getQueryClid()
 	{
-		return $this->runtime['bot_clid'];
+		return $this->config['bot_clid'];
 	}
 	
 /**
@@ -4729,7 +4805,7 @@ class ts3admin {
   * 
   * Executes a command and fetches the response
   *
-  * @author     Stefan Zehnpfennig
+  * @author     Stefan Zehnpfennig & L. Gmann
   * @param		string	$command	command which should be executed
   * @param		array	$tracert	array with information from first exec
   * @return     mixed data
@@ -4741,31 +4817,29 @@ class ts3admin {
 		}
 		
 		$data = '';
-				
+		$stream = ($this->config['ssh']) ? $this->runtime['stream'] : $this->runtime['socket'];
 		$splittedCommand = str_split($command, 1024);
-		
 		$splittedCommand[(count($splittedCommand) - 1)] .= "\n";
 		
 		foreach($splittedCommand as $commandPart)
 		{
-			if(!(@fputs($this->runtime['socket'], $commandPart)))
+			if(!(@fputs($stream, $commandPart)))
 			{
-				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
+				$this->runtime['socket'] = $this->config['bot_clid'] = '';
 				$this->addDebugLog('Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('Socket closed.'), false);
 			}
 		}
 		do {
-			$data .= @fgets($this->runtime['socket'], 4096);
-			
+			$data .= @fgets($stream, 4096);
 			if(empty($data))
 			{
-				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
+				$this->runtime['socket'] = $this->config['bot_clid'] = '';
 				$this->addDebugLog('Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('Socket closed.'), false);
 			}
 			else if(strpos($data, 'error id=3329 msg=connection') !== false) {
-				$this->runtime['socket'] = $this->runtime['bot_clid'] = '';
+				$this->runtime['socket'] = $this->config['bot_clid'] = '';
 				$this->addDebugLog('You got banned from server. Socket closed.', $tracert[1]['function'], $tracert[0]['line']);
 				return $this->generateOutput(false, array('You got banned from server. Connection closed.'), false);
 			}
@@ -4827,7 +4901,7 @@ class ts3admin {
 			return $rtnData;
 		}
 		
-		if(!$this->runtime['selected']) { return $this->checkSelected(); }
+		if(!$this->config['selected']) { return $this->checkSelected(); }
 		
 		$whoami = $this->whoami();
 		
@@ -4980,7 +5054,7 @@ class ts3admin {
   * @return     void
  */
 	private function ftSendKey($key, $additional = NULL) {
-		@fputs($this->runtime['fileSocket'], $key.$additional);
+		@fputs($this->config['fileSocket'], $key.$additional);
 	}
 
 /**
@@ -4995,7 +5069,7 @@ class ts3admin {
 	private function ftSendData($data) {
 		$data = str_split($data, 4096);
 		foreach($data as $dat) {
-			@fputs($this->runtime['fileSocket'], $dat);
+			@fputs($this->config['fileSocket'], $dat);
 		}
 	}
 
@@ -5011,7 +5085,7 @@ class ts3admin {
 	private function ftRead($size) {
 		$data = '';
 		while(strlen($data) < $size) {		
-			$data .= fgets($this->runtime['fileSocket'], 4096);
+			$data .= fgets($this->config['fileSocket'], 4096);
 		}
 		return $data;
 	}
@@ -5038,7 +5112,7 @@ class ts3admin {
   * @return     array debugLog
   */
  	public function getDebugLog() {
-		return $this->runtime['debug'];
+		return $this->config['debug'];
 	}
 
 /**
@@ -5058,7 +5132,7 @@ class ts3admin {
 			$methodName = $backtrace[1]['function'];
 			$line = $backtrace[0]['line'];
 		}
-		$this->runtime['debug'][] = 'Error in '.$methodName.'() on line '.$line.': '.$text;	
+		$this->config['debug'][] = 'Error in '.$methodName.'() on line '.$line.': '.$text;	
 	}
 }
 

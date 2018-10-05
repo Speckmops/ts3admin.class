@@ -22,10 +22,9 @@ require("../lib/ts3admin.class.php");
 #build a new ts3admin object
 $tsAdmin = new ts3admin($ts3_ip, $ts3_queryport);
 
-if($tsAdmin->getElement('success', $tsAdmin->connect())) {
-	#login as serveradmin
-	$tsAdmin->login($ts3_user, $ts3_pass);
-
+#login as serveradmin
+if($tsAdmin->getElement('success', $tsAdmin->connect($ts3_user, $ts3_pass))) {
+	
 	#select teamspeakserver
 	$tsAdmin->selectServer($ts3_port);
 	
