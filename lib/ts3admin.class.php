@@ -259,6 +259,7 @@ class ts3admin {
   *  [ip] => 1.2.3.4
   *  [name] => eugen
   *  [uid] => IYAntAcZHgVC7s3n3DNWmuJB/aM=
+  *  [mytsid] =>
   *  [created] => 1286660391
   *  [duration] => 0
   *  [invokername] => Par0noid
