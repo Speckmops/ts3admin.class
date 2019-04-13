@@ -3,7 +3,7 @@
  *                         ts3admin.class.php
  *                         ------------------                    
  *   created              : 18. December 2009
- *   last modified        : 13. March 2019
+ *   last modified        : 13. April 2019
  *   version              : 1.0.2.5
  *   website              : http://ts3admin.info
  *   copyright            : (C) 2018 Stefan Zehnpfennig
@@ -36,7 +36,6 @@
   * \class ts3admin
   * \brief The ts3admin.class
   */
-namespace par0noid;
 
 class ts3admin {
 
