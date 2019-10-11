@@ -4784,7 +4784,11 @@ class ts3admin {
 			if($tracert != null)
 				$this->addDebugLog('ErrorID: '.$cutIdAndMsg[0].' | Message: '.$this->unEscapeText($cutIdAndMsg[1]), $tracert[1]['function'], $tracert[0]['line']);
 			
-			return $this->generateOutput(false, array('ErrorID: '.$cutIdAndMsg[0].' | Message: '.$this->unEscapeText($cutIdAndMsg[1])), false);
+			if($cutIdAndMsg[0] == 1281){ // if "database empty result set"
+				return $this->generateOutput(true, array(), '');
+			}else{
+				return $this->generateOutput(false, array('ErrorID: '.$cutIdAndMsg[0].' | Message: '.$this->unEscapeText($cutIdAndMsg[1])), false);
+			}
 		}else{
 			return $this->generateOutput(true, array(), $data);
 		}
